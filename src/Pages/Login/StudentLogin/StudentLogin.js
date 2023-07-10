@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,22 +8,19 @@ import swal from "sweetalert";
 const StudentLogin = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = (data) => {
+    setIsLoading(true); // Set loading state to true
+
     axios
-      .post(
-        "http://localhost:8080/api/v1/student-login",
-        {
-          id: data.studentID.toUpperCase(),
-          password: data.password,
-        }
-        // {
-        //   headers: {
-        //     "Content-Type": "application/x-www-form-urlencoded",
-        //   },
-        // }
-      )
+      .post("http://localhost:8080/api/v1/student-login", {
+        id: data.studentID.toUpperCase(),
+        password: data.password,
+      })
       .then((result) => {
+        setIsLoading(false); // Set loading state to false
+
         if (result) {
           localStorage.setItem("token", result?.data?.payload?.token);
           localStorage.setItem(
@@ -42,6 +39,8 @@ const StudentLogin = () => {
         }
       })
       .catch((error) => {
+        setIsLoading(false); // Set loading state to false
+
         if (error) {
           swal(
             "Invalid Student!",
@@ -54,10 +53,7 @@ const StudentLogin = () => {
 
   return (
     <div className="bg-white relative lg:py-20">
-      <div
-        className="flex flex-col items-center justify-between pt-0 pr-10 pb-0 pl-10 mt-0 mr-auto mb-0 ml-auto max-w-7xl
-      xl:px-5 lg:flex-row"
-      >
+      <div className="flex flex-col items-center justify-between pt-0 pr-10 pb-0 pl-10 mt-0 mr-auto mb-0 ml-auto max-w-7xl xl:px-5 lg:flex-row">
         <div className="flex flex-col items-center w-full pt-5 pr-10 pb-20 pl-10 lg:pt-20 lg:flex-row">
           <div className="w-full bg-cover relative max-w-md lg:max-w-2xl lg:w-7/12">
             <div className="flex flex-col items-center justify-center w-full h-full relative lg:pr-10">
@@ -69,10 +65,7 @@ const StudentLogin = () => {
             </div>
           </div>
           <div className="w-full mt-20 mr-0 mb-0 ml-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12">
-            <div
-              className="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl
-            relative z-10"
-            >
+            <div className="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl relative z-10">
               <p className="w-full text-4xl font-medium text-center leading-snug font-serif">
                 Student Login
               </p>
@@ -89,16 +82,11 @@ const StudentLogin = () => {
                     {...register("studentID")}
                     placeholder="ABCD-01-1234"
                     type="text"
-                    className="border placeholder-gray-400 focus:outline-none uppercase
-                  focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"
+                    className="border placeholder-gray-400 focus:outline-none uppercase focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
                   />
                 </div>
                 <div className="relative">
-                  <p
-                    className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
-                  absolute"
-                  >
+                  <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
                     Password
                   </p>
                   <input
@@ -106,9 +94,7 @@ const StudentLogin = () => {
                     {...register("password")}
                     placeholder="Password"
                     type="password"
-                    className="border placeholder-gray-400 focus:outline-none
-                  focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"
+                    className="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
                   />
                 </div>
                 <div className="flex items-center justify-between">
@@ -130,10 +116,10 @@ const StudentLogin = () => {
                 <div className="relative">
                   <button
                     type="submit"
-                    className="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500
-                  rounded-lg transition duration-200 hover:bg-indigo-600 ease"
+                    className="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg transition duration-200 hover:bg-indigo-600 ease"
+                    disabled={isLoading} // Disable button while loading
                   >
-                    Submit
+                    {isLoading ? "Logging in..." : "Submit"}
                   </button>
                 </div>
               </form>

@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-// import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
+import { Link } from "react-router-dom";
+import icon from "../../../../../../Assets/dashboard-icon/dashboard.png";
 
 const AdmissionForm = () => {
   const { register, handleSubmit } = useForm({});
-  // const { admin } = useContext(AuthContext);
 
   // conditional showing of group
   const [group, setGroup] = useState(false);
@@ -72,8 +72,18 @@ const AdmissionForm = () => {
       });
   };
   return (
-    <div className="overflow-y-hidden overflow-x-hidden">
-      <div className="relative left-[320px] top-28 w-[81.5%] bg-white">
+    <div className="overflow-y-hidden overflow-x-hidden relative left-[320px] top-24 w-[81.5%]">
+      <div className="text-[17px] font-semibold breadcrumbs mb-8">
+        <ul>
+          <li className="hover:text-[#FFBE15] ">
+            <Link to={`/dashboard/admin`}>Dashboard</Link>
+          </li>
+          <li>Student</li>
+          <li>Add New Student</li>
+        </ul>
+      </div>
+
+      <div className=" bg-white">
         <h1 className="text-2xl font-bold px-10 pt-8 ">Add New Student</h1>
         {/* form start */}
         <form
@@ -441,6 +451,13 @@ const AdmissionForm = () => {
             />
           </div>
         </form>
+      </div>
+      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px] mb-24">
+        <h1 className="xl:text-[18px] font-semibold text-black">
+          Copyright © 2023 - All right reserved by
+        </h1>
+        <img className="h-[26px] mt-[6.5px]" src={icon} alt="amader-school" />
+        <h1>Ltd.</h1>
       </div>
     </div>
   );

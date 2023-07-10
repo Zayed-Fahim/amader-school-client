@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { createContext } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
@@ -13,6 +11,7 @@ const AuthProvider = ({ children }) => {
   const [admin, setAdmin] = useState({});
   const [teacher, setTeacher] = useState({});
   const [student, setStudent] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch("http://localhost:8080/api/v1/students")
@@ -29,7 +28,8 @@ const AuthProvider = ({ children }) => {
 
     fetch("http://localhost:8080/api/v1/expenses")
       .then((res) => res.json())
-      .then((data) => setExpenses(data.payload.result));
+      .then((data) => setExpenses(data.payload.result))
+      .finally(() => setIsLoading(false));
   }, []);
 
   const token = localStorage.getItem("token");
@@ -109,6 +109,12 @@ const AuthProvider = ({ children }) => {
     teacher,
     student,
   };
+
+  if (isLoading) {
+    // Render a loading state or skeleton screen while fetching the data
+    return <p>Loading...</p>;
+  }
+
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

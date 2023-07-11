@@ -1,7 +1,7 @@
 import React from "react";
 import CountUp, { useCountUp } from "react-countup";
 
-const Counter = () => {
+const Counter = ({ clientList }) => {
   useCountUp({
     ref: "counter",
     enableScrollSpy: true,
@@ -27,7 +27,8 @@ const Counter = () => {
       <div className="border-[6px] md:border-[6px] lg:border-8 xl:border-8 border-white h-[140px] w-[140px] md:h-[170px] md:w-[170px] lg:h-[200px] lg:w-[200px]  xl:h-[200px] xl:w-[200px] rounded-[50%] flex justify-center items-center flex-col">
         <CountUp
           className="text-white text-4xl md:text-4xl xl:text-5xl lg:text-5xl font-bold text-center"
-          end={20}
+          start={1}
+          end={clientList?.length}
           enableScrollSpy
         ></CountUp>
 

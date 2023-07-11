@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Carousel from "../Carousel/Carousel";
 import About from "../Components/About";
 import Features from "../Components/Features";
@@ -9,6 +9,7 @@ import Contact from "../Components/Contact";
 import Map from "../Components/Map";
 
 const Home = () => {
+  const [clientList, setClientList] = useState([]);
   return (
     <div id="home">
       {/* Home Carousel */}
@@ -20,11 +21,11 @@ const Home = () => {
       {/* features */}
       <Features />
       {/* School list */}
-      <SchoolList />
+      <SchoolList setClientList={setClientList} />
       {/* Pricing */}
       <ServicePrice />
       {/* counter of users */}
-      <Counter />
+      <Counter clientList={clientList} />
       {/* contact */}
       <Contact />
       {/* Google Map */}

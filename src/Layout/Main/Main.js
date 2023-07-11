@@ -5,7 +5,7 @@ import WebsiteNavbar from "../../Pages/Website/Components/WebsiteNavbar";
 
 const Main = () => {
   return (
-    <div className="bg-[#1D232A] text-white">
+    <div className="bg-[#1D232A] text-white overflow-x-hidden">
       <WebsiteNavbar />
       <Outlet />
       <WebsiteFooter />

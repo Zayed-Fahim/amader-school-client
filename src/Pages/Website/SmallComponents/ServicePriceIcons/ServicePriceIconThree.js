@@ -5,7 +5,7 @@ const ServicePriceIconThree = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
-      className="stroke-white fill-[#FFBE15] h-14 w-14 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24"
+      className="stroke-white fill-[#FFBE15] h-14 w-14 md:h-16 md:w-16 xl:h-16 xl:w-16 2xl:h-24 2xl:w-24"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

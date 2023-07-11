@@ -61,14 +61,14 @@ const Features = () => {
   ];
   return (
     <section className="py-10 md:py-14 lg:pb-16 xl:pb-20" id="our-services">
-      <div className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-center font-bold mb-10 md:mb-14 lg:mb-24 xl:mb-24">
+      <div className="text-2xl md:text-3xl xl:text-[2.6rem] 2xl:text-5xl text-center font-bold mb-10 md:mb-14 lg:mb-24 xl:mb-24">
         <h1>Features of Amader School management system_</h1>
       </div>
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 lg:gap-16 xl:gap-0 place-items-center">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 md:gap-8 xl:gap-0 2xl:gap-0 place-items-center">
         {services.map((service, i) => {
           return (
             <div
-              className="w-full h-[320px] md:h-[400px] md:w-[400] lg:h-[390px] lg:w-[380px] xl:h-[460px] xl:w-[380px] flex flex-col items-center gap-3 md:gap-5 lg:gap-5 xl:gap-5 xl:pt-10 px-5 md:px-4 lg:px-6 xl:px-2 md:border-r md:border-l lg:border-r lg:border-l xl:border-r xl:border-l border-b border-black"
+              className="w-full h-[320px] md:h-[400px] md:w-[400] xl:h-[480px] xl:w-[370px] 2xl:h-[460px] 2xl:w-[380px] flex flex-col items-center gap-3 md:gap-5 xl:gap-5 2xl:gap-5 xl:pt-10 px-5 md:px-4 lg:px-6 xl:px-2 md:border-r md:border-l lg:border-r lg:border-l xl:border-r xl:border-l border-b border-black"
               key={i}
             >
               <div className="h-24 w-24 grid place-items-center rounded-[50%] bg-[#FFBE15] bg-opacity-50 hover:bg-[none]">
@@ -80,7 +80,9 @@ const Features = () => {
                 </h1>
               </div>
               <div>
-                <p className="xl:text-[18px] text-center">{service.details}</p>
+                <p className="xl:text-[18px] text-left px-5">
+                  {service.details}
+                </p>
               </div>
             </div>
           );

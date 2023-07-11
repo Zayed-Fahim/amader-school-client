@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   CarouselProvider,
   Slider,
@@ -9,7 +9,7 @@ import {
 import "pure-react-carousel/dist/react-carousel.es.css";
 import { Link } from "react-router-dom";
 
-const ServiceTakerList = () => {
+const ServiceTakerList = ({ setClientList }) => {
   const lists = [
     {
       index: 1,
@@ -102,14 +102,17 @@ const ServiceTakerList = () => {
       },
     },
   ];
+  useEffect(() => {
+    setClientList(lists);
+  }, []);
   return (
     <section className="xl:mb-10" id="school-list">
       <div className="xl:mb-10">
-        <h1 className="text-center text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">
+        <h1 className="text-center text-2xl md:text-3xl xl:text-[2.6rem] 2xl:text-5xl font-bold">
           Our Valuable Users_
         </h1>
       </div>
-      <div className="flex items-center justify-center w-full h-full py-10 md:py-16 lg:py-20 xl:py-24 sm:py-8 px-5">
+      <div className="flex items-center justify-center w-full h-full py-10 md:py-16 xl:py-20 2xl:py-24 sm:py-8 px-5">
         {/* Carousel for desktop and large size devices */}
         <CarouselProvider
           className="lg:block hidden overflow-x-hidden"
@@ -147,23 +150,23 @@ const ServiceTakerList = () => {
               <Slider>
                 <div
                   id="slider"
-                  className="lg:h-[350px] xl:h-[500px] flex lg:gap-8 md:gap-6 gap-14 items-center justify-start transition ease-out duration-700"
+                  className="xl:h-[300px] 2xl:h-[500px] flex lg:gap-8 md:gap-6 gap-14 items-center justify-start transition ease-out duration-700"
                 >
                   {lists.map((list, i) => {
                     return (
                       <Slide key={i} index={list.index}>
-                        <div className="flex flex-shrink-0 relative lg:h-[218px] lg:w-[218px] xl:h-[350px] xl:w-[345px] sm:w-auto bg-white rounded-xl drop-shadow-xl">
+                        <div className="flex flex-shrink-0 relative xl:h-[300px] xl:w-[300px] 2xl:h-[350px] 2xl:w-[345px] sm:w-auto bg-white rounded-xl drop-shadow-xl">
                           <img
                             src={list.src}
                             alt={list.alt}
                             className="w-full p-12"
                           />
                         </div>
-                        <div className="absolute top-0 bottom-64 hover:bg-black hover:bg-opacity-20 cursor-pointer rounded-lg lg:h-[218px] lg:w-[218px] xl:w-[345px] xl:h-[350px]">
+                        <div className="absolute top-0 2xl:bottom-64 hover:bg-black hover:bg-opacity-20 cursor-pointer rounded-lg xl:h-[300px] xl:w-[300px] 2xl:w-[345px] 2xl:h-[350px]">
                           <Link
                             to={list.button.link}
                             target="_blank"
-                            className="relative lg:left-[46px] lg:top-[100px] xl:left-[116px] xl:top-[160px] font-bold text-white px-2 py-3 bg-black hover:bg-opacity-70 rounded-lg opacity-0 hover:opacity-100"
+                            className="relative xl:left-[86px] xl:top-[130px] 2xl:left-[116px] 2xl:top-[160px] font-bold text-white px-2 py-3 bg-black hover:bg-opacity-70 rounded-lg opacity-0 hover:opacity-100 "
                           >
                             {list.button.text}
                           </Link>

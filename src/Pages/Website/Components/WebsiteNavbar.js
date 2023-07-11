@@ -40,15 +40,14 @@ const WebsiteNavbar = () => {
         value={scroll}
         max="100"
       ></progress>
-      <div className="navbar md:container xl:container lg:container lg:mx-auto md:mx-auto xl:mx-auto p-0 m-0">
+      <div className="navbar md:container md:mx-auto 2xl:container 2xl:mx-auto p-0 m-0">
         <div className="navbar-start">
           {/* mobile menu start */}
-
-          <div className="dropdown">
+          <div className="dropdown ">
             <label tabIndex={0} className="btn btn-link text-black lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2280/svg"
-                className="h-5 w-5"
+                className="h-12 w-12 md:mt-1"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -63,9 +62,9 @@ const WebsiteNavbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-2 p-2 shadow bg-white z-[20] max-h-max min-w-max"
+              className="menu menu-compact dropdown-content mt-2 p-2 shadow bg-white z-[20] md:w-[350px] md:-ml-7 md: md:text-xl md:font-semibold"
             >
-              <li className="border-2 text-white">
+              <li className="border-2">
                 <Link
                   to="/home"
                   onClick={() => {
@@ -80,7 +79,7 @@ const WebsiteNavbar = () => {
                   Home
                 </Link>
               </li>
-              <li className="border-2 text-white">
+              <li className="border-2">
                 <Link
                   to="/home/#about"
                   onClick={() => {
@@ -95,7 +94,7 @@ const WebsiteNavbar = () => {
                   About Us
                 </Link>
               </li>
-              <li className="border-2 text-white">
+              <li className="border-2">
                 <Link
                   to="/home/#features"
                   onClick={() => {
@@ -111,7 +110,7 @@ const WebsiteNavbar = () => {
                   Features
                 </Link>
               </li>
-              <li className="border-2 text-white">
+              <li className="border-2">
                 <Link
                   to="/home/#client-list"
                   onClick={() => {
@@ -127,7 +126,7 @@ const WebsiteNavbar = () => {
                   Client List
                 </Link>
               </li>
-              <li className="border-2 text-white">
+              <li className="border-2">
                 <Link
                   to="/home/#pricing"
                   onClick={() => {
@@ -143,19 +142,19 @@ const WebsiteNavbar = () => {
                   Pricing
                 </Link>
               </li>
-              <li className="border-2 text-white">
+              <li className="border-2">
                 <Link
                   to="/blog"
                   onClick={() => {
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
-                  className="focus:text-[#FFBE15]"
+                  className="focus:text-[#FFBE15] text-black"
                   title="Contact us for any kind of information"
                 >
                   Blog
                 </Link>
               </li>
-              <li className="border-2 text-white">
+              <li className="border-2">
                 <Link
                   to="/home/#contact-us"
                   onClick={() => {
@@ -177,32 +176,34 @@ const WebsiteNavbar = () => {
             </ul>
           </div>
           {/* mobile menu end */}
+
           {/* website logo section */}
           <Link
             onClick={() => {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             to="/"
-            className="font-bold text-xl xl:text-2xl md:navbar-end"
-            title="Welcome to আমাদের Client"
+            className="lg:ml-[100px] 2xl:ml-0 md:ml-0 ml-0"
+            title="Welcome to আমাদের School"
           >
             <img
-              className="xl:h-[50px] lg:h-[50px] h-[40px]"
+              className="2xl:h-[45px] lg:h-[35px] h-[40px]"
               src={icon}
-              alt="amader-Client"
+              alt="amader-school"
             />
           </Link>
         </div>
+
         {/* pc menu start */}
-        <div className="navbar-end hidden lg:flex">
-          <ul className="flex md:gap-3 lg:gap-[14px] xl:gap-8">
+        {/* <div className="navbar-end hidden lg:flex">
+          <ul className="flex md:gap-3 lg:gap-[14px] ">
             <li>
               <Link
                 to="/"
                 onClick={() => {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className={`md:text-[1rem] lg:text-[.85rem] xl:text-[18px] font-semibold
+                className={`
                  ${
                    scrollPosition >= 20 && scrollPosition <= 512
                      ? "text-[#FFBE15]"
@@ -219,7 +220,7 @@ const WebsiteNavbar = () => {
                 onClick={() => {
                   window.scrollTo({ top: 513, behavior: "smooth" });
                 }}
-                className={`md:text-[1rem] lg:text-[.85rem] xl:text-[18px] font-semibold
+                className={`
                  ${
                    scrollPosition >= 513 && scrollPosition <= 1060
                      ? "text-[#FFBE15]"
@@ -236,7 +237,7 @@ const WebsiteNavbar = () => {
                 onClick={() => {
                   window.scrollTo({ top: 1061, behavior: "smooth" });
                 }}
-                className={`md:text-[1rem] lg:text-[.85rem] xl:text-[18px] font-semibold ${
+                className={` ${
                   scrollPosition >= 1061 && scrollPosition <= 2207
                     ? "text-[#FFBE15]"
                     : "text-White"
@@ -252,7 +253,7 @@ const WebsiteNavbar = () => {
                 onClick={() => {
                   window.scrollTo({ top: 2208, behavior: "smooth" });
                 }}
-                className={`md:text-[1rem] lg:text-[.85rem] xl:text-[18px] font-semibold ${
+                className={` ${
                   scrollPosition >= 2208 && scrollPosition <= 3024
                     ? "text-[#FFBE15]"
                     : "text-White"
@@ -268,7 +269,7 @@ const WebsiteNavbar = () => {
                 onClick={() => {
                   window.scrollTo({ top: 3025, behavior: "smooth" });
                 }}
-                className={`md:text-[1rem] lg:text-[.85rem] xl:text-[18px] font-semibold ${
+                className={` ${
                   scrollPosition >= 3025 && scrollPosition <= 3731
                     ? "text-[#FFBE15]"
                     : "text-White"
@@ -284,7 +285,7 @@ const WebsiteNavbar = () => {
                 onClick={() => {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="md:text-[1rem] lg:text-[.85rem] xl:text-[18px] font-semibold focus:text-[#FFBE15]"
+                className=" focus:text-[#FFBE15]"
                 title="See our blogs."
               >
                 Blog
@@ -296,7 +297,7 @@ const WebsiteNavbar = () => {
                 onClick={() => {
                   window.scrollTo({ top: 4275, behavior: "smooth" });
                 }}
-                className={`md:text-[1rem] lg:text-[.85rem] xl:text-[18px] font-semibold ${
+                className={` ${
                   scrollPosition >= 4236 && scrollPosition <= 5035
                     ? "text-[#FFBE15]"
                     : "text-White"
@@ -310,8 +311,128 @@ const WebsiteNavbar = () => {
               <Link to="/select-role">Log In</Link>
             </button>
           </ul>
-        </div>
+        </div> */}
         {/* pc menu end */}
+
+        {/* laptop menu start */}
+        <div className="2xl:navbar-end navbar-start hidden lg:flex 2xl:flex">
+          <ul className="flex lg:gap-3 2xl:gap-8 2xl:text-[18px] lg:text-[16px]">
+            <li>
+              <Link
+                to="/"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className={`
+          ${
+            scrollPosition >= 20 && scrollPosition <= 512
+              ? "text-[#FFBE15]"
+              : "text-White"
+          }`}
+                title="This is Home page."
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/home/#about"
+                onClick={() => {
+                  window.scrollTo({ top: 513, behavior: "smooth" });
+                }}
+                className={`
+          ${
+            scrollPosition >= 513 && scrollPosition <= 1060
+              ? "text-[#FFBE15]"
+              : "text-White"
+          }`}
+                title="Know About Us."
+              >
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/home/#features"
+                onClick={() => {
+                  window.scrollTo({ top: 1061, behavior: "smooth" });
+                }}
+                className={` ${
+                  scrollPosition >= 1061 && scrollPosition <= 2207
+                    ? "text-[#FFBE15]"
+                    : "text-White"
+                }`}
+                title="Know what we provide."
+              >
+                Features
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/home/#client-list"
+                onClick={() => {
+                  window.scrollTo({ top: 2208, behavior: "smooth" });
+                }}
+                className={` ${
+                  scrollPosition >= 2208 && scrollPosition <= 3024
+                    ? "text-[#FFBE15]"
+                    : "text-White"
+                }`}
+                title="Who uses our services?"
+              >
+                Client List
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/home/#pricing"
+                onClick={() => {
+                  window.scrollTo({ top: 3025, behavior: "smooth" });
+                }}
+                className={` ${
+                  scrollPosition >= 3025 && scrollPosition <= 3731
+                    ? "text-[#FFBE15]"
+                    : "text-White"
+                }`}
+                title="Deal with our best price."
+              >
+                Pricing
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/blog"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className=" focus:text-[#FFBE15]"
+                title="See our blogs."
+              >
+                Blog
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/home/#contact-us"
+                onClick={() => {
+                  window.scrollTo({ top: 4275, behavior: "smooth" });
+                }}
+                className={` ${
+                  scrollPosition >= 4236 && scrollPosition <= 5035
+                    ? "text-[#FFBE15]"
+                    : "text-White"
+                }`}
+                title="Contact us for any kind of information."
+              >
+                Contact Us
+              </Link>
+            </li>
+            <button className="md:text-[1rem] lg:text-[.85rem] 2xl:text-[17px] font-semibold bg-[#FFBE15]  hover:bg-[#FFBE15] hover:bg-opacity-60 px-3 pb-[2px] rounded text-black hover:text-white">
+              <Link to="/select-role">Log In</Link>
+            </button>
+          </ul>
+        </div>
+        {/* laptop menu end */}
       </div>
     </div>
   );

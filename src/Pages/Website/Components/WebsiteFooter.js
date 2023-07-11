@@ -44,7 +44,7 @@ const WebsiteFooter = () => {
           <Link className="link link-hover">Cookie policy</Link>
         </div>
       </footer>
-      <footer className="footer footer-center md:border-t lg:border-t xl:border-t border-base-300 container mx-auto">
+      <footer className="footer footer-center md:border-t lg:border-t xl:border-t border-base-300 container mx-auto mt-5">
         <div className="lg:pt-8 md:pt-5 xl:py-10">
           <div className="flex gap-4">
             <Link>
@@ -83,7 +83,7 @@ const WebsiteFooter = () => {
           </div>
         </div>
       </footer>
-      <div className="pt-5 p-5 lg:pt-8 md:pt-5 xl:pt-0 xl:pb-10">
+      <div className="pt-5 p-5 lg:pt-8 md:pt-5 xl:pt-0 2xl:pb-10 ">
         <p className="text-center">
           Copyright © 2023 - All right reserved by{" "}
           <span className="hover:underline hover:text-[#FFBE15]">

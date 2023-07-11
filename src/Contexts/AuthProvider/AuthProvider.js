@@ -112,7 +112,14 @@ const AuthProvider = ({ children }) => {
 
   if (isLoading) {
     // Render a loading state or skeleton screen while fetching the data
-    return <p>Loading...</p>;
+    return (
+      <div className="w-full h-screen flex flex-col gap-5 justify-center items-center">
+        <span className="loading loading-ball loading-xs"></span>
+        <span className="loading loading-ball loading-sm"></span>
+        <span className="loading loading-ball loading-md"></span>
+        <span className="loading loading-ball loading-lg"></span>
+      </div>
+    );
   }
 
   return (

@@ -71,22 +71,22 @@ const Contact = () => {
   };
   return (
     <section
-      className="xl:max-h-max container mx-auto py-10 lg:py-16 md:py-14 xl:py-0 xl:pb-12 text-black"
+      className="2xl:max-h-max container mx-auto py-10 xl:py-16 md:py-14 2xl:py-0 2xl:pb-12 text-black"
       id="contact-us"
     >
-      <div className="md:mb-14 lg:mb-16 xl:my-20">
-        <h1 className="text-center text-white font-bold text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
+      <div className="md:mb-14 xl:mb-16 2xl:my-20">
+        <h1 className="text-center text-white font-bold text-2xl md:text-3xl xl:text-[2.6rem] 2xl:text-5xl">
           Contact Info_
         </h1>
       </div>
-      <div className="flex flex-col lg:flex-row md:flex-row gap-5 lg:gap-0 md:gap-0 xl:gap-0 xl:flex-row md:justify-between lg:justify-between xl:justify-between">
-        <div className="bg-white shadow-lg p-2 lg:p-5 md:p-5 xl:px-20 md:max-h-[420px] md:max-w-[370px] lg:max-w-[450px] xl:min-h-[480px] xl:max-w-max mx-5 lg:mx-0 md:mx-0 xl:mx-0 xl:pb-10">
-          <div className="grid place-items-center xl:mb-8 py-8">
+      <div className="flex flex-col xl:flex-row md:flex-row gap-5 xl:gap-0 md:gap-0 2xl:gap-0 2xl:flex-row md:justify-between 2xl:justify-between">
+        <div className="bg-white shadow-lg p-2 xl:p-5 md:p-5 xl:ml-[100px] xl:px-14 md:max-h-[420px] md:max-w-[370px] xl:max-w-[450px] xl:min-h-[480px] 2xl:max-w-max mx-5 xl:mx-0 md:mx-0 2xl:mx-0 xl:pb-10">
+          <div className="grid place-items-center xl:mb-0 py-8">
             <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-3xl font-bold">
               Contact Info
             </h1>
-            <p className="xl:text-xl font-bold">
-              If you want to get more info, ping us now.
+            <p className="xl:text-xl font-bold xl:text-center">
+              If you want to get more info, Contact us now.
             </p>
           </div>
           <div className="flex flex-col gap-8">
@@ -133,8 +133,9 @@ const Contact = () => {
             </div>
           </div>
         </div>
+
         <form
-          className="flex flex-col gap-4 lg:gap-0 md:gap-0 xl:gap-0 min-w-full md:min-w-[360px] md:max-w-full lg:min-w-[500px] lg:max-w-full  xl:min-w-[600px] xl:max-w-max text-white"
+          className="flex flex-col gap-4 xl:gap-0 md:gap-0 2xl:gap-0 min-w-full md:min-w-[360px] md:max-w-full xl:min-w-[500px] xl:max-w-full  2xl:min-w-[600px] 2xl:max-w-max text-white xl:-mt-4 2xl:-mt-4 xl:mr-[100px]"
           onSubmit={handleSubmit(sendMail)}
         >
           <div className="max-w-full mx-5 lg:mx-0 md:mx-0 xl:mx-0">

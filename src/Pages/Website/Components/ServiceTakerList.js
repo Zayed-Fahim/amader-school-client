@@ -207,7 +207,7 @@ const ServiceTakerList = ({ setClientList }) => {
           className="lg:hidden md:block hidden overflow-x-hidden"
           isIntrinsicHeight={true}
           totalSlides={10}
-          visibleSlides={4}
+          visibleSlides={3}
           step={1}
           infinite={true}
           isPlaying
@@ -245,7 +245,7 @@ const ServiceTakerList = ({ setClientList }) => {
                     return (
                       <Slide key={i} index={list.index}>
                         <Link to={list.button.link} target="_blank">
-                          <div className="flex flex-shrink-0 relative sm:w-auto w-[230px] h-[230px] bg-white drop-shadow p-5 rounded-md">
+                          <div className="grid place-items-center relative sm:w-auto w-[280px] h-[280px] bg-white drop-shadow p-5 rounded-md">
                             <img src={list.src} alt={list.alt} />
                           </div>
                         </Link>
@@ -282,14 +282,14 @@ const ServiceTakerList = ({ setClientList }) => {
 
         {/* Carousel for mobile and Small size Devices */}
         <CarouselProvider
-          className="block md:hidden overflow-x-hidden"
+          className="block md:hidden xl:hidden 2xl:hidden overflow-x-hidden"
           isIntrinsicHeight={true}
           totalSlides={12}
           visibleSlides={1}
           step={1}
           infinite={true}
         >
-          <div className="w-full relative flex items-center justify-center">
+          <div className="w-full relative flex items-center justify-center bg-white">
             <ButtonBack
               role="button"
               aria-label="slide backward"
@@ -328,7 +328,7 @@ const ServiceTakerList = ({ setClientList }) => {
                               alt={list.alt}
                               className="p-5"
                             />
-                          </div>{" "}
+                          </div>
                         </Link>
                       </Slide>
                     );

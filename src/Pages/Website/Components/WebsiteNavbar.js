@@ -47,7 +47,7 @@ const WebsiteNavbar = () => {
             <label tabIndex={0} className="btn btn-link text-black lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2280/svg"
-                className="h-12 w-12 md:mt-1"
+                className="h-12 w-12 md:mt-1 text-white"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

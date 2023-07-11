@@ -74,7 +74,7 @@ const Contact = () => {
       className="2xl:max-h-max container mx-auto py-10 xl:py-16 md:py-14 2xl:py-0 2xl:pb-12 text-black"
       id="contact-us"
     >
-      <div className="md:mb-14 xl:mb-16 2xl:my-20">
+      <div className="mb-10 md:mb-14 xl:mb-16 2xl:my-20">
         <h1 className="text-center text-white font-bold text-2xl md:text-3xl xl:text-[2.6rem] 2xl:text-5xl">
           Contact Info_
         </h1>
@@ -135,7 +135,7 @@ const Contact = () => {
         </div>
 
         <form
-          className="flex flex-col gap-4 xl:gap-0 md:gap-0 2xl:gap-0 min-w-full md:min-w-[360px] md:max-w-full xl:min-w-[500px] xl:max-w-full  2xl:min-w-[600px] 2xl:max-w-max text-white xl:-mt-4 2xl:-mt-4 xl:mr-[100px]"
+          className="flex flex-col gap-4 xl:gap-0 md:gap-0 2xl:gap-0 min-w-full md:min-w-[360px] md:max-w-full xl:min-w-[500px] xl:max-w-full  2xl:min-w-[600px] 2xl:max-w-max text-white md:-mt-4 xl:-mt-4 2xl:-mt-4 xl:mr-[100px]"
           onSubmit={handleSubmit(sendMail)}
         >
           <div className="max-w-full mx-5 lg:mx-0 md:mx-0 xl:mx-0">

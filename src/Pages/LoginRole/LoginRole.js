@@ -7,22 +7,22 @@ import LoginRoleNavbar from "./smallComponents/LoginRoleNavbar";
 
 const LoginRole = () => {
   return (
-    <div className="h-screen flex flex-col gap-48">
+    <div className="h-screen flex flex-col gap-10 md:gap-16 xl:gap-20 2xl:gap-48 overflow-x-hidden">
       <LoginRoleNavbar />
-      <div className="flex flex-col justify-center items-center gap-32">
+      <div className="flex flex-col justify-center items-center gap-20 md:gap-28 xl:gap-32 2xl:gap-32 pb-20 md:pb-0 xl:pb-0 2xl:pb-0">
         <div className="w-[534px] h-[59px] flex flex-col">
-          <h1 className="text-center font-[700] text-[35px]">
+          <h1 className="text-center font-[700] text-[25px] md:text-[28px] xl:text-[31px] 2xl:text-[35px]">
             Welcome Here...
           </h1>
-          <h1 className="text-center text-[40px] font-[700] text-[#F1B911]">
+          <h1 className="text-center text-[28px] md:text-[31px] xl:text-[36px] 2xl:text-[40px] font-[700] text-[#F1B911]">
             Continue to the system as:
           </h1>
         </div>
 
-        <div className="flex gap-16 justify-center items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-5">
           <Link
             to="/select-role/login/admin"
-            className="bg-white rounded-[20px] xl:h-[275px] xl:w-[285px] border border-solid border-[#DFDFDF] flex-shrink-0 flex justify-center items-center flex-col gap-[30px] hover:shadow-md shadow-sm hover:shadow-gray-500 lg:duration-300 hover:ease-in hover:scale-110 hover:rounded-xl hover:bg-[#FFC61A]"
+            className="bg-white rounded-[20px] h-[235px] w-[235px] md:h-[235px] md:w-[235px] xl:h-[275px] xl:w-[285px] 2xl:h-[275px] 2xl:w-[285px] border border-solid border-[#DFDFDF] flex-shrink-0 flex justify-center items-center flex-col gap-[30px] hover:shadow-md shadow-sm hover:shadow-gray-500 lg:duration-300 hover:ease-in hover:scale-110 hover:rounded-xl hover:bg-[#FFC61A]"
           >
             <img className="w-[58px] h-[69px]" src={admin} alt="admin" />
 
@@ -32,7 +32,7 @@ const LoginRole = () => {
           </Link>
           <Link
             to="/select-role/login/teacher"
-            className="bg-white rounded-[20px] xl:h-[275px] xl:w-[285px] border border-solid border-[#DFDFDF] flex-shrink-0 flex justify-center items-center flex-col gap-[30px] hover:shadow-md shadow-sm hover:shadow-gray-500 lg:duration-300 hover:ease-in hover:scale-110 hover:rounded-xl hover:bg-[#FFC61A]"
+            className="bg-white rounded-[20px] h-[235px] w-[235px] md:h-[235px] md:w-[235px] xl:h-[275px] xl:w-[285px] 2xl:h-[275px] 2xl:w-[285px] border border-solid border-[#DFDFDF] flex-shrink-0 flex justify-center items-center flex-col gap-[30px] hover:shadow-md shadow-sm hover:shadow-gray-500 lg:duration-300 hover:ease-in hover:scale-110 hover:rounded-xl hover:bg-[#FFC61A]"
           >
             <img className="w-[58px] h-[69px]" src={teacher} alt="teacher" />
 
@@ -42,7 +42,7 @@ const LoginRole = () => {
           </Link>
           <Link
             to="/select-role/login/student"
-            className="bg-white rounded-[20px] xl:h-[275px] xl:w-[285px] border border-solid border-[#DFDFDF] flex-shrink-0 flex justify-center items-center flex-col gap-[30px] hover:shadow-md shadow-sm hover:shadow-gray-500 lg:duration-300 hover:ease-in hover:scale-110 hover:rounded-xl hover:bg-[#FFC61A]"
+            className="bg-white rounded-[20px] h-[235px] w-[235px] md:h-[235px] md:w-[235px] xl:h-[275px] xl:w-[285px] 2xl:h-[275px] 2xl:w-[285px] border border-solid border-[#DFDFDF] flex-shrink-0 flex justify-center items-center flex-col gap-[30px] hover:shadow-md shadow-sm hover:shadow-gray-500 lg:duration-300 hover:ease-in hover:scale-110 hover:rounded-xl hover:bg-[#FFC61A]"
           >
             <img className="w-[80px] h-[80px]" src={student} alt="student" />
 

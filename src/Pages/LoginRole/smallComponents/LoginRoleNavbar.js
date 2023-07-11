@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const LoginRoleNavbar = () => {
   return (
-    <div className="py-8 h-[97px] border-b border-solid border-[#DFDFDF] px-[200px]">
+    <div className="xl:py-6 md:py-5 sticky bg-white top-0 z-[100] 2xl:py-8 py-4 px-5 md:px-10 h-[60px] md:h-[70px] xl:h-[70px] 2xl:h-[97px] border-b border-solid border-[#DFDFDF] xl:px-[100px] 2xl:px-[200px]">
       <Link to="/">
         <img className="h-[36px] w-[240px]" src={logo} alt="website-home" />
       </Link>

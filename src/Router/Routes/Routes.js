@@ -94,18 +94,12 @@ const Routes = () => {
             </PrivateRoute>
           ),
         },
-        // {
-        //   path: `/dashboard/${path}/students/all-students`,
-        //   element: <AllStudentInformationTable />,
-        // },
+
         {
           path: `/dashboard/${path}/students/student-information`,
           element: <StudentDetails />,
         },
-        // {
-        //   path: `/dashboard/${path}/teachers/all-teacher`,
-        //   element: <AllTeacherInformationTable />,
-        // },
+
         {
           path: `/dashboard/${path}/teachers/teacher-information`,
           element: <TeacherDetails />,
@@ -114,22 +108,7 @@ const Routes = () => {
           path: `/dashboard/${path}/teachers/add-teacher`,
           element: <AddTeacher />,
         },
-        // {
-        //   path: `/dashboard/${path}/teachers/teachers-payment-history`,
-        //   element: <TeacherPaymentHistory />,
-        // },
-        // {
-        //   path: `/dashboard/${path}/finance/all-fees-collection`,
-        //   element: <FeesCollection />,
-        // },
-        // {
-        //   path: `/dashboard/${path}/finance/expenses`,
-        //   element: <Expenses />,
-        // },
-        // {
-        //   path: `/dashboard/${path}/finance/add-expense`,
-        //   element: <AddExpense />,
-        // },
+
         {
           path: `/dashboard/${path}/class-schedule/every-class-schedule`,
           element: <EveryClassSchedule />,

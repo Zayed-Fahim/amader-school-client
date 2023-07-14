@@ -1,30 +1,32 @@
 import React from "react";
-import { useState } from "react";
 import { useContext } from "react";
-import Pagination from "../../../SmallComponents/Pagination/Pagination";
 import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
 import icon from "../../../../../../Assets/dashboard-icon/dashboard.png";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
 const AllStudentInformationTable = () => {
-  const { students } = useContext(AuthContext);
-  const [page, setPage] = useState(1);
-  const [count, setCount] = useState(20);
-  const pages = Math.ceil(students?.length / count);
+  const { teacher } = useContext(AuthContext);
+  const handleEdit = (id) => {
+    // Handle edit action
+  };
 
+  const handleDelete = (id) => {
+    // Handle delete action
+  };
   return (
-    <div className="overflow-y-hidden overflow-x-hidden min-h-screen relative xl:top-24 xl:left-[320px] z-[1] w-[81.5%]  ">
+    <div className="overflow-y-hidden overflow-x-hidden min-h-screen relative 2xl:top-24 2xl:left-[360px] z-[1] 2xl:w-[79.3%]  ">
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
         <ul>
           <li className="hover:text-[#FFBE15] ">
             <Link to={`/dashboard/admin`}>Dashboard</Link>
           </li>
           <li>Students</li>
-          <li>Advertised Students</li>
+          <li className="text-[#FFBE15] ">Advised Students</li>
         </ul>
       </div>
-      <div className="bg-white">
-        <h1 className="font-bold text-2xl py-8 px-8">My Advertised Students</h1>
+      <div className="bg-white pb-12">
+        <h1 className="font-bold text-2xl py-8 px-8">Advised Students</h1>
         <div className="flex flex-col">
           <div className="overflow-x-auto">
             <div className="pb-5 px-8 flex justify-between items-center">
@@ -103,18 +105,6 @@ const AllStudentInformationTable = () => {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th scope="col" className="py-3 pl-4">
-                        <div className="flex items-center h-5">
-                          <input
-                            id="checkbox-all"
-                            type="checkbox"
-                            className="text-blue-600 border-gray-200 rounded focus:ring-blue-500"
-                          />
-                          <label htmlFor="checkbox" className="sr-only">
-                            Checkbox
-                          </label>
-                        </div>
-                      </th>
                       <th
                         scope="col"
                         className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
@@ -175,68 +165,76 @@ const AllStudentInformationTable = () => {
                       >
                         Email
                       </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                      >
+                        Actions
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {students?.map((student) => (
-                      <>
-                        <tr>
-                          <td className="py-3 pl-4">
-                            <div className="flex items-center h-5">
-                              <input
-                                type="checkbox"
-                                className="text-blue-600 border-gray-200 rounded focus:ring-blue-500"
-                              />
-                              <label htmlFor="checkbox" className="sr-only">
-                                Checkbox
-                              </label>
-                            </div>
+                    {teacher?.advisedStudents?.map((advisedStudent) => (
+                      <React.Fragment key={advisedStudent._id}>
+                        <tr className="hover">
+                          <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
+                            {advisedStudent?.id}
                           </td>
                           <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                            {student?.id}
-                          </td>
-                          <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                            {student?.rollNumber}
+                            {advisedStudent?.rollNumber}
                           </td>
                           <td className="pt-2 pl-6">
                             <div className="avatar">
                               <div className="mask mask-squircle w-10 h-10">
                                 <img
-                                  src={student?.photo}
+                                  src={advisedStudent?.photo}
                                   alt="Avatar Tailwind CSS Component"
                                 />
                               </div>
                             </div>
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {student?.fullName}
+                            {advisedStudent?.fullName}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {student?.gender}
+                            {advisedStudent?.gender}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {student?.class}
+                            {advisedStudent?.assignedClass}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {student?.section}
+                            {advisedStudent?.section}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {student?.address}
+                            {advisedStudent?.address}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {student?.phoneNumber}
+                            {advisedStudent?.phoneNumber}
                           </td>
 
                           <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                            {student?.email}
+                            {advisedStudent?.email}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                            <button
+                              className="text-blue-500 hover:text-blue-700 mr-2"
+                              onClick={() => handleEdit(advisedStudent._id)}
+                            >
+                              <AiOutlineEdit size={20} title="Edit" />
+                            </button>
+                            <button
+                              className="text-red-500 hover:text-red-700"
+                              onClick={() => handleDelete(advisedStudent._id)}
+                            >
+                              <AiOutlineDelete size={20} title="Delete" />
+                            </button>
                           </td>
                         </tr>
-                      </>
+                      </React.Fragment>
                     ))}
                   </tbody>
                 </table>
               </div>
-              <Pagination pages={pages} setPage={setPage} page={page} />
             </div>
           </div>
         </div>

@@ -3,7 +3,6 @@ import { FiSearch } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import Profile from "./SmallComponents/Profile";
-import Message from "./SmallComponents/Message";
 import Notification from "./SmallComponents/Notification";
 
 const DashboardTop = ({ isOpen }) => {
@@ -14,7 +13,7 @@ const DashboardTop = ({ isOpen }) => {
       {/* for extra large device */}
       <motion.div
         animate={{
-          width: isOpen ? "85%" : "96.875%",
+          width: isOpen ? "83%" : "96.875%",
           transition: {
             duration: 0.5,
           },

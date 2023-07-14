@@ -14,7 +14,7 @@ const DayShiftRoutine = () => {
           assignedClass === "Ten" ||
           assignedClass === "Eleven" ||
           assignedClass === "Twelve")
-          ? "min-h-[120vh] w-[81.5%] relative top-24 xl:left-[320px]"
+          ? "min-h-[120vh] 2xl:w-[79.3%] relative top-24 2xl:left-[360px]"
           : assignedClass &&
             (assignedClass === "Play" ||
               assignedClass === "KG" ||
@@ -27,8 +27,8 @@ const DayShiftRoutine = () => {
               assignedClass === "Seven" ||
               assignedClass === "Eight" ||
               assignedClass === "Select Class")
-          ? "min-h-[110vh] w-[81.5%] relative top-24 xl:left-[320px]"
-          : "min-h-[110vh] w-[81.5%] relative top-24 xl:left-[320px]"
+          ? "min-h-[110vh] 2xl:w-[79.3%] relative top-24 2xl:left-[360px]"
+          : "min-h-[110vh] 2xl:w-[79.3%] relative top-24 2xl:left-[360px]"
       }`}
     >
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
@@ -37,17 +37,17 @@ const DayShiftRoutine = () => {
             <Link to={`/dashboard/admin`}>Dashboard</Link>
           </li>
           <li>Class Routine</li>
-          <li>Day Shift</li>
+          <li className="text-[#FFBE15]">Day Shift</li>
         </ul>
       </div>
-      <div className=" flex gap-10">
+      <div className=" flex gap-5">
         <AddRoutineDay
           assignedClass={assignedClass}
           setAssignedClass={setAssignedClass}
         />
         <ViewRoutineDay />
       </div>
-      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px] mb-24">
+      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px] mt-[10px] mb-24">
         <h1 className="xl:text-[18px] font-semibold text-black">
           Copyright © 2023 - All right reserved by
         </h1>

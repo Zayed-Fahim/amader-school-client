@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main/Main";
 import Home from "../../Pages/Website/Home/Home";
@@ -17,7 +17,6 @@ import DayShiftRoutine from "../../Pages/Dashboard/Home/Admin/RoutineFolder/DayS
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import LoginRole from "../../Pages/LoginRole/LoginRole";
 import AdminLogin from "../../Pages/Login/AdminLogin/AdminLogin";
-import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import TeacherLogin from "../../Pages/Login/TeacherLogin/TeacherLogin";
 import StudentLogin from "../../Pages/Login/StudentLogin/StudentLogin";
 import AdmissionForm from "../../Pages/Dashboard/Home/Teacher/StudentFolder/AdmissionForm/AdmissionForm";
@@ -25,20 +24,10 @@ import TeacherAttendance from "../../Pages/Dashboard/Home/Admin/AttendanceFolder
 import TeacherAttendanceView from "../../Pages/Dashboard/Home/Admin/AttendanceFolder/TeacherAttendanceViewTable/TeacherAttendanceView";
 import ExamSchedule from "../../Pages/Dashboard/Home/Admin/AttendanceFolder/ExamFolder/ExamSchedule/ExamSchedule";
 import ExamGrades from "../../Pages/Dashboard/Home/Admin/AttendanceFolder/ExamFolder/ExamGrades/ExamGrades";
-import AdvertisedStudent from "../../Pages/Dashboard/Home/Teacher/StudentFolder/AdvertisedStudent/AdvertisedStudent";
+import NoticeBoard from "../../Pages/Dashboard/Home/Admin/NoticeFolder/NoticeBoard/NoticeBoard";
+import AdvisedStudents from "../../Pages/Dashboard/Home/Teacher/StudentFolder/AdvisedStudents/AdvisedStudents";
 
 const Routes = () => {
-  const { admin, student, teacher } = useContext(AuthContext);
-  const [path, setPath] = useState();
-
-  useEffect(() => {
-    const role =
-      admin?.role?.toLowerCase() ||
-      teacher?.role?.toLowerCase() ||
-      student?.role?.toLowerCase();
-    setPath(role);
-  }, [admin?.role, teacher?.role, student?.role]);
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -79,7 +68,7 @@ const Routes = () => {
       element: <ErrorRoute />,
     },
     {
-      path: `/dashboard/${path}`,
+      path: "/dashboard/admin",
       element: (
         <PrivateRoute>
           <Dashboard />
@@ -87,7 +76,7 @@ const Routes = () => {
       ),
       children: [
         {
-          path: `/dashboard/${path}`,
+          path: "/dashboard/admin",
           element: (
             <PrivateRoute>
               <DashboardHome />
@@ -96,103 +85,107 @@ const Routes = () => {
         },
 
         {
-          path: `/dashboard/${path}/students/student-information`,
+          path: `/dashboard/admin/students/student-information`,
           element: <StudentDetails />,
         },
 
         {
-          path: `/dashboard/${path}/teachers/teacher-information`,
+          path: `/dashboard/admin/teachers/teacher-information`,
           element: <TeacherDetails />,
         },
         {
-          path: `/dashboard/${path}/teachers/add-teacher`,
+          path: `/dashboard/admin/teachers/add-teacher`,
           element: <AddTeacher />,
         },
 
         {
-          path: `/dashboard/${path}/class-schedule/every-class-schedule`,
+          path: `/dashboard/admin/class-schedule/every-class-schedule`,
           element: <EveryClassSchedule />,
         },
         {
-          path: `/dashboard/${path}/class-schedule/add-new-class-schedule`,
+          path: `/dashboard/admin/class-schedule/add-new-class-schedule`,
           element: <AddNewClassSchedule />,
         },
         {
-          path: `/dashboard/${path}/add-subject&all-subjects`,
+          path: `/dashboard/admin/add-subject&all-subjects`,
           element: <Subjects />,
         },
         {
-          path: `/dashboard/${path}/class-routine/morning-shift`,
+          path: `/dashboard/admin/class-routine/morning-shift`,
           element: <MorningShiftRoutine />,
         },
         {
-          path: `/dashboard/${path}/class-routine/day-shift`,
+          path: `/dashboard/admin/class-routine/day-shift`,
           element: <DayShiftRoutine />,
         },
         {
-          path: `/dashboard/${path}/attendance/teacher-attendance`,
+          path: `/dashboard/admin/attendance/teacher-attendance`,
           element: <TeacherAttendance />,
         },
         {
-          path: `/dashboard/${path}/attendance/teacher-attendance-table`,
+          path: `/dashboard/admin/attendance/teacher-attendance-table`,
           element: <TeacherAttendanceView />,
         },
         {
-          path: `/dashboard/${path}/exams/exams-schedule`,
+          path: `/dashboard/admin/exams/exams-schedule`,
           element: <ExamSchedule />,
         },
         {
-          path: `/dashboard/${path}/exams/exam-grades`,
+          path: `/dashboard/admin/exams/exam-grades`,
           element: <ExamGrades />,
         },
         {
-          path: `/dashboard/${path}/students/advertised-students`,
-          element: <AdvertisedStudent />,
+          path: "/dashboard/admin/notice-board",
+          element: <NoticeBoard />,
+        },
+      ],
+    },
+
+    {
+      path: "/dashboard/teacher",
+      element: (
+        <PrivateRoute>
+          <Dashboard />
+        </PrivateRoute>
+      ),
+      children: [
+        {
+          path: "/dashboard/teacher",
+          element: (
+            <PrivateRoute>
+              <DashboardHome />
+            </PrivateRoute>
+          ),
         },
         {
-          path: `/dashboard/${path}/students/admission-form`,
+          path: `/dashboard/teacher/students/advised-students`,
+          element: <AdvisedStudents />,
+        },
+        {
+          path: `/dashboard/teacher/students/admission-form`,
           element: <AdmissionForm />,
         },
       ],
     },
 
-    // {
-    //   path: `/dashboard/${teacher?.role?.toLowerCase()}`,
-    //   element: (
-    //     <PrivateRoute>
-    //       <Dashboard />
-    //     </PrivateRoute>
-    //   ),
-    //   children: [
-    //     {
-    //       path: `/dashboard/${teacher?.role?.toLowerCase()}`,
-    //       element: (
-    //         <PrivateRoute>
-    //           <DashboardHome />
-    //         </PrivateRoute>
-    //       ),
-    //     },
-    //   ],
-    // },
-
-    // {
-    //   path: `/dashboard/${student?.role?.toLowerCase()}`,
-    //   element: (
-    //     <PrivateRoute>
-    //       <Dashboard />
-    //     </PrivateRoute>
-    //   ),
-    //   children: [
-    //     {
-    //       path: `/dashboard/${student?.role?.toLowerCase()}`,
-    //       element: (
-    //         <PrivateRoute>
-    //           <DashboardHome />
-    //         </PrivateRoute>
-    //       ),
-    //     },
-    //   ],
-    // },
+    {
+      path: "/dashboard/student",
+      element: (
+        <PrivateRoute>
+          <Dashboard />
+        </PrivateRoute>
+      ),
+      children: [
+        {
+          path: "/dashboard/student",
+          element: (
+            <PrivateRoute>
+              <DashboardHome />
+            </PrivateRoute>
+          ),
+        },
+      ],
+    },
   ]);
   return <RouterProvider router={router}></RouterProvider>;
 };

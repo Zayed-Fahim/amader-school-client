@@ -1,10 +1,12 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import "./DashboardSidebar.css";
+import "../DashboardSidebar.css";
+import { AuthContext } from "../../../../Contexts/AuthProvider/AuthProvider";
 
 const TeacherDropdown = ({ option, isOpen, animation, setIsOpen }) => {
+  const { teacher } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -202,3 +204,4 @@ const TeacherDropdown = ({ option, isOpen, animation, setIsOpen }) => {
 };
 
 export default TeacherDropdown;
+

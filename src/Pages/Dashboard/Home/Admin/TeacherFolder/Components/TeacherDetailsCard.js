@@ -71,7 +71,7 @@ const TeacherDetailsCard = () => {
           </Link>
         </div>
       </div>
-      <div className="flex justify-between gap-20 pt-5 px-5">
+      <div className="flex justify-between 2xl:gap-16 pt-5 px-5">
         <div className="h-[270px] w-[270px] grid place-items-center bg-black bg-opacity-10 rounded-lg">
           <BsPersonCircle className="h-[120px] w-[120px]" />
         </div>

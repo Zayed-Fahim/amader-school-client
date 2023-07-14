@@ -39,8 +39,8 @@ const StudentInformationShortTable = () => {
           </div>
         </div>
         <button className="px-4 py-1 font-semibold rounded-lg bg-[#FFBE15] flex gap-1 justify-center items-center hover:text-white">
-          <BsSearch />SEARCH
-          
+          <BsSearch />
+          SEARCH
         </button>
       </div>
 
@@ -92,7 +92,7 @@ const StudentInformationShortTable = () => {
               {students?.map((student) => (
                 <>
                   <tr>
-                    <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
+                    <td className="px-6 py-2 text-sm font-medium text-gray-800 whitespace-nowrap">
                       {student?.id}
                     </td>
 
@@ -106,25 +106,21 @@ const StudentInformationShortTable = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    <td className="px-6 py-2 text-sm text-gray-800 whitespace-nowrap">
                       {student?.fullName}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    <td className="px-6 py-2 text-sm text-gray-800 whitespace-nowrap">
                       {student?.gender}
                     </td>
                     <button className="px-2 py-1 my-4 ml-6 font-semibold rounded-md hover:text-white text-sm bg-[#FFBE15] text-gray-800 whitespace-nowrap">
                       Details
                     </button>
-                    <td className="px-5 py-4 ">
+                    <td className="px-8 py-2">
                       <button type="submit">
                         <FcDeleteDatabase
-                          className="h-6 w-6 hover:scale-110"
+                          className="h-8 w-8 hover:scale-110"
                           title="Delete"
                         />
-                      </button>
-
-                      <button type="submit" title="Edit">
-                        <BiEdit className="h-[22px] w-[22px] ml-2 hover:scale-110" />
                       </button>
                     </td>
                   </tr>

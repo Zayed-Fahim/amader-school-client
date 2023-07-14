@@ -106,7 +106,7 @@ const StudentSidebar = ({ isOpen, setIsOpen }) => {
       {/* for extra large device */}
       <motion.div
         animate={{
-          width: isOpen ? "15%" : "3.125%",
+          width: isOpen ? "17%" : "3.125%",
           transition: {
             duration: 0.5,
             type: spring,
@@ -117,7 +117,7 @@ const StudentSidebar = ({ isOpen, setIsOpen }) => {
       >
         <motion.div
           animate={{
-            width: isOpen ? "15%" : "3.125%",
+            width: isOpen ? "17%" : "3.125%",
             transition: {
               duration: 0.5,
               type: spring,

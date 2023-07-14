@@ -12,18 +12,10 @@ const AdminLogin = () => {
 
   const handleLogin = (data) => {
     axios
-      .post(
-        "http://localhost:8080/api/v1/admin-login",
-        {
-          email: data.email,
-          password: data.password,
-        }
-        // {
-        //   headers: {
-        //     "Content-Type": "application/x-www-form-urlencoded",
-        //   },
-        // }
-      )
+      .post("http://localhost:8080/api/v1/admin-login", {
+        email: data.email,
+        password: data.password,
+      })
       .then((result) => {
         if (result) {
           localStorage.setItem("token", result?.data?.payload?.token);

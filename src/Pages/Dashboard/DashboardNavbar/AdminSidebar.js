@@ -1,12 +1,7 @@
 import React from "react";
 import { FaBars, FaSchool } from "react-icons/fa";
-import {
-  MdAccountBalance,
-  MdEmojiTransportation,
-  MdSubject,
-} from "react-icons/md";
+import { MdEmojiTransportation, MdSubject } from "react-icons/md";
 import { SiGoogleclassroom } from "react-icons/si";
-import { TiMessages } from "react-icons/ti";
 import { GoGraph } from "react-icons/go";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import { GrUserSettings } from "react-icons/gr";
@@ -39,11 +34,6 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
       icon: <SidebarStudentIcon isOpen={isOpen} />,
       isArrowOpen: <IoIosArrowForward size={25} />,
       subMenus: [
-        // {
-        //   title: "All Students",
-        //   path: "/dashboard/admin/students/all-students",
-        //   icon: <IoIosArrowForward size={20} />,
-        // },
         {
           title: "Student Information",
           path: "/dashboard/admin/students/student-information",
@@ -56,11 +46,6 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
       icon: <SidebarTeacherIcon isOpen={isOpen} />,
       isArrowOpen: <IoIosArrowForward size={25} />,
       subMenus: [
-        // {
-        //   title: "All Teachers",
-        //   path: "/dashboard/admin/teachers/all-teacher",
-        //   icon: <IoIosArrowForward size={20} />,
-        // },
         {
           title: "Teacher Information",
           path: "/dashboard/admin/teachers/teacher-information",
@@ -71,35 +56,8 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
           path: "/dashboard/admin/teachers/add-teacher",
           icon: <IoIosArrowForward size={20} />,
         },
-        // {
-        //   title: "Payment History",
-        //   path: "/dashboard/admin/teachers/teachers-payment-history",
-        //   icon: <IoIosArrowForward size={20} />,
-        // },
       ],
     },
-    // {
-    //   title: "Finance",
-    //   icon: <MdAccountBalance size={!isOpen ? 30 : 25} />,
-    //   isArrowOpen: <IoIosArrowForward size={25} />,
-    //   subMenus: [
-    //     {
-    //       title: "All Fees Collection",
-    //       path: "/dashboard/admin/finance/all-fees-collection",
-    //       icon: <IoIosArrowForward size={20} />,
-    //     },
-    //     {
-    //       title: "Expenses",
-    //       path: "/dashboard/admin/finance/expenses",
-    //       icon: <IoIosArrowForward size={20} />,
-    //     },
-    //     {
-    //       title: "Add Expenses",
-    //       path: "/dashboard/admin/finance/add-expense",
-    //       icon: <IoIosArrowForward size={20} />,
-    //     },
-    //   ],
-    // },
     {
       title: "Class Schedule",
       icon: <SiGoogleclassroom size={!isOpen ? 30 : 25} />,
@@ -144,11 +102,6 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
       icon: <GoGraph size={!isOpen ? 30 : 25} />,
       isArrowOpen: <IoIosArrowForward size={25} />,
       subMenus: [
-        // {
-        //   title: "Employee Attendance",
-        //   path: "/dashboard/admin/attendance/employee-attendance",
-        //   icon: <IoIosArrowForward size={20} />,
-        // },
         {
           title: "Teacher Attendance",
           path: "/dashboard/admin/attendance/teacher-attendance",
@@ -200,11 +153,6 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
       path: "/dashboard/admin/notice-board",
       icon: <HiOutlineBellAlert size={!isOpen ? 30 : 25} />,
     },
-    // {
-    //   title: "Messages",
-    //   path: "/dashboard/admin/messaging",
-    //   icon: <TiMessages size={!isOpen ? 30 : 25} />,
-    // },
     {
       title: "Account Setting",
       path: "/dashboard/admin/user-account-setting",
@@ -231,7 +179,7 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
       {/* for extra large device */}
       <motion.div
         animate={{
-          width: isOpen ? "15%" : "3.125%",
+          width: isOpen ? "17%" : "3.125%",
           transition: {
             duration: 0.5,
             type: spring,
@@ -242,7 +190,7 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
       >
         <motion.div
           animate={{
-            width: isOpen ? "15%" : "3.125%",
+            width: isOpen ? "17%" : "3.125%",
             transition: {
               duration: 0.5,
               type: spring,

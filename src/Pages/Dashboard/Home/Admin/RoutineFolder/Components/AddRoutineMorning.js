@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import SaveButton from "../../../../../SmallComponents/SaveButton";
 import ResetButton from "../../../../../SmallComponents/ResetButton";
-import { Link } from "react-router-dom";
 
 const AddRoutineMorning = ({ refetch, assignedClass, setAssignedClass }) => {
   const { register, handleSubmit } = useForm();
@@ -22,7 +21,7 @@ const AddRoutineMorning = ({ refetch, assignedClass, setAssignedClass }) => {
       teacherName: data.teacherName,
       time: data.time,
     };
-    
+
     if (routineInfo) {
       axios
         .post("http://localhost:8080/api/v1/add-routine", routineInfo, {
@@ -47,7 +46,6 @@ const AddRoutineMorning = ({ refetch, assignedClass, setAssignedClass }) => {
 
   return (
     <div className="min-w-[550px]">
-      
       <div
         className={`${
           assignedClass
@@ -67,17 +65,12 @@ const AddRoutineMorning = ({ refetch, assignedClass, setAssignedClass }) => {
           >
             {/* 1st row */}
             <div className="grid grid-cols-1 gap-5 lg:gap-4">
-              <div>
-                <label className="label">
-                  <h1 className="font-bold opacity-70 text-[17px]">
-                    Day of the Week {""}
-                    <span className="text-red-500 ">(Required)*</span>
-                  </h1>
-                </label>
+              <div className="mb-4">
+                <label className="block mb-1 font-bold">Day of the Week</label>
                 <select
                   {...register("day")}
                   required
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                 >
                   <option defaultValue={true}>Select Class Day</option>
                   <option value="Sunday">Sunday</option>
@@ -88,17 +81,12 @@ const AddRoutineMorning = ({ refetch, assignedClass, setAssignedClass }) => {
                 </select>
               </div>
 
-              <div>
-                <label className="label">
-                  <span className="text-[17px] opacity-70 font-bold">
-                    Assigned Class{" "}
-                    <span className="text-red-500 ">(Required)*</span>
-                  </span>
-                </label>
+              <div className="mb-4">
+                <label className="block mb-1 font-bold">Assigned Class </label>
                 <select
                   required
                   {...register("class")}
-                  className="outline-[#FFBE15] h-12 w-full px-3 bg-black bg-opacity-5 rounded-md"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   onChange={(e) => {
                     setAssignedClass(e.target.value);
                   }}
@@ -121,16 +109,12 @@ const AddRoutineMorning = ({ refetch, assignedClass, setAssignedClass }) => {
                 </select>
               </div>
 
-              <div>
-                <label className="label">
-                  <span className="text-[17px] opacity-70 font-bold">
-                    Shift
-                  </span>
-                </label>
+              <div className="mb-4">
+                <label className="block mb-1 font-bold">Shift</label>
                 <select
                   required
                   {...register("shift")}
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   onChange={(e) => setSelectShift(e.target.value)}
                 >
                   <option defaultValue={true}>Select Shift</option>
@@ -143,17 +127,14 @@ const AddRoutineMorning = ({ refetch, assignedClass, setAssignedClass }) => {
                 assignedClass === "Ten" ||
                 assignedClass === "Eleven" ||
                 assignedClass === "Twelve") ? (
-                <div>
-                  <label className="label">
-                    <span className="text-[17px] opacity-70 font-bold">
-                      Assigned Group{" "}
-                      <span className="text-red-500 ">(Required)*</span>
-                    </span>
+                <div className="mb-4">
+                  <label className="block mb-1 font-bold">
+                    Assigned Group{" "}
                   </label>
                   <select
                     required
                     {...register("group")}
-                    className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                    className="w-full px-3 py-2 border rounded focus:outline-none"
                   >
                     <option defaultValue={true}>Select Group</option>
                     <option value="Science">Science</option>
@@ -163,28 +144,22 @@ const AddRoutineMorning = ({ refetch, assignedClass, setAssignedClass }) => {
                 </div>
               ) : null}
 
-              <div>
-                <label className="label">
-                  <h1 className="font-bold opacity-70 text-[17px]">Subject</h1>
-                </label>
+              <div className="mb-4">
+                <label className="block mb-1 font-bold">Subject</label>
                 <input
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   required
                   type="text"
                   placeholder="Name of the Subject"
                   {...register("subject")}
                 />
               </div>
-              <div>
-                <label className="label">
-                  <span className="text-[17px] opacity-70 font-bold">
-                    Section
-                  </span>
-                </label>
+              <div className="mb-4">
+                <label className="block mb-1 font-bold">Section</label>
                 <select
                   required
                   {...register("section")}
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                 >
                   <option defaultValue={true}>Select Section</option>
                   <option value="a">A</option>
@@ -199,33 +174,23 @@ const AddRoutineMorning = ({ refetch, assignedClass, setAssignedClass }) => {
                   <option value="j">J</option>
                 </select>
               </div>
-              <div>
-                <label className="label ">
-                  <h1 className="font-bold opacity-70 text-[17px]">
-                    Teacher Name
-                  </h1>
-                </label>
+              <div className="mb-4">
+                <label className="block mb-1 font-bold">Teacher Name</label>
                 <input
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   required
                   type="text"
                   placeholder="Name of the Teacher"
                   {...register("teacherName")}
                 />
               </div>
-              <div>
-                <label className="label">
-                  <span className="text-[17px] opacity-70 font-bold">
-                    Class Time{" "}
-                    <span className="text-red-500 ">(Required)*</span>
-                  </span>
-                </label>
-
+              <div className="mb-4">
+                <label className="block mb-1 font-bold">Class Time </label>
                 {selectShift && selectShift === "Morning" ? (
                   <select
                     required
                     {...register("time")}
-                    className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                    className="w-full px-3 py-2 border rounded focus:outline-none"
                   >
                     <option defaultValue={true}>Select Class Time</option>
                     <option value="07:45am - 08:25am">07:45am - 08:25am</option>
@@ -237,7 +202,7 @@ const AddRoutineMorning = ({ refetch, assignedClass, setAssignedClass }) => {
                   </select>
                 ) : (
                   <input
-                    className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                    className="w-full px-3 py-2 border rounded focus:outline-none"
                     disabled
                     type="text"
                     placeholder="Please select shift first"

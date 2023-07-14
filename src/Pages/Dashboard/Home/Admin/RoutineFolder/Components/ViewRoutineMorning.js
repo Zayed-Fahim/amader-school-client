@@ -36,7 +36,7 @@ const ViewRoutineMorning = () => {
   };
 
   return (
-    <div className="min-w-[955px] relative top-[76px]">
+    <div className="min-w-[940px] ">
       <div className="bg-white">
         <div className="flex flex-col py-10">
           <div className="overflow-x-auto">

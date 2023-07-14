@@ -14,14 +14,14 @@ const EveryClassSchedule = () => {
   const pages = Math.ceil(data / count);
 
   return (
-    <div className="overflow-y-hidden overflow-x-hidden min-h-screen relative xl:top-24 xl:left-[320px] z-[1] w-[81.5%]">
+    <div className="overflow-y-hidden overflow-x-hidden min-h-screen relative 2xl:top-24 2xl:left-[360px] z-[1] 2xl:w-[79.3%]">
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
         <ul>
           <li className="hover:text-[#FFBE15] ">
             <Link to={`/dashboard/admin`}>Dashboard</Link>
           </li>
           <li>Class Schedule</li>
-          <li>Every Class Schedule</li>
+          <li className="text-[#FFBE15]">Every Class Schedule</li>
         </ul>
       </div>
       <div className="bg-white">

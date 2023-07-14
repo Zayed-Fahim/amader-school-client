@@ -10,102 +10,43 @@ import { AiFillDashboard, AiOutlineSchedule } from "react-icons/ai";
 import { Link, NavLink } from "react-router-dom";
 import "./DashboardSidebar.css";
 import icon from "../../../Assets/dashboard-icon/dashboard.png";
-import DashboardNavbarDropdown from "./Dropdown/AdminDropdown";
 import SidebarStudentIcon from "./SidebarIcon/SidebarStudentIcon";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
+import TeacherDropdown from "./Dropdown/TeacherDropdown";
 
 const TeacherSidebar = ({ isOpen, setIsOpen }) => {
   const { teacher } = useContext(AuthContext);
-  const adminSideBarOptions = [
+  const teacherSideBarOptions = [
     {
       title: "Dashboard",
-      path: "/dashboard/teacher",
       icon: <AiFillDashboard size={!isOpen ? 30 : 25} />,
       isArrowOpen: <IoIosArrowForward size={25} />,
       subMenus: [
         {
-          title: "Teachers",
+          title: "Teacher",
           path: "/dashboard/teacher",
           icon: <IoIosArrowForward size={20} />,
         },
       ],
     },
-    teacher?.classTeacher === "Yes"
-      ? {
-          title: "Students",
-          icon: <SidebarStudentIcon isOpen={isOpen} />,
-          isArrowOpen: <IoIosArrowForward size={25} />,
-          subMenus: [
-            {
-              title: "Advertised Students",
-              path: "/dashboard/teacher/students/advertised-students",
-              icon: <IoIosArrowForward size={20} />,
-            },
-            {
-              title: "Add Student",
-              path: "/dashboard/teacher/students/admission-form",
-              icon: <IoIosArrowForward size={20} />,
-            },
-            // {
-            //   title: "Admission Form",
-            //   path: "/dashboard/admission-form",
-            //   icon: <IoIosArrowForward size={20} />,
-            // },
-          ],
-        }
-      : null,
-    // {
-    //   title: "Teachers",
-    //   path: "/dashboard/teachers",
-    //   icon: <TeachersIcon isOpen={isOpen} />,
-    //   isArrowOpen: <IoIosArrowForward size={25} />,
-    //   subMenus: [
-    //     {
-    //       title: "All Teachers",
-    //       path: "/dashboard/all-teachers",
-    //       icon: <IoIosArrowForward size={20} />,
-    //     },
-    //     {
-    //       title: "Teacher Details",
-    //       path: "/dashboard/teacher-details",
-    //       icon: <IoIosArrowForward size={20} />,
-    //     },
-    //     {
-    //       title: "Add Teacher",
-    //       path: "/dashboard/add-teacher",
-    //       icon: <IoIosArrowForward size={20} />,
-    //     },
-    //     {
-    //       title: "All Teachers Salary",
-    //       path: "/dashboard/teachers-salary",
-    //       icon: <IoIosArrowForward size={20} />,
-    //     },
-    //   ],
-    // },
-
-    // {
-    //   title: "Classes",
-    //   path: "/dashboard/teacher/classes",
-    //   icon: <SiGoogleclassroom size={!isOpen ? 30 : 25} />,
-    //   isArrowOpen: <IoIosArrowForward size={25} />,
-    //   subMenus: [
-    //     {
-    //       title: "All Classes",
-    //       path: "/dashboard/teacher/all-classes",
-    //       icon: <IoIosArrowForward size={20} />,
-    //     },
-    //     {
-    //       title: "Add new Class",
-    //       path: "/dashboard/teacher/add-new-class",
-    //       icon: <IoIosArrowForward size={20} />,
-    //     },
-    //   ],
-    // },
-    // {
-    //   title: "Subject",
-    //   path: "/dashboard/subjects",
-    //   icon: <MdSubject size={!isOpen ? 30 : 25} />,
-    // },
+    teacher &&
+      teacher?.classTeacher === "Yes" && {
+        title: "Students",
+        icon: <SidebarStudentIcon isOpen={isOpen} />,
+        isArrowOpen: <IoIosArrowForward size={25} />,
+        subMenus: [
+          {
+            title: "Advised Students",
+            path: "/dashboard/teacher/students/advised-students",
+            icon: <IoIosArrowForward size={20} />,
+          },
+          {
+            title: "Add Student",
+            path: "/dashboard/teacher/students/admission-form",
+            icon: <IoIosArrowForward size={20} />,
+          },
+        ],
+      },
     {
       title: "Class schedule",
       path: "/dashboard/teacher/class-schedule",
@@ -123,7 +64,6 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
     },
     {
       title: "Exams",
-      path: "/dashboard/teacher/exams",
       icon: <FaSchool size={!isOpen ? 30 : 25} />,
       isArrowOpen: <IoIosArrowForward size={25} />,
       subMenus: [
@@ -149,11 +89,6 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
       path: "/dashboard/teacher/notice-board",
       icon: <HiOutlineBellAlert size={!isOpen ? 30 : 25} />,
     },
-    // {
-    //   title: "Messages",
-    //   path: "/dashboard/teacher/messaging",
-    //   icon: <TiMessages size={!isOpen ? 30 : 25} />,
-    // },
     {
       title: "Account Setting",
       path: "/dashboard/teacher/user-account-setting",
@@ -180,7 +115,7 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
       {/* for extra large device */}
       <motion.div
         animate={{
-          width: isOpen ? "15%" : "3.125%",
+          width: isOpen ? "17%" : "3.125%",
           transition: {
             duration: 0.5,
             type: spring,
@@ -191,7 +126,7 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
       >
         <motion.div
           animate={{
-            width: isOpen ? "15%" : "3.125%",
+            width: isOpen ? "17%" : "3.125%",
             transition: {
               duration: 0.5,
               type: spring,
@@ -220,10 +155,10 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
           </Link>
         </motion.div>
         <section className="overflow-y-auto overflow-x-hidden relative top-[60px]">
-          {adminSideBarOptions.map((option, i) => {
+          {teacherSideBarOptions.map((option, i) => {
             if (option.subMenus) {
               return (
-                <DashboardNavbarDropdown
+                <TeacherDropdown
                   animation={animation}
                   isOpen={isOpen}
                   option={option}
@@ -307,10 +242,10 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
             </Link>
           </motion.div>
           <section className="overflow-y-auto overflow-x-hidden relative lg:top-[60px] hidden xl:hidden lg:block">
-            {adminSideBarOptions.map((option, i) => {
+            {teacherSideBarOptions.map((option, i) => {
               if (option.subMenus) {
                 return (
-                  <DashboardNavbarDropdown
+                  <TeacherDropdown
                     animation={animation}
                     isOpen={isOpen}
                     option={option}

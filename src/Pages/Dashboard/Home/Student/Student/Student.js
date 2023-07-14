@@ -4,19 +4,18 @@ import { Link } from "react-router-dom";
 import { MdNotificationsActive } from "react-icons/md";
 import { BsCalendar2Event } from "react-icons/bs";
 import { BiSolidReport } from "react-icons/bi";
-import AdminNoticeBoard from "../../Components/AdminNoticeBoard";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";
+import StudentNoticeBoard from "../StudentNoticeBoard/StudentNoticeBoard";
 
 const Student = () => {
   return (
-    <div className="relative xl:top-24 xl:left-[320px] mb-[120px]">
+    <div className="relative 2xl:top-24 2xl:left-[360px] mb-[120px]">
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
         <ul>
           <li className="hover:text-[#FFBE15] ">
             <Link to={`/dashboard/student`}>Dashboard</Link>
           </li>
           <li>Student</li>
-          
         </ul>
       </div>
       <div className="flex gap-5">
@@ -27,7 +26,7 @@ const Student = () => {
           >
             <MdNotificationsActive className="h-[80px] w-[80px]" />
             <div>
-              <h1 className="xl:grid xl:place-items-end xl:text-[18px] font-semibold">
+              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[18px] font-semibold">
                 Notifications
               </h1>
               <h1 className="xl:text-2xl xl:font-semibold text-center">15</h1>
@@ -39,7 +38,7 @@ const Student = () => {
           >
             <BsCalendar2Event className="h-[80px] w-[80px]" />
             <div>
-              <h1 className="xl:grid xl:place-items-end xl:text-[18px] font-semibold">
+              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[18px] font-semibold">
                 Events
               </h1>
               <h1 className="xl:text-2xl xl:font-semibold text-center">2</h1>
@@ -54,7 +53,7 @@ const Student = () => {
           >
             <FaPercent className="h-[60px] w-[60px]" />
             <div>
-              <h1 className="xl:grid xl:place-items-end xl:text-[18px] font-semibold">
+              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[18px] font-semibold">
                 Attendance
               </h1>
               <h1 className="xl:text-2xl xl:font-semibold text-center">57%</h1>
@@ -66,14 +65,16 @@ const Student = () => {
           >
             <BiSolidReport className="h-[80px] w-[80px]" />
             <div>
-              <h1>Results</h1>
+              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[18px] font-semibold">
+                Results
+              </h1>
             </div>
           </Link>
         </div>
         <div>
-          <div className="xl:h-[660px] xl:w-[885px] bg-white rounded px-8 py-8">
+          <div className="xl:h-[660px] xl:w-[835px] bg-white rounded px-8 py-8">
             <h1 className="font-bold text-2xl pb-5">Notice Board</h1>
-            <AdminNoticeBoard />
+            <StudentNoticeBoard />
           </div>
         </div>
       </div>

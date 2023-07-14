@@ -94,6 +94,7 @@ const AdminDropdown = ({ option, isOpen, animation, setIsOpen }) => {
               return (
                 <motion.div key={i} variants={menuItemAnimation} custom={i}>
                   <NavLink
+                    key={i}
                     to={subMenu.path}
                     activeClassName="active"
                     className={
@@ -167,6 +168,7 @@ const AdminDropdown = ({ option, isOpen, animation, setIsOpen }) => {
               return (
                 <motion.div key={i} variants={menuItemAnimation} custom={i}>
                   <NavLink
+                    key={i}
                     to={subMenu.path}
                     activeClassName="active"
                     className={

@@ -14,7 +14,7 @@ const MorningShiftRoutine = () => {
           assignedClass === "Ten" ||
           assignedClass === "Eleven" ||
           assignedClass === "Twelve")
-          ? "min-h-[120vh] w-[81.5%] relative top-24 xl:left-[320px]"
+          ? "min-h-[120vh] 2xl:w-[79.3%] relative top-24 2xl:left-[360px]"
           : assignedClass &&
             (assignedClass === "Play" ||
               assignedClass === "KG" ||
@@ -27,8 +27,8 @@ const MorningShiftRoutine = () => {
               assignedClass === "Seven" ||
               assignedClass === "Eight" ||
               assignedClass === "Select Class")
-          ? "min-h-[110vh] w-[81.5%] relative top-24 xl:left-[320px]"
-          : "min-h-[110vh] w-[81.5%] relative top-24 xl:left-[320px]"
+          ? "min-h-[110vh] 2xl:w-[79.3%] relative top-24 2xl:left-[360px]"
+          : "min-h-[110vh] 2xl:w-[79.3%] relative top-24 2xl:left-[360px]"
       }`}
     >
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
@@ -37,10 +37,10 @@ const MorningShiftRoutine = () => {
             <Link to={`/dashboard/admin`}>Dashboard</Link>
           </li>
           <li>Class Routine</li>
-          <li>Morning Shift</li>
+          <li className="text-[#FFBE15] ">Morning Shift</li>
         </ul>
       </div>
-      <div className="flex gap-10">
+      <div className="flex gap-5">
         <AddRoutineMorning
           assignedClass={assignedClass}
           setAssignedClass={setAssignedClass}

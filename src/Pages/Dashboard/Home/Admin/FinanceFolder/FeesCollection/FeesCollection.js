@@ -11,7 +11,7 @@ const FeesCollection = () => {
 
   return (
     <div className="overflow-y-hidden overflow-x-hidden">
-      <div className="relative xl:top-28 xl:left-[320px] z-[1] w-[81.5%] bg-white h-[1680px]">
+      <div className="relative xl:top-28 2xl:left-[360px] z-[1] 2xl:w-[79.3%] bg-white h-[1680px]">
         <h1 className="font-bold text-2xl py-8 px-8">All Fees Collection</h1>
         <div className="flex flex-col">
           <div className="overflow-x-auto">

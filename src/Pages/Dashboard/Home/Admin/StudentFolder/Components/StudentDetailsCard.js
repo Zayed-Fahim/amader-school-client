@@ -76,7 +76,7 @@ const StudentDetailsCard = () => {
       </div>
       {students?.map((student) => (
         <>
-          <div className="flex justify-between gap-16 pt-5 px-5">
+          <div className="flex justify-between 2xl:gap-10 pt-5 px-5" key={student?.id}>
             <div className="h-[270px] w-[270px] grid place-items-center bg-black bg-opacity-10 rounded-lg">
               <img
                 src={
@@ -102,6 +102,16 @@ const StudentDetailsCard = () => {
                 className="flex flex-col gap-5 md:px-3 p-5 lg:px-5 xl:px-5 lg:py-5 xl:py-5"
               >
                 <div className="flex flex-col gap-2 w-full">
+                  <div className="flex justify-between items-center gap-4">
+                    <h1 className="w-[50%] font-semibold">Student ID:</h1>
+                    <input
+                      className="w-full bg-white h-10 pl-2"
+                      disabled
+                      value={student?.id}
+                      placeholder="Student ID"
+                      {...register("id")}
+                    />
+                  </div>
                   <div className="flex justify-between items-center gap-4">
                     <h1 className="w-[50%] font-semibold">Full Name:</h1>
                     <input

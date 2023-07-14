@@ -35,7 +35,7 @@ const ExamSchedule = () => {
     setExamData({ ...examData, [e.target.name]: e.target.value });
   };
   return (
-    <div className="min-h-[89vh] relative left-[320px] top-24  w-[81.5%]">
+    <div className="min-h-[89vh] relative 2xl:left-[360px] top-24 2xl:w-[79.3%]">
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
         <ul>
           <li className="hover:text-[#FFBE15] ">
@@ -45,8 +45,8 @@ const ExamSchedule = () => {
           <li>Exams Schedule</li>
         </ul>
       </div>
-      <div className="flex gap-10 ">
-        <div className="bg-white min-w-[600px]">
+      <div className="flex gap-5 ">
+        <div className="bg-white min-w-[580px]">
           <h1 className="text-2xl font-bold py-10 pl-8">Add Exam Schedule</h1>
 
           <form onSubmit={handleSubmit} className="px-8 pb-10">

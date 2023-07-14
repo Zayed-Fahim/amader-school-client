@@ -6,19 +6,19 @@ import icon from "../../../../../../Assets/dashboard-icon/dashboard.png";
 
 const StudentDetails = () => {
   return (
-    <div className="overflow-x-hidden overflow-y-hidden relative xl:top-24 xl:left-[320px] z-[1] w-[81.5%]">
+    <div className="overflow-x-hidden overflow-y-hidden relative 2xl:top-24 2xl:left-[360px] z-[1] 2xl:w-[79.3%]">
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
         <ul>
           <li className="hover:text-[#FFBE15]">
             <Link to="/dashboard/admin">Dashboard</Link>
           </li>
           <li>Students</li>
-          <li>Student Information</li>
+          <li className="text-[#FFBE15]">Student Information</li>
         </ul>
       </div>
 
-      <div className="flex gap-5 h-[870px]">
-        <div className="bg-white w-[750px] ">
+      <div className="flex gap-5 h-[900px]">
+        <div className="bg-white w-[700px] ">
           <StudentDetailsCard />
         </div>
         <div className="w-[795px]  bg-white flex flex-col">

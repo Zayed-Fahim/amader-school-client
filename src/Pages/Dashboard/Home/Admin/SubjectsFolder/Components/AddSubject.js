@@ -1,46 +1,54 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import SaveButton from "../../../../../SmallComponents/SaveButton";
 import ResetButton from "../../../../../SmallComponents/ResetButton";
+import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const AddSubject = ({ refetch, assignedClass, setAssignedClass }) => {
+const AddSubject = ({
+  assignedClass,
+  setAssignedClass,
+  isLoading,
+  setIsLoading,
+}) => {
   const { register, handleSubmit } = useForm();
-  const handleAddNewSubject = (data, event) => {
-    event.preventDefault();
+  const { admin } = useContext(AuthContext);
+  const formRef = useRef();
 
+  const queryClient = useQueryClient();
+  const addSubjectMutation = useMutation(
+    (subjectInfo) =>
+      axios.post("http://localhost:8080/api/v1/subjects", subjectInfo, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }),
+    {
+      onSuccess: (data) => {
+        window.location.reload(); // Reload the page
+        formRef.current.reset();
+        queryClient.invalidateQueries("subjects");
+        toast.success(`${data.data.message}`);
+      },
+      onError: (error) => {
+        toast.error(`${error.response.data.message}`);
+      },
+    }
+  );
+
+  const handleAddNewSubject = (data, event) => {
     const subjectInfo = {
       subjectName: data.subjectName,
       subjectCode: data.subjectCode.toUpperCase(),
       subjectType: data.subjectType,
       assignedClass: data.assignedClass,
       assignedGroup: data.assignedGroup,
+      admin: { id: admin._id },
     };
-    if (subjectInfo) {
-      axios
-        .post(
-          "http://localhost:8080/api/v1/add-subject&all-subjects",
-          subjectInfo,
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-          }
-        )
-        .then((result) => {
-          if (result.status === 200) {
-            toast.success(`${result.data.message}`);
-            refetch();
-            event.target.reset();
-          }
-        })
-        .catch((error) => {
-          if (error.response.status === 409) {
-            toast.error(`${error.response.data.message}`);
-          }
-        });
-    }
+    setIsLoading(true);
+    addSubjectMutation.mutate(subjectInfo);
   };
   return (
     <div className="min-w-[550px]">
@@ -58,64 +66,48 @@ const AddSubject = ({ refetch, assignedClass, setAssignedClass }) => {
           <form
             onSubmit={handleSubmit(handleAddNewSubject)}
             className="flex flex-col w-full gap-12 h-[410px] px-10 pb-5"
+            ref={formRef}
           >
             {/* 1st row */}
             <div className="grid grid-cols-1 gap-5 lg:gap-4">
-              <div>
-                <label className="label">
-                  <h1 className="font-bold opacity-70 text-[17px]">
-                    Subject Name
-                  </h1>
-                </label>
+              <div className="mb-4">
+                <label className="block mb-1 font-bold">Subject Name</label>
                 <input
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   required
                   type="text"
                   placeholder="Name of the Subject"
                   {...register("subjectName")}
                 />
               </div>
-              <div>
-                <label className="label ">
-                  <h1 className="font-bold opacity-70 text-[17px]">
-                    Subject Code
-                  </h1>
-                </label>
+              <div className="mb-4">
+                <label className="block mb-1 font-bold ">Subject Code</label>
                 <input
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3 uppercase"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   required
                   type="text"
+                  placeholder="Subject Code"
                   {...register("subjectCode")}
                 />
               </div>
-              <div>
-                <label className="label">
-                  <h1 className="font-bold opacity-70 text-[17px]">
-                    Subject Type
-                    <span className="text-red-500 ">(Required)*</span>
-                  </h1>
-                </label>
+              <div className="mb-4">
+                <label className="block mb-1 font-bold">Subject Type</label>
                 <select
                   {...register("subjectType")}
                   required
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                 >
                   <option defaultValue={true}>Select Subject Type</option>
                   <option value="Theory">Theory</option>
                   <option value="Practical">Practical</option>
                 </select>
               </div>
-              <div>
-                <label className="label">
-                  <span className="text-[17px] opacity-70 font-bold">
-                    Assigned Class{" "}
-                    <span className="text-red-500 ">(Required)*</span>
-                  </span>
-                </label>
+              <div className="mb-4">
+                <label className="block mb-1 font-bold">Assigned Class </label>
                 <select
                   required
                   {...register("assignedClass")}
-                  className="outline-[#FFBE15] h-12 w-full px-3 bg-black bg-opacity-5 rounded-md"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   onChange={(e) => {
                     setAssignedClass(e.target.value);
                   }}
@@ -142,17 +134,12 @@ const AddSubject = ({ refetch, assignedClass, setAssignedClass }) => {
                 assignedClass === "Ten" ||
                 assignedClass === "Eleven" ||
                 assignedClass === "Twelve") ? (
-                <div>
-                  <label className="label">
-                    <span className="text-[17px] opacity-70 font-bold">
-                      Assigned Group{" "}
-                      <span className="text-red-500 ">(Required)*</span>
-                    </span>
-                  </label>
+                <div className="mb-4">
+                  <label className="block mb-1 font-bold">Assigned Group</label>
                   <select
                     required
                     {...register("assignedGroup")}
-                    className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                    className="w-full px-3 py-2 border rounded focus:outline-none"
                   >
                     <option defaultValue={true}>Select Group</option>
                     <option value="Science">Science</option>
@@ -164,8 +151,21 @@ const AddSubject = ({ refetch, assignedClass, setAssignedClass }) => {
             </div>
             {/* 5th row */}
             <div className="flex items-center gap-4 pb-5">
-              <SaveButton />
-              <ResetButton />
+              {isLoading ? (
+                <>
+                  <button
+                    className="px-4 py-1 font-semibold rounded-lg bg-gray-400 flex gap-1 justify-center items-center"
+                    disabled
+                  >
+                    Loading...
+                  </button>
+                </>
+              ) : (
+                <>
+                  <SaveButton />
+                  <ResetButton formRef={formRef} />
+                </>
+              )}
             </div>
           </form>
         </div>

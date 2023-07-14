@@ -1,41 +1,34 @@
 import React, { useState } from "react";
 import AddSubject from "../Components/AddSubject";
 import AllSubjects from "../Components/AllSubjects";
-import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import icon from "../../../../../../Assets/dashboard-icon/dashboard.png";
 
 const Subjects = () => {
   const [assignedClass, setAssignedClass] = useState(false);
-  const { data: subjects = [], refetch } = useQuery({
-    queryKey: ["subjects"],
-    queryFn: async () => {
-      const res = await fetch(
-        "http://localhost:8080/api/v1/add-subject&all-subjects"
-      );
-      const data = await res.json();
-      const allSubjects = await data.payload.result;
-      return allSubjects;
-    },
-  });
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
-    <div className="min-h-screen w-[81.5%] relative top-24 xl:left-[320px]">
+    <div className="min-h-screen 2xl:w-[79.3%] relative top-24 2xl:left-[360px]">
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
         <ul>
           <li className="hover:text-[#FFBE15] ">
             <Link to={`/dashboard/admin`}>Dashboard</Link>
           </li>
-          <li>Subject</li>
+          <li className="text-[#FFBE15]">Subject</li>
         </ul>
       </div>
-      <div className="flex gap-10 ">
+
+      <div className="flex gap-5 ">
         <AddSubject
-          refetch={refetch}
           assignedClass={assignedClass}
           setAssignedClass={setAssignedClass}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
-        <AllSubjects subjects={subjects} />
+        <AllSubjects isLoading={isLoading} />
       </div>
+
       <div
         className={`${
           assignedClass

@@ -12,13 +12,13 @@ const Admin = () => {
   let femaleStudents = students?.map((student) => student?.gender === "Female");
   let maleStudents = students?.map((student) => student?.gender === "Male");
   return (
-    <div className="relative xl:top-24 xl:left-[320px]">
+    <div className="relative 2xl:top-24 2xl:left-[360px]">
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
         <ul>
           <li className="hover:text-[#FFBE15] ">
             <Link to={`/dashboard/admin`}>Dashboard</Link>
           </li>
-          <li>Admin</li>
+          <li className="text-[#FFBE15]">Admin</li>
         </ul>
       </div>
 
@@ -82,7 +82,7 @@ const Admin = () => {
           </div>
         </div>
 
-        <div className="xl:h-[660px] xl:w-[725px] bg-white rounded-md px-8 pt-8">
+        <div className="2xl:h-[660px] 2xl:w-[690px] bg-white rounded-md px-8 pt-8">
           <div className="flex justify-between items-center pb-5">
             <h1 className="xl:font-bold xl:text-2xl">Important Notice</h1>
           </div>

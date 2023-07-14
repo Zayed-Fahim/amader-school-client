@@ -9,7 +9,7 @@ const LoginRole = () => {
   return (
     <div className="h-screen flex flex-col gap-10 md:gap-16 xl:gap-16 2xl:gap-48 overflow-x-hidden">
       <LoginRoleNavbar />
-      <div className="flex flex-col justify-center items-center gap-20 md:gap-28 xl:gap-28 2xl:gap-32 pb-20 md:pb-0 xl:pb-20 2xl:pb-0">
+      <div className="flex flex-col justify-center items-center gap-20 md:gap-28 xl:gap-28 2xl:gap-32 pb-20 md:pb-0 xl:pb-0 2xl:pb-0">
         <div className="w-[534px] h-[59px] flex flex-col">
           <h1 className="text-center font-[700] text-[25px] md:text-[28px] xl:text-[31px] 2xl:text-[35px]">
             Welcome Here...

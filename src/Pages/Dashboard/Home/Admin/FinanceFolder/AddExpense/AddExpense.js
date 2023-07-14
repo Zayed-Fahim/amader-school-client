@@ -48,7 +48,7 @@ const AddExpense = () => {
   };
   return (
     <div className="h-[90vh]">
-      <div className="flex flex-col relative left-[320px] top-28 bg-white w-[81.5%] h-auto">
+      <div className="flex flex-col relative left-[320px] top-28 bg-white 2xl:w-[79.3%] h-auto">
         <div>
           <h1 className="text-2xl font-bold py-8 px-5">Add Expenses</h1>
         </div>

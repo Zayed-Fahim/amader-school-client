@@ -1,7 +1,7 @@
 import React from "react";
 import AllStudentInformationTable from "../../../Admin/StudentFolder/AllStudentInformationTable/AllStudentInformationTable";
 
-const AdvertisedStudent = () => {
+const AdvisedStudents = () => {
   return (
     <div>
       <AllStudentInformationTable />
@@ -9,4 +9,4 @@ const AdvertisedStudent = () => {
   );
 };
 
-export default AdvertisedStudent;
+export default AdvisedStudents;

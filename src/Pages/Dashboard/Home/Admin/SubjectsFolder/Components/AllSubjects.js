@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import Pagination from "../../../SmallComponents/Pagination/Pagination";
 import { BsSearch } from "react-icons/bs";
+import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
+import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 
-const AllSubjects = ({ subjects }) => {
+const AllSubjects = () => {
+  const { admin } = useContext(AuthContext);
   const [page, setPage] = useState(1);
-  const [count, setCount] = useState(10);
-  const pages = Math.ceil(subjects?.length / count);
+  const [count, setCount] = useState(9);
+  const pages = Math.ceil(admin?.subjects?.length / count);
 
   return (
     <div className="min-w-[955px]">
@@ -93,11 +96,17 @@ const AllSubjects = ({ subjects }) => {
                       >
                         Assigned Group
                       </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                      >
+                        Actions
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {/* row 1 */}
-                    {subjects?.map((subject) => (
+                    {admin?.subjects?.map((subject) => (
                       <tr key={subject?._id}>
                         <td className="py-3 pl-4">
                           <div className="flex items-center h-5">
@@ -124,6 +133,16 @@ const AllSubjects = ({ subjects }) => {
                         </td>
                         <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
                           {subject ? subject?.assignedGroup : "N/A"}
+                        </td>
+                        <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
+                          <div className="flex gap-2">
+                            <button className="text-blue-500">
+                              <AiOutlineEdit title="Edit" />
+                            </button>
+                            <button className="text-red-500">
+                              <AiOutlineDelete title="Delete" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}

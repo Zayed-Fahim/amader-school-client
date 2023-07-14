@@ -12,18 +12,10 @@ const TeacherLogin = () => {
 
   const handleLogin = (data) => {
     axios
-      .post(
-        "http://localhost:8080/api/v1/teacher-login",
-        {
-          id: data.id,
-          password: data.password,
-        }
-        // {
-        //   headers: {
-        //     "Content-Type": "application/x-www-form-urlencoded",
-        //   },
-        // }
-      )
+      .post("http://localhost:8080/api/v1/teacher-login", {
+        id: data.id,
+        password: data.password,
+      })
       .then((result) => {
         if (result) {
           localStorage.setItem("token", result?.data?.payload?.token);
@@ -31,6 +23,7 @@ const TeacherLogin = () => {
             "role",
             result?.data?.payload?.teacher?.role?.toLowerCase()
           );
+
           navigate(
             `/dashboard/${
               localStorage.getItem("role") ||

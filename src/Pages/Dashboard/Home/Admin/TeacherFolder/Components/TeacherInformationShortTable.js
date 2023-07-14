@@ -93,7 +93,7 @@ const TeacherInformationShortTable = () => {
               {/* row 1 */}
               {teachers?.map((teacher) => (
                 <tr>
-                  <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
+                  <td className="px-6 py-2 text-sm font-medium text-gray-800 whitespace-nowrap">
                     {teacher?.id}
                   </td>
 
@@ -107,25 +107,21 @@ const TeacherInformationShortTable = () => {
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  <td className="px-6 py-2 text-sm text-gray-800 whitespace-nowrap">
                     {teacher?.fullName}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  <td className="px-6 py-2 text-sm text-gray-800 whitespace-nowrap">
                     {teacher?.gender}
                   </td>
                   <button className="px-2 py-1 my-4 ml-6 font-semibold rounded-md hover:text-white text-sm bg-[#FFBE15] text-gray-800 whitespace-nowrap">
                     Details
                   </button>
-                  <td className="px-5 py-4 ">
+                  <td className="px-8 py-2 ">
                     <button type="submit">
                       <FcDeleteDatabase
-                        className="h-6 w-6 hover:scale-110"
+                        className="h-8 w-8 hover:scale-110"
                         title="Delete"
                       />
-                    </button>
-
-                    <button type="submit" title="Edit">
-                      <BiEdit className="h-[22px] w-[22px] ml-2 hover:scale-110" />
                     </button>
                   </td>
                 </tr>

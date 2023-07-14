@@ -1,20 +1,47 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
-import "@wojtekmaj/react-timerange-picker/dist/TimeRangePicker.css";
-import "react-clock/dist/Clock.css";
-import "./AddNewClassSchedule.css";
 import { Link } from "react-router-dom";
 import icon from "../../../../../../Assets/dashboard-icon/dashboard.png";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
 
 const AddNewClassSchedule = () => {
-  const { refetch } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
   const [group, setGroup] = useState(false);
-  const [value, onChange] = useState("");
+  const [teachingShift, setTeachingShift] = useState();
+  const { admin } = useContext(AuthContext);
+  const formRef = useRef();
+  console.log(admin);
+
+  const queryClient = useQueryClient();
+  const addClassScheduleMutation = useMutation(
+    (classScheduleInfo) =>
+      axios.post(
+        "http://localhost:8080/api/v1/class-schedules",
+        classScheduleInfo,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      ),
+    {
+      onSuccess: (result) => {
+        if (result.status === 200) {
+          toast.success(`${result.data.message}`);
+          formRef.current.reset();
+          queryClient.invalidateQueries("addClassSchedule");
+        }
+      },
+      onError: (error) => {
+        if (error.response.status === 409) {
+          toast.error(`${error.response.data.message}`);
+        }
+      },
+    }
+  );
 
   const handleAddNewClassSchedule = (data, event) => {
     event.preventDefault();
@@ -30,66 +57,40 @@ const AddNewClassSchedule = () => {
       teachingSection: data.teachingSection.toUpperCase(),
       subjectName: data.subjectName,
       dateOfClass: data.dateOfClass,
-      classTime: value,
+      classTime: data.classTime,
+      admin: { id: admin._id },
     };
-    if (classScheduleInfo) {
-      axios
-        .post(
-          "http://localhost:8080/api/v1/class-schedules",
-          classScheduleInfo,
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-          }
-        )
-        .then((result) => {
-          if (result.status === 200) {
-            toast.success(`${result.data.message}`);
-            refetch();
-            event.target.reset();
-          }
-        })
-        .catch((error) => {
-          if (error.response.status === 409) {
-            toast.error(`${error.response.data.message}`);
-          }
-        });
-    }
+    addClassScheduleMutation.mutate(classScheduleInfo);
   };
   return (
-    <div className="min-h-[89vh] relative left-[320px] top-24  w-[81.5%] ">
+    <div className="min-h-[89vh] relative 2xl:left-[360px] top-24 2xl:w-[79.3%] ">
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
         <ul>
           <li className="hover:text-[#FFBE15] ">
             <Link to={`/dashboard/admin`}>Dashboard</Link>
           </li>
           <li>Class Schedule</li>
-          <li>Add New Class Schedule</li>
+          <li className="text-[#FFBE15]">Add New Class Schedule</li>
         </ul>
       </div>
-      <div className="flex flex-col xl:min-h-[620px] bg-white">
+      <div className="flex flex-col xl:min-h-[620px] bg-white 2xl:px-8">
         <div>
-          <h1 className="text-2xl font-bold py-8 px-5">
-            Add New Class Schedule
-          </h1>
+          <h1 className="text-2xl font-bold py-8">Add New Class Schedule</h1>
         </div>
         <div>
           <form
             onSubmit={handleSubmit(handleAddNewClassSchedule)}
-            className="flex flex-col w-full gap-5 h-[410px] px-5"
+            className="flex flex-col w-full gap-5 h-[410px]"
+            ref={formRef}
           >
             {/* 1st row */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 lg:gap-4">
               <div>
-                <label className="label">
-                  <h1 className="font-bold opacity-70 text-[17px]">
-                    Teacher Name {""}
-                    <span className="text-red-500 ">(Required)*</span>
-                  </h1>
+                <label className="block font-bold mb-4">
+                  Teacher Name {""}
                 </label>
                 <input
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   required
                   type="text"
                   placeholder="Name of Teacher"
@@ -97,14 +98,11 @@ const AddNewClassSchedule = () => {
                 />
               </div>
               <div>
-                <label className="label ">
-                  <h1 className="font-bold opacity-70 text-[17px]">
-                    Teacher ID NO {""}
-                    <span className="text-red-500 ">(Required)*</span>
-                  </h1>
+                <label className="block font-bold mb-4">
+                  Teacher ID NO {""}
                 </label>
                 <input
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   required
                   type="text"
                   placeholder="Teacher ID"
@@ -113,16 +111,11 @@ const AddNewClassSchedule = () => {
               </div>
 
               <div>
-                <label className="label">
-                  <h1 className="font-bold opacity-70 text-[17px]">
-                    Gender {""}
-                    <span className="text-red-500 ">(Required)*</span>
-                  </h1>
-                </label>
+                <label className="block font-bold mb-4">Gender {""}</label>
                 <select
                   {...register("gender")}
                   required
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                 >
                   <option defaultValue={true}>Select Gender</option>
                   <option value="Male">Male</option>
@@ -131,14 +124,11 @@ const AddNewClassSchedule = () => {
                 </select>
               </div>
               <div>
-                <label className="label">
-                  <h1 className="font-bold opacity-70 text-[17px]">
-                    Teacher Phone Number
-                    <span className="text-red-500 ">(Required)*</span>
-                  </h1>
+                <label className="block font-bold mb-4">
+                  Teacher Phone Number
                 </label>
                 <input
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   required
                   type="text"
                   placeholder="Teacher Phone Number"
@@ -146,14 +136,9 @@ const AddNewClassSchedule = () => {
                 />
               </div>
               <div>
-                <label className="label">
-                  <h1 className="font-bold opacity-70 text-[17px]">
-                    Teacher Email {""}
-                    <span className="text-red-500 ">(Required)*</span>
-                  </h1>
-                </label>
+                <label className="block font-bold mb-4">Teacher Email</label>
                 <input
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   required
                   type="text"
                   placeholder="Teacher Email"
@@ -161,16 +146,12 @@ const AddNewClassSchedule = () => {
                 />
               </div>
               <div>
-                <label className="label">
-                  <span className="text-[17px] opacity-70 font-bold">
-                    Teaching Shift {""}
-                    <span className="text-red-500 ">(Required)*</span>
-                  </span>
-                </label>
+                <label className="block font-bold mb-4">Teaching Shift</label>
                 <select
                   required
                   {...register("teachingShift")}
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  onChange={(e) => setTeachingShift(e.target.value)}
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                 >
                   <option defaultValue={true}>Select Shift</option>
                   <option value="Morning">Morning</option>
@@ -178,15 +159,11 @@ const AddNewClassSchedule = () => {
                 </select>
               </div>
               <div>
-                <label className="label">
-                  <span className="text-[17px] opacity-70 font-bold">
-                    Class <span className="text-red-500 ">(Required)*</span>
-                  </span>
-                </label>
+                <label className="block font-bold mb-4">Class</label>
                 <select
                   required
                   {...register("teachingClass")}
-                  className="outline-[#FFBE15] h-12 w-full px-3 bg-black bg-opacity-5 rounded-md"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   onChange={(e) => {
                     setGroup(e.target.value);
                   }}
@@ -213,15 +190,11 @@ const AddNewClassSchedule = () => {
               group === "Eleven" ||
               group === "Twelve" ? (
                 <div>
-                  <label className="label">
-                    <span className="text-[17px] opacity-70 font-bold">
-                      Group <span className="text-red-500 ">(Required)*</span>
-                    </span>
-                  </label>
+                  <label className="block font-bold mb-4">Group</label>
                   <select
                     required
                     {...register("group")}
-                    className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                    className="w-full px-3 py-2 border rounded focus:outline-none"
                   >
                     <option defaultValue={true}>Select Group</option>
                     <option value="Science">Science</option>
@@ -231,15 +204,11 @@ const AddNewClassSchedule = () => {
                 </div>
               ) : null}
               <div>
-                <label className="label">
-                  <span className="text-[17px] opacity-70 font-bold">
-                    Section <span className="text-red-500 ">(Required)*</span>
-                  </span>
-                </label>
+                <label className="block font-bold mb-4">Section</label>
                 <select
                   required
                   {...register("teachingSection")}
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                 >
                   <option defaultValue={true}>Select Section</option>
                   <option value="a">A</option>
@@ -255,16 +224,11 @@ const AddNewClassSchedule = () => {
                 </select>
               </div>
               <div>
-                <label className="label">
-                  <span className="text-[17px] opacity-70 font-bold">
-                    Teaching Subject {""}
-                    <span className="text-red-500 ">(Required)*</span>
-                  </span>
-                </label>
+                <label className="block font-bold mb-4">Teaching Subject</label>
                 <select
                   required
                   {...register("subjectName")}
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                 >
                   <option defaultValue={true}>Select Subject</option>
                   <option value="Mathematics">Mathematics</option>
@@ -281,37 +245,45 @@ const AddNewClassSchedule = () => {
                 </select>
               </div>
               <div>
-                <label className="label">
-                  <span className="text-[17px] opacity-70 font-bold">
-                    Date <span className="text-red-500 ">(Required)*</span>
-                  </span>
-                </label>
+                <label className="block font-bold mb-4">Date</label>
                 <input
                   required
-                  className="outline-[#FFBE15] h-12 w-full bg-black bg-opacity-5 rounded-md px-3"
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
                   placeholder="Date of class"
                   type="date"
                   {...register("dateOfClass")}
                 />
               </div>
               <div>
-                <label className="label">
-                  <span className="text-[17px] opacity-70 font-bold">
-                    Class Time{" "}
-                    <span className="text-red-500 ">(Required)*</span>
-                  </span>
-                </label>
-                <TimeRangePicker
-                  required={true}
-                  className="h-12 bg-black bg-opacity-5 w-full rounded-md"
-                  onChange={onChange}
-                  value={value}
-                />
+                <label className="block font-bold mb-4">Class Time</label>
+                {teachingShift && teachingShift === "Day" ? (
+                  <select
+                    required
+                    {...register("classTime")}
+                    className="w-full px-3 py-2 border rounded focus:outline-none"
+                  >
+                    <option defaultValue={true}>Select Class Time</option>
+                    <option value="12:25pm - 01:05pm">12:25pm - 01:05pm</option>
+                    <option value="01:05pm - 01:45pm">01:05pm - 01:45pm</option>
+                    <option value="01:45pm - 02:25pm">01:45pm - 02:25pm</option>
+                    <option value="02:25pm - 03:05pm">02:25pm - 03:05pm</option>
+                    <option value="03:05pm - 03:40pm">03:05pm - 03:40pm</option>
+                    <option value="03:40pm - 04:15pm">03:40pm - 04:15pm</option>
+                    <option value="04:15pm - 04:50pm">04:15pm - 04:50pm</option>
+                  </select>
+                ) : (
+                  <input
+                    className="w-full px-3 py-2 border rounded focus:outline-none"
+                    disabled
+                    type="text"
+                    placeholder="Please select shift first"
+                  />
+                )}
               </div>
             </div>
             {/* 5th row */}
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 mt-6">
               <input
                 className="uppercase px-10 py-3 text-white  text-xl font-bold  bg-[#FFBE15] rounded-md hover:bg-[#042954] cursor-pointer"
                 type="submit"
@@ -321,7 +293,7 @@ const AddNewClassSchedule = () => {
                 className="uppercase px-10 py-3 text-white  text-xl font-bold  bg-[#042954] hover:bg-[#FFBE15] rounded-md cursor-pointer"
                 type="reset"
                 value="Reset"
-                onClick={(e) => e.target.reset()}
+                onClick={() => formRef.current.reset()}
               />
             </div>
           </form>

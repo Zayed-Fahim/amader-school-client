@@ -59,7 +59,7 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
     },
     {
       title: "Results",
-      path: "/dashboard/teacher/attendance",
+      path: "/dashboard/teacher/results",
       icon: <GoGraph size={!isOpen ? 30 : 25} />,
     },
     {

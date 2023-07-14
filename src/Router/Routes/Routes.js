@@ -26,6 +26,8 @@ import ExamSchedule from "../../Pages/Dashboard/Home/Admin/AttendanceFolder/Exam
 import ExamGrades from "../../Pages/Dashboard/Home/Admin/AttendanceFolder/ExamFolder/ExamGrades/ExamGrades";
 import NoticeBoard from "../../Pages/Dashboard/Home/Admin/NoticeFolder/NoticeBoard/NoticeBoard";
 import AdvisedStudents from "../../Pages/Dashboard/Home/Teacher/StudentFolder/AdvisedStudents/AdvisedStudents";
+import ClassScheduleViewTable from "../../Pages/Dashboard/Home/Teacher/ClassScheduleFolder/ClassScheduleViewTable";
+import AttendanceViewTable from "../../Pages/Dashboard/Home/Teacher/AttendanceFolder/AttendanceViewTable";
 
 const Routes = () => {
   const router = createBrowserRouter([
@@ -164,6 +166,14 @@ const Routes = () => {
         {
           path: `/dashboard/teacher/students/admission-form`,
           element: <AdmissionForm />,
+        },
+        {
+          path: `/dashboard/teacher/class-schedule`,
+          element: <ClassScheduleViewTable />,
+        },
+        {
+          path: `/dashboard/teacher/attendance`,
+          element: <AttendanceViewTable />,
         },
       ],
     },

@@ -1,6 +1,6 @@
 import React from "react";
 import { FaBars, FaSchool } from "react-icons/fa";
-import { MdEmojiTransportation, MdSubject } from "react-icons/md";
+import {  MdSubject } from "react-icons/md";
 import { SiGoogleclassroom } from "react-icons/si";
 import { GoGraph } from "react-icons/go";
 import { HiOutlineBellAlert } from "react-icons/hi2";
@@ -132,30 +132,13 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
       ],
     },
     {
-      title: "Transport Schedule",
-      icon: <MdEmojiTransportation size={!isOpen ? 30 : 25} />,
-      isArrowOpen: <IoIosArrowForward size={25} />,
-      subMenus: [
-        {
-          title: "Morning Shift",
-          path: "/dashboard/admin/transport-schedule/morning-shift",
-          icon: <IoIosArrowForward size={20} />,
-        },
-        {
-          title: "Day Shift",
-          path: "/dashboard/admin/transport-schedule/day-shift",
-          icon: <IoIosArrowForward size={20} />,
-        },
-      ],
-    },
-    {
       title: "Notices",
       path: "/dashboard/admin/notice-board",
       icon: <HiOutlineBellAlert size={!isOpen ? 30 : 25} />,
     },
     {
-      title: "Account Setting",
-      path: "/dashboard/admin/user-account-setting",
+      title: "Update Profile",
+      path: "/dashboard/admin/update-profile",
       icon: <GrUserSettings size={!isOpen ? 30 : 25} />,
     },
   ];
@@ -210,13 +193,13 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
               )}
             </Link>
           ) : null}
-          <Link to="">
+          
             <FaBars
               className="text-white hidden xl:block cursor-pointer"
               size={isOpen ? 27 : 30}
               onClick={toggle}
             />
-          </Link>
+          
         </motion.div>
         <section className="overflow-y-auto overflow-x-hidden relative top-[60px]">
           {adminSideBarOptions.map((option, i) => {
@@ -297,13 +280,13 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
                 )}
               </Link>
             ) : null}
-            <Link to="">
+            
               <FaBars
                 className="text-white"
                 size={isOpen ? 27 : 30}
                 onClick={toggle}
               />
-            </Link>
+            
           </motion.div>
           <section className="overflow-y-auto overflow-x-hidden relative lg:top-[60px] hidden xl:hidden lg:block">
             {adminSideBarOptions.map((option, i) => {

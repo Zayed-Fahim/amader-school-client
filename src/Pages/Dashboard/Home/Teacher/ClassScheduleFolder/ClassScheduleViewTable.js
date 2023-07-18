@@ -73,7 +73,7 @@ const ClassScheduleViewTable = () => {
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
         <ul>
           <li className="hover:text-[#FFBE15] ">
-            <Link to={`/dashboard/admin`}>Dashboard</Link>
+            <Link to={`/dashboard/teacher`}>Dashboard</Link>
           </li>
 
           <li className="text-[#FFBE15]">Class Schedule</li>

@@ -1,17 +1,12 @@
 import React from "react";
 import { FaBars, FaSchool } from "react-icons/fa";
-import {
-  MdEmojiTransportation,
-  MdSubject,
-} from "react-icons/md";
-import { TiMessages } from "react-icons/ti";
+import { CgTranscript } from "react-icons/cg";
 import { GoGraph } from "react-icons/go";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import { GrUserSettings } from "react-icons/gr";
 import { AnimatePresence, motion, spring } from "framer-motion";
 import { IoIosArrowForward } from "react-icons/io";
 import { AiFillDashboard, AiOutlineSchedule } from "react-icons/ai";
-
 import { Link, NavLink } from "react-router-dom";
 import "./DashboardSidebar.css";
 import icon from "../../../Assets/dashboard-icon/dashboard.png";
@@ -31,11 +26,6 @@ const StudentSidebar = ({ isOpen, setIsOpen }) => {
           icon: <IoIosArrowForward size={20} />,
         },
       ],
-    },
-    {
-      title: "Subject",
-      path: "/dashboard/student/subjects",
-      icon: <MdSubject size={!isOpen ? 30 : 25} />,
     },
     {
       title: "Class Routine",
@@ -58,31 +48,21 @@ const StudentSidebar = ({ isOpen, setIsOpen }) => {
           path: "/dashboard/student/exam-schedule",
           icon: <IoIosArrowForward size={20} />,
         },
-        {
-          title: "Exam Grades",
-          path: "/dashboard/student/exam-grades",
-          icon: <IoIosArrowForward size={20} />,
-        },
       ],
     },
     {
-      title: "Transport",
-      path: "/dashboard/student/transport-schedule",
-      icon: <MdEmojiTransportation size={!isOpen ? 30 : 25} />,
+      title: "Result",
+      path: "/dashboard/student/result",
+      icon: <CgTranscript size={!isOpen ? 30 : 25} />,
     },
     {
-      title: "Notices",
-      path: "/dashboard/student/notice-board",
+      title: "Events",
+      path: "/dashboard/student/events",
       icon: <HiOutlineBellAlert size={!isOpen ? 30 : 25} />,
     },
     {
-      title: "Messages",
-      path: "/dashboard/student/messaging",
-      icon: <TiMessages size={!isOpen ? 30 : 25} />,
-    },
-    {
-      title: "Account Setting",
-      path: "/dashboard/student/user-account-setting",
+      title: "Update Profile",
+      path: "/dashboard/student/user-update-profile",
       icon: <GrUserSettings size={!isOpen ? 30 : 25} />,
     },
   ];
@@ -127,7 +107,7 @@ const StudentSidebar = ({ isOpen, setIsOpen }) => {
           className="xl:h-[60px] hidden z-[100] xl:fixed xl:top-0  xl:bg-[#042954] xl:flex items-center justify-around"
         >
           {isOpen ? (
-            <Link to="/dashboard">
+            <Link to="/dashboard/student">
               {isOpen && (
                 <img
                   className="w-[220px] pt-[11px]"
@@ -137,13 +117,13 @@ const StudentSidebar = ({ isOpen, setIsOpen }) => {
               )}
             </Link>
           ) : null}
-          <Link>
+          
             <FaBars
               className="text-white hidden xl:block cursor-pointer"
               size={isOpen ? 27 : 30}
               onClick={toggle}
             />
-          </Link>
+          
         </motion.div>
         <section className="overflow-y-auto overflow-x-hidden relative top-[60px]">
           {studentSidebarOptions.map((option, i) => {
@@ -214,7 +194,7 @@ const StudentSidebar = ({ isOpen, setIsOpen }) => {
             className="py-3 lg:h-[60px] z-[100] lg:fixed lg:top-0 xl:hidden md:hidden hidden  lg:bg-[#042954] lg:flex items-center justify-around"
           >
             {isOpen ? (
-              <Link to="/dashboard">
+              <Link to="/dashboard/student">
                 {isOpen && (
                   <img
                     className="w-[220px] pt-[11px]"
@@ -224,13 +204,13 @@ const StudentSidebar = ({ isOpen, setIsOpen }) => {
                 )}
               </Link>
             ) : null}
-            <Link>
+            
               <FaBars
                 className="text-white"
                 size={isOpen ? 27 : 30}
                 onClick={toggle}
               />
-            </Link>
+            
           </motion.div>
           <section className="overflow-y-auto overflow-x-hidden relative lg:top-[60px] hidden xl:hidden lg:block">
             {studentSidebarOptions.map((option, i) => {

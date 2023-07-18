@@ -9,6 +9,7 @@ const Profile = () => {
   const handleLogOut = () => {
     localStorage.removeItem("token");
     navigate("/select-role");
+    window.location.reload();
   };
 
   return (

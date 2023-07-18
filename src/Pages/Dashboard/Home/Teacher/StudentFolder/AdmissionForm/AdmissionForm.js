@@ -75,10 +75,10 @@ const AdmissionForm = () => {
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
         <ul>
           <li className="hover:text-[#FFBE15] ">
-            <Link to={`/dashboard/admin`}>Dashboard</Link>
+            <Link to={`/dashboard/teacher`}>Dashboard</Link>
           </li>
-          <li>Student</li>
-          <li className="text-[#FFBE15]">Add New Student</li>
+          <li>Students</li>
+          <li className="text-[#FFBE15]">Add Student</li>
         </ul>
       </div>
 

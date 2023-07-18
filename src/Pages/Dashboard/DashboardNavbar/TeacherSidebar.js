@@ -45,6 +45,16 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
             path: "/dashboard/teacher/students/admission-form",
             icon: <IoIosArrowForward size={20} />,
           },
+          {
+            title: "Attendance",
+            path: "/dashboard/teacher/students/student-attendance",
+            icon: <IoIosArrowForward size={20} />,
+          },
+          {
+            title: "View Attendance",
+            path: "/dashboard/teacher/students/view-attendance",
+            icon: <IoIosArrowForward size={20} />,
+          },
         ],
       },
     {
@@ -61,28 +71,19 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
       title: "Results",
       path: "/dashboard/teacher/results",
       icon: <GoGraph size={!isOpen ? 30 : 25} />,
-    },
-    {
-      title: "Exams",
-      icon: <FaSchool size={!isOpen ? 30 : 25} />,
       isArrowOpen: <IoIosArrowForward size={25} />,
       subMenus: [
         {
-          title: "Exam Schedule",
-          path: "/dashboard/teacher/exam-schedule",
+          title: "Add Result",
+          path: "/dashboard/teacher/results/add-result",
           icon: <IoIosArrowForward size={20} />,
         },
         {
-          title: "Exam Grades",
-          path: "/dashboard/teacher/exam-grades",
+          title: "Show Results",
+          path: "/dashboard/teacher/results/view-result",
           icon: <IoIosArrowForward size={20} />,
         },
       ],
-    },
-    {
-      title: "Transport",
-      path: "/dashboard/teacher/transport-schedule",
-      icon: <MdEmojiTransportation size={!isOpen ? 30 : 25} />,
     },
     {
       title: "Notices",
@@ -90,8 +91,8 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
       icon: <HiOutlineBellAlert size={!isOpen ? 30 : 25} />,
     },
     {
-      title: "Account Setting",
-      path: "/dashboard/teacher/user-account-setting",
+      title: "Update Profile",
+      path: "/dashboard/teacher/update-profile",
       icon: <GrUserSettings size={!isOpen ? 30 : 25} />,
     },
   ];
@@ -136,7 +137,7 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
           className="xl:h-[60px] hidden z-[100] xl:fixed xl:top-0  xl:bg-[#042954] xl:flex items-center justify-around"
         >
           {isOpen ? (
-            <Link to="/dashboard">
+            <Link to="/dashboard/teacher">
               {isOpen && (
                 <img
                   className="w-[220px] pt-[11px]"
@@ -146,13 +147,13 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
               )}
             </Link>
           ) : null}
-          <Link>
+          
             <FaBars
               className="text-white hidden xl:block cursor-pointer"
               size={isOpen ? 27 : 30}
               onClick={toggle}
             />
-          </Link>
+          
         </motion.div>
         <section className="overflow-y-auto overflow-x-hidden relative top-[60px]">
           {teacherSideBarOptions.map((option, i) => {
@@ -223,7 +224,7 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
             className="py-3 lg:h-[60px] z-[100] lg:fixed lg:top-0 xl:hidden md:hidden hidden  lg:bg-[#042954] lg:flex items-center justify-around"
           >
             {isOpen ? (
-              <Link to="/dashboard">
+              <Link to="/dashboard/teacher">
                 {isOpen && (
                   <img
                     className="w-[220px] pt-[11px]"
@@ -233,13 +234,13 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
                 )}
               </Link>
             ) : null}
-            <Link>
+            
               <FaBars
                 className="text-white"
                 size={isOpen ? 27 : 30}
                 onClick={toggle}
               />
-            </Link>
+            
           </motion.div>
           <section className="overflow-y-auto overflow-x-hidden relative lg:top-[60px] hidden xl:hidden lg:block">
             {teacherSideBarOptions.map((option, i) => {

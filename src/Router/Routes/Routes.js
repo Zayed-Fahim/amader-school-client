@@ -28,6 +28,19 @@ import NoticeBoard from "../../Pages/Dashboard/Home/Admin/NoticeFolder/NoticeBoa
 import AdvisedStudents from "../../Pages/Dashboard/Home/Teacher/StudentFolder/AdvisedStudents/AdvisedStudents";
 import ClassScheduleViewTable from "../../Pages/Dashboard/Home/Teacher/ClassScheduleFolder/ClassScheduleViewTable";
 import AttendanceViewTable from "../../Pages/Dashboard/Home/Teacher/AttendanceFolder/AttendanceViewTable";
+import StudentAttendance from "../../Pages/Dashboard/Home/Teacher/StudentFolder/StudentAttendance/StudentAttendance";
+import StudentAttendanceViewTable from "../../Pages/Dashboard/Home/Teacher/StudentFolder/StudentAttendanceViewTable/StudentAttendanceViewTable";
+import AddStudentResult from "../../Pages/Dashboard/Home/Teacher/ResultFolder/AddStudentResult/AddStudentResult";
+import ShowAllStudentResult from "../../Pages/Dashboard/Home/Teacher/ResultFolder/ShowAllStudentResult/ShowAllStudentResult";
+import TeacherNoticeBoard from "../../Pages/Dashboard/Home/Teacher/NoticeBoard/TeacherNoticeBoard";
+import ClassRoutine from "../../Pages/Dashboard/Home/Student/ClassRoutineFolder/ClassRoutine";
+import MyAttendance from "../../Pages/Dashboard/Home/Student/AttendanceFolder/MyAttendance/MyAttendance";
+import StudentExamSchedule from "../../Pages/Dashboard/Home/Student/ExamsFolder/StudentExamSchedule/StudentExamSchedule";
+import ResultTable from "../../Pages/Dashboard/Home/Student/ResultFolder/ResultTable";
+import StudentEvents from "../../Pages/Dashboard/Home/Student/EventsFolder/StudentEvents";
+import StudentUpdateProfilePage from "../../Pages/Dashboard/Home/Student/AccountSettingFolder/StudentUpdateProfilePage";
+import TeacherUpdateProfile from "../../Pages/Dashboard/Home/Teacher/UpdateProfileFolder/TeacherUpdateProfile";
+import AdminUpdateProfile from "../../Pages/Dashboard/Home/Admin/UpdateProfileFolder/AdminUpdateprofile";
 
 const Routes = () => {
   const router = createBrowserRouter([
@@ -140,6 +153,10 @@ const Routes = () => {
           path: "/dashboard/admin/notice-board",
           element: <NoticeBoard />,
         },
+        {
+          path: "/dashboard/admin/update-profile",
+          element:<AdminUpdateProfile/>
+        },
       ],
     },
 
@@ -168,12 +185,36 @@ const Routes = () => {
           element: <AdmissionForm />,
         },
         {
+          path: `/dashboard/teacher/students/student-attendance`,
+          element: <StudentAttendance />,
+        },
+        {
+          path: `/dashboard/teacher/students/view-attendance`,
+          element: <StudentAttendanceViewTable />,
+        },
+        {
           path: `/dashboard/teacher/class-schedule`,
           element: <ClassScheduleViewTable />,
         },
         {
           path: `/dashboard/teacher/attendance`,
           element: <AttendanceViewTable />,
+        },
+        {
+          path: "/dashboard/teacher/results/add-result",
+          element: <AddStudentResult />,
+        },
+        {
+          path: "/dashboard/teacher/results/view-result",
+          element: <ShowAllStudentResult />,
+        },
+        {
+          path: "/dashboard/teacher/notice-board",
+          element: <TeacherNoticeBoard />,
+        },
+        {
+          path: "/dashboard/teacher/update-profile",
+          element: <TeacherUpdateProfile />,
         },
       ],
     },
@@ -193,6 +234,30 @@ const Routes = () => {
               <DashboardHome />
             </PrivateRoute>
           ),
+        },
+        {
+          path: "/dashboard/student/class-routine",
+          element: <ClassRoutine />,
+        },
+        {
+          path: "/dashboard/student/attendance",
+          element: <MyAttendance />,
+        },
+        {
+          path: "/dashboard/student/exam-schedule",
+          element: <StudentExamSchedule />,
+        },
+        {
+          path: "/dashboard/student/result",
+          element: <ResultTable />,
+        },
+        {
+          path: "/dashboard/student/events",
+          element: <StudentEvents />,
+        },
+        {
+          path: "/dashboard/student/user-update-profile",
+          element: <StudentUpdateProfilePage />,
         },
       ],
     },

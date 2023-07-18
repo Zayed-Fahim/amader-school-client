@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
 import axios from "axios";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
-import { toast } from "react-hot-toast";
 import icon from "../../../../../../Assets/dashboard-icon/dashboard.png";
 
-const TeacherAttendance = () => {
+const StudentAttendance = () => {
   const { handleSubmit } = useForm();
   const { admin } = useContext(AuthContext);
   const [teachers, setTeachers] = useState([]);
@@ -84,7 +84,6 @@ const TeacherAttendance = () => {
       toast.error("Failed to fetch teachers.");
     }
   };
-
   return (
     <div className="2xl:w-[79.3%] relative top-24 2xl:left-[360px]">
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
@@ -92,8 +91,7 @@ const TeacherAttendance = () => {
           <li className="hover:text-[#FFBE15] ">
             <Link to={`/dashboard/teacher`}>Dashboard</Link>
           </li>
-          <li>Attendance</li>
-          <li className="text-[#FFBE15]">Teacher Attendance</li>
+          <li className="text-[#FFBE15]">Student Attendance</li>
         </ul>
       </div>
       <div className="bg-white px-8 py-10">
@@ -102,7 +100,7 @@ const TeacherAttendance = () => {
           onSubmit={handleSubmit(handleSaveAttendance)}
           ref={formRef}
         >
-          <h1 className="text-2xl font-bold mb-8">Teacher Attendance</h1>
+          <h1 className="text-2xl font-bold mb-8">Student Attendance</h1>
           <div className="flex items-center mb-4">
             <label className="mr-2">Date:</label>
             <input
@@ -178,4 +176,4 @@ const TeacherAttendance = () => {
   );
 };
 
-export default TeacherAttendance;
+export default StudentAttendance;

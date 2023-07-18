@@ -15,59 +15,46 @@ const Student = () => {
           <li className="hover:text-[#FFBE15] ">
             <Link to={`/dashboard/student`}>Dashboard</Link>
           </li>
-          <li>Student</li>
+          <li className="text-[#FFBE15]">Student</li>
         </ul>
       </div>
       <div className="flex gap-5">
         <div className="flex flex-col xl:gap-5">
           <Link
-            to="/dashboard/admin/students/student-information"
-            className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white -md-md hover:bg-[#FFBE15] hover:bg-opacity-80 hover:text-white hover:font-bold"
-          >
-            <MdNotificationsActive className="h-[80px] w-[80px]" />
-            <div>
-              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[18px] font-semibold">
-                Notifications
-              </h1>
-              <h1 className="xl:text-2xl xl:font-semibold text-center">15</h1>
-            </div>
-          </Link>
-          <Link
-            to="/dashboard/admin/teachers/teacher-information"
+            to="/dashboard/student/events"
             className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80 hover:text-white hover:font-bold"
           >
             <BsCalendar2Event className="h-[80px] w-[80px]" />
             <div>
-              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[18px] font-semibold">
+              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[20px] font-semibold">
                 Events
               </h1>
               <h1 className="xl:text-2xl xl:font-semibold text-center">2</h1>
             </div>
           </Link>
-        </div>
-
-        <div className="flex flex-col xl:gap-5">
           <Link
-            to="/dashboard/admin/students/student-information"
-            className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white -md-md hover:bg-[#FFBE15] hover:bg-opacity-80 hover:text-white hover:font-bold"
-          >
-            <FaPercent className="h-[60px] w-[60px]" />
-            <div>
-              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[18px] font-semibold">
-                Attendance
-              </h1>
-              <h1 className="xl:text-2xl xl:font-semibold text-center">57%</h1>
-            </div>
-          </Link>
-          <Link
-            to="/dashboard/admin/teachers/teacher-information"
+            to="/dashboard/student/result"
             className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80 hover:text-white hover:font-bold"
           >
             <BiSolidReport className="h-[80px] w-[80px]" />
             <div>
-              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[18px] font-semibold">
+              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[20px] font-semibold">
                 Results
               </h1>
+            </div>
+          </Link>
+        </div>
+        <div className="flex flex-col xl:gap-5">
+          <Link
+            to="/dashboard/student/attendance"
+            className="xl:h-[320px] xl:w-[320px] rounded-md flex flex-col items-center px-4 justify-evenly bg-white -md-md hover:bg-[#FFBE15] hover:bg-opacity-80 hover:text-white hover:font-bold"
+          >
+            <FaPercent className="h-[60px] w-[60px]" />
+            <div>
+              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[20px] font-semibold">
+                Attendance
+              </h1>
+              <h1 className="xl:text-2xl xl:font-semibold text-center">57%</h1>
             </div>
           </Link>
         </div>

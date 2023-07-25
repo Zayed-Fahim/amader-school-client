@@ -30,6 +30,15 @@ const AdminUpdateProfile = () => {
 
   const handleCancelEdit = () => {
     setIsEditMode(false);
+    setTimeout(() => {
+      setValue("fullName", admin?.fullName);
+      setValue("userName", admin?.userName);
+      setValue("id", admin?.id);
+      setValue("email", admin?.email);
+      setValue("phoneNumber", admin?.phoneNumber);
+      setValue("schoolTag", admin?.schoolTag);
+      setValue("photo", admin?.photo);
+    }, 1000);
   };
 
   const onSubmit = (data) => {};
@@ -130,7 +139,7 @@ const AdminUpdateProfile = () => {
               </label>
               <input
                 id="schoolTag"
-                className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-smbg-gray-100"
+                className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
                 {...register("schoolTag", { required: true })}
                 readOnly
               />

@@ -39,7 +39,7 @@ const UserCard = () => {
             group: data.group,
           };
 
-          fetch("http://localhost:8080/students-details", {
+          fetch("https://amader-school-server-v1.vercel.app/students-details", {
             method: "POST",
             headers: {
               "Content-type": "application/json",
@@ -47,9 +47,7 @@ const UserCard = () => {
             body: JSON.stringify(studentDetails),
           })
             .then((res) => res.json())
-            .then((data) => {
-              
-            });
+            .then((data) => {});
         }
       });
   };

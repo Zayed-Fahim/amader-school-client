@@ -12,7 +12,7 @@ const AdminLogin = () => {
 
   const handleLogin = (data) => {
     axios
-      .post("http://localhost:8080/api/v1/admin-login", {
+      .post("https://amader-school-server-v1.vercel.app/api/v1/admin-login", {
         email: data.email,
         password: data.password,
       })

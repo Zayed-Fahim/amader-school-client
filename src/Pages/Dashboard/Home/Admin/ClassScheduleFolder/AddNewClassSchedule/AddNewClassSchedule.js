@@ -19,7 +19,7 @@ const AddNewClassSchedule = () => {
   const addClassScheduleMutation = useMutation(
     (classScheduleInfo) =>
       axios.post(
-        "http://localhost:8080/api/v1/class-schedules",
+        "https://amader-school-server-v1.vercel.app/api/v1/class-schedules",
         classScheduleInfo,
         {
           headers: {

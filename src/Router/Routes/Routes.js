@@ -40,7 +40,7 @@ import ResultTable from "../../Pages/Dashboard/Home/Student/ResultFolder/ResultT
 import StudentEvents from "../../Pages/Dashboard/Home/Student/EventsFolder/StudentEvents";
 import StudentUpdateProfilePage from "../../Pages/Dashboard/Home/Student/AccountSettingFolder/StudentUpdateProfilePage";
 import TeacherUpdateProfile from "../../Pages/Dashboard/Home/Teacher/UpdateProfileFolder/TeacherUpdateProfile";
-import AdminUpdateProfile from "../../Pages/Dashboard/Home/Admin/UpdateProfileFolder/AdminUpdateprofile";
+import AdminUpdateProfile from "../../Pages/Dashboard/Home/Admin/UpdateProfileFolder/AdminUpdateProfile";
 
 const Routes = () => {
   const router = createBrowserRouter([

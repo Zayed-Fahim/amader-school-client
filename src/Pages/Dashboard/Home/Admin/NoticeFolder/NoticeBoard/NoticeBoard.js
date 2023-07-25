@@ -12,7 +12,7 @@ const NoticeBoard = () => {
           <li className="hover:text-[#FFBE15]">
             <Link to="/dashboard/admin">Dashboard</Link>
           </li>
-          <li>Notice Board</li>
+          <li className="text-[#FFBE15]">View Notice</li>
         </ul>
       </div>
       <div className="flex 2xl:gap-5 ">

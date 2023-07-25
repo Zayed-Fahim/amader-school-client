@@ -55,12 +55,15 @@ const StudentAttendance = () => {
         teacherShift: teacher.shift,
       }));
 
-      await axios.post("http://localhost:8080/api/v1/teacher-attendance", {
-        date: selectedDate,
-        shift: selectedShift,
-        teachersAttendances,
-        admin: { id: admin._id },
-      });
+      await axios.post(
+        "https://amader-school-server-v1.vercel.app/api/v1/teacher-attendance",
+        {
+          date: selectedDate,
+          shift: selectedShift,
+          teachersAttendances,
+          admin: { id: admin._id },
+        }
+      );
 
       toast.success("Attendance Successful!!");
       setSelectedDate("");
@@ -76,7 +79,7 @@ const StudentAttendance = () => {
   const handleTeacherSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/teacher-attendance/admins/${admin._id}/teachers?shift=${selectedShift}`
+        `https://amader-school-server-v1.vercel.app/api/v1/teacher-attendance/admins/${admin._id}/teachers?shift=${selectedShift}`
       );
       setTeachers(response.data.payload.teachers);
     } catch (error) {

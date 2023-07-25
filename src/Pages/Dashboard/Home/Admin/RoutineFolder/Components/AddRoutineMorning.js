@@ -24,11 +24,15 @@ const AddRoutineMorning = ({ refetch, assignedClass, setAssignedClass }) => {
 
     if (routineInfo) {
       axios
-        .post("http://localhost:8080/api/v1/add-routine", routineInfo, {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        })
+        .post(
+          "https://amader-school-server-v1.vercel.app/api/v1/add-routine",
+          routineInfo,
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        )
         .then((result) => {
           if (result.status === 200) {
             toast.success(`${result.data.message}`);

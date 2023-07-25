@@ -51,7 +51,10 @@ const AdmissionForm = () => {
             schoolAuthority: { id: teacher?.admin?.id },
           };
           axios
-            .post("http://localhost:8080/api/v1/students", studentDetails)
+            .post(
+              "https://amader-school-server-v1.vercel.app/api/v1/students",
+              studentDetails
+            )
             .then((response) => {
               if (response) {
                 toast.success("Admission Successful!");

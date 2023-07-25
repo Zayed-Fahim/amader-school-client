@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import icon from "../../../../../../../Assets/dashboard-icon/dashboard.png";
 import Pagination from "../../../../SmallComponents/Pagination/Pagination";
-import { BsSearch } from "react-icons/bs";
+import { BsPencil, BsSearch, BsTrash } from "react-icons/bs";
 
 const ExamGrades = () => {
   const gradesData = [
@@ -118,7 +118,7 @@ const ExamGrades = () => {
             <Link to={`/dashboard/admin`}>Dashboard</Link>
           </li>
           <li>Exams</li>
-          <li>Exam Grades</li>
+          <li className="text-[#FFBE15]">Exam Grades</li>
         </ul>
       </div>
       <div className=" bg-white px-8 min-h-[700px]">
@@ -192,14 +192,16 @@ const ExamGrades = () => {
                 <td className="px-4 py-2 border">{grade.examinedBy}</td>
                 <td className="px-4 py-2 border">{grade.issueDate}</td>
                 <td className="border px-4 py-2 ">
-                  <button className="btn bg-[#FFBE15] text-white hover:btn-primary mr-2">
-                    Edit
+                  <button className="hover:text-[#FFBE15] hover:scale-110 mr-4">
+                    <BsPencil title="Edit" />{" "}
+                    {/* Replace "Edit" text with the edit icon */}
                   </button>
                   <button
-                    className="btn btn-danger"
+                    className="hover:text-red-500 hover:scale-110"
                     onClick={() => handleDelete(grade.id)}
                   >
-                    Delete
+                    <BsTrash title="Delete" />
+                    {/* Replace "Delete" text with the delete icon */}
                   </button>
                 </td>
               </tr>

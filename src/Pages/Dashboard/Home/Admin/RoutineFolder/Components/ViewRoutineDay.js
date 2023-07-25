@@ -23,11 +23,15 @@ const ViewRoutineDay = () => {
     setMessage(searchInfo);
     if (searchInfo) {
       axios
-        .post("http://localhost:8080/api/v1/view-routine", searchInfo, {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        })
+        .post(
+          "https://amader-school-server-v1.vercel.app/api/v1/view-routine",
+          searchInfo,
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        )
         .then((result) => {
           return setRoutines(result.data.payload.result);
         })

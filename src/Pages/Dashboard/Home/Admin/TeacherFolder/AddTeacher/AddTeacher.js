@@ -19,11 +19,15 @@ const AddTeacher = () => {
   const queryClient = useQueryClient();
   const addTeacherMutation = useMutation(
     (teacherDetails) =>
-      axios.post("http://localhost:8080/api/v1/teachers", teacherDetails, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }),
+      axios.post(
+        "https://amader-school-server-v1.vercel.app/api/v1/teachers",
+        teacherDetails,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      ),
     {
       onSuccess: () => {
         toast.success("Successfully added the teacher!");

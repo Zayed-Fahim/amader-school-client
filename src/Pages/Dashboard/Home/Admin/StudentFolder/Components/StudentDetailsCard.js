@@ -44,7 +44,7 @@ const StudentDetailsCard = () => {
             group: data.group,
           };
 
-          fetch("http://localhost:8080/students-details", {
+          fetch("https://amader-school-server-v1.vercel.app/students-details", {
             method: "POST",
             headers: {
               "Content-type": "application/json",
@@ -52,9 +52,7 @@ const StudentDetailsCard = () => {
             body: JSON.stringify(studentDetails),
           })
             .then((res) => res.json())
-            .then((data) => {
-              
-            });
+            .then((data) => {});
         }
       });
   };
@@ -76,7 +74,10 @@ const StudentDetailsCard = () => {
       </div>
       {students?.map((student) => (
         <>
-          <div className="flex justify-between 2xl:gap-10 pt-5 px-5" key={student?.id}>
+          <div
+            className="flex justify-between 2xl:gap-10 pt-5 px-5"
+            key={student?.id}
+          >
             <div className="h-[270px] w-[270px] grid place-items-center bg-black bg-opacity-10 rounded-lg">
               <img
                 src={

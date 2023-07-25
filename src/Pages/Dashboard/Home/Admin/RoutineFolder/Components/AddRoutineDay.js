@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import SaveButton from "../../../../../SmallComponents/SaveButton";
 import ResetButton from "../../../../../SmallComponents/ResetButton";
 
-const AddRoutineDay = ({ refetch, assignedClass, setAssignedClass }) => {
+const AddRoutineDay = ({ assignedClass, setAssignedClass }) => {
   const { register, handleSubmit } = useForm();
   const [selectShift, setSelectShift] = useState(false);
 
@@ -24,15 +24,18 @@ const AddRoutineDay = ({ refetch, assignedClass, setAssignedClass }) => {
 
     if (routineInfo) {
       axios
-        .post("http://localhost:8080/api/v1/add-routine", routineInfo, {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        })
+        .post(
+          "https://amader-school-server-v1.vercel.app/api/v1/add-routine",
+          routineInfo,
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        )
         .then((result) => {
           if (result.status === 200) {
             toast.success(`${result.data.message}`);
-            refetch();
             event.target.reset();
           }
         })

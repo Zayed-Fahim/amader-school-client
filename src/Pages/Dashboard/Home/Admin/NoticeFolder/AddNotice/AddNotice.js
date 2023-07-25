@@ -13,7 +13,7 @@ const AddNotice = () => {
     setSelectedImages([...files]);
   };
   const handleCreateNotice = async (data) => {
-    // await axios.post("http://localhost:8080/api/v1/notices", {
+    // await axios.post("https://amader-school-server-v1.vercel.app/api/v1/notices", {
     //   title: data.title,
     //   description: data.description,
     //   images: selectedImages,
@@ -31,8 +31,9 @@ const AddNotice = () => {
         <div>
           <label className="block font-bold mb-1">Title</label>
           <input
+            required
             type="text"
-            className="w-full px-3 py-2 border rounded focus:outline-none bg-[#042954] bg-opacity-5"
+            className="w-full px-3 py-2 border rounded focus:outline-none"
             {...register("title")}
           />
         </div>
@@ -40,7 +41,8 @@ const AddNotice = () => {
         <div>
           <label className="block font-bold mb-1">Description</label>
           <textarea
-            className="w-full px-3 py-2 border rounded focus:outline-none bg-[#042954] bg-opacity-5"
+            required
+            className="w-full px-3 py-2 border rounded focus:outline-none"
             rows={4}
             {...register("description")}
           />
@@ -52,33 +54,41 @@ const AddNotice = () => {
             multiple
             placeholder="Can select multiple images"
             onChange={handleFileChange}
-            className="w-full px-3 py-2 border rounded focus:outline-none bg-[#042954] bg-opacity-5"
+            className="w-full px-3 py-2 border rounded focus:outline-none"
           />
         </div>
         <div>
           <label className="block font-bold mb-1">Posted By</label>
           <input
+            required
             type="text"
-            className="w-full px-3 py-2 border rounded focus:outline-none bg-[#042954] bg-opacity-5"
+            className="w-full px-3 py-2 border rounded focus:outline-none"
             {...register("postedBy")}
           />
         </div>
         <div>
           <label className="block font-bold mb-1">Posted Date</label>
           <input
+            required
             type="date"
-            className="w-full px-3 py-2 border rounded focus:outline-none bg-[#042954] bg-opacity-5"
+            className="w-full px-3 py-2 border rounded focus:outline-none"
             {...register("postedDate")}
           />
         </div>
 
-        <div className="text-center flex">
+        <div className="text-center flex gap-5">
+          <button
+            type="submit"
+            className="bg-[#FFBE15] hover:bg-[#042954] text-white font-bold py-2 px-4 rounded"
+          >
+            Add Notice
+          </button>
           <button
             onClick={() => formRef.current.reset()}
             type="submit"
-            className="bg-[#FFBE15] hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"
+            className="hover:bg-[#FFBE15] bg-[#042954] text-white font-bold py-2 px-4 rounded"
           >
-            Add Notice
+            Reset
           </button>
         </div>
       </form>

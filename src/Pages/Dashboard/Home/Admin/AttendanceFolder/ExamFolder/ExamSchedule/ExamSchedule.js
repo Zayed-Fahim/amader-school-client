@@ -42,7 +42,7 @@ const ExamSchedule = () => {
             <Link to={`/dashboard/admin`}>Dashboard</Link>
           </li>
           <li>Exams</li>
-          <li>Exams Schedule</li>
+          <li className="text-[#FFBE15]">Exams Schedule</li>
         </ul>
       </div>
       <div className="flex gap-5 ">
@@ -123,7 +123,7 @@ const ExamSchedule = () => {
 
             <button
               type="submit"
-              className="bg-[#FFBE15] hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              className="bg-[#FFBE15] hover:bg-[#042954] text-white font-bold py-2 px-4 rounded"
             >
               Create Exam
             </button>

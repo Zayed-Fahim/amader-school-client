@@ -20,11 +20,15 @@ const AddSubject = ({
   const queryClient = useQueryClient();
   const addSubjectMutation = useMutation(
     (subjectInfo) =>
-      axios.post("http://localhost:8080/api/v1/subjects", subjectInfo, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }),
+      axios.post(
+        "https://amader-school-server-v1.vercel.app/api/v1/subjects",
+        subjectInfo,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      ),
     {
       onSuccess: (data) => {
         window.location.reload(); // Reload the page

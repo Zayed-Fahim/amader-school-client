@@ -39,7 +39,7 @@ const UserCard = () => {
             group: data.group,
           };
 
-          fetch("https://amader-school-server-v1.vercel.app/students-details", {
+          fetch("https://v1-amader-school-server.vercel.app/students-details", {
             method: "POST",
             headers: {
               "Content-type": "application/json",

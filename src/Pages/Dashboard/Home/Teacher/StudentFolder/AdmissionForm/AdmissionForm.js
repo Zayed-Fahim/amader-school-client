@@ -52,7 +52,7 @@ const AdmissionForm = () => {
           };
           axios
             .post(
-              "https://amader-school-server-v1.vercel.app/api/v1/students",
+              "https://v1-amader-school-server.vercel.app/api/v1/students",
               studentDetails
             )
             .then((response) => {

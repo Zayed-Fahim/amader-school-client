@@ -13,7 +13,7 @@ const AddNotice = () => {
     setSelectedImages([...files]);
   };
   const handleCreateNotice = async (data) => {
-    // await axios.post("https://amader-school-server-v1.vercel.app/api/v1/notices", {
+    // await axios.post("https://v1-amader-school-server.vercel.app/api/v1/notices", {
     //   title: data.title,
     //   description: data.description,
     //   images: selectedImages,

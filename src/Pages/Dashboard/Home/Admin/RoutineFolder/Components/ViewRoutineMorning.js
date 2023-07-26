@@ -24,7 +24,7 @@ const ViewRoutineMorning = () => {
     if (searchInfo) {
       axios
         .post(
-          "https://amader-school-server-v1.vercel.app/api/v1/view-routine",
+          "https://v1-amader-school-server.vercel.app/api/v1/view-routine",
           searchInfo,
           {
             headers: {

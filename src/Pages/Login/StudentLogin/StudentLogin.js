@@ -14,7 +14,7 @@ const StudentLogin = () => {
     setIsLoading(true); // Set loading state to true
 
     axios
-      .post("https://amader-school-server-v1.vercel.app/api/v1/student-login", {
+      .post("https://v1-amader-school-server.vercel.app/api/v1/student-login", {
         id: data.studentID.toUpperCase(),
         password: data.password,
       })

@@ -36,7 +36,7 @@ const TeacherAttendanceViewTable = () => {
       setIsLoading(true);
 
       const response = await axios.get(
-        `https://amader-school-server-v1.vercel.app/api/v1/admins/${admin._id}/teachersAttendances?shift=${selectedShift}&date=${selectedDate}`
+        `https://v1-amader-school-server.vercel.app/api/v1/admins/${admin._id}/teachersAttendances?shift=${selectedShift}&date=${selectedDate}`
       );
       setAttendanceData(response.data.payload.attendanceData);
     } catch (error) {

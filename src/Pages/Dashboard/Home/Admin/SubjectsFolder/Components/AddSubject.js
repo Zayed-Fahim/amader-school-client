@@ -21,7 +21,7 @@ const AddSubject = ({
   const addSubjectMutation = useMutation(
     (subjectInfo) =>
       axios.post(
-        "https://amader-school-server-v1.vercel.app/api/v1/subjects",
+        "https://v1-amader-school-server.vercel.app/api/v1/subjects",
         subjectInfo,
         {
           headers: {

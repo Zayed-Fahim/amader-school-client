@@ -1,16 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { PiStudentThin } from "react-icons/pi";
 import { PiChalkboardTeacherThin } from "react-icons/pi";
 import StudentsChart from "../../Components/StudentsChart";
 import NoticeBoard from "../../Components/AdminNoticeBoard";
-import { AuthContext } from "../../../../../Contexts/AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";
 
 const Admin = () => {
-  const { students } = useContext(AuthContext);
-  let femaleStudents = students?.map((student) => student?.gender === "Female");
-  let maleStudents = students?.map((student) => student?.gender === "Male");
   return (
     <div className="relative 2xl:top-24 2xl:left-[360px]">
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
@@ -33,9 +29,6 @@ const Admin = () => {
               <h1 className="xl:grid xl:place-items-end xl:text-xl font-semibold">
                 Total Student
               </h1>
-              <h1 className="xl:text-2xl xl:font-semibold text-center">
-                {students?.length}
-              </h1>
             </div>
           </Link>
           <Link
@@ -47,13 +40,9 @@ const Admin = () => {
               <h1 className="xl:grid xl:place-items-end xl:text-xl font-semibold">
                 Total Teacher
               </h1>
-              <h1 className="xl:text-2xl xl:font-semibold text-center">
-                {students?.length}
-              </h1>
             </div>
           </Link>
         </div>
-
         <div className="xl:h-[660px] xl:w-[485px] bg-white rounded-md">
           <h1 className="xl:font-bold xl:text-2xl px-8 pt-8">
             Students Ratio Chart :
@@ -61,22 +50,16 @@ const Admin = () => {
           <StudentsChart />
           <div className="px-8 py-8 flex justify-between">
             <div>
-              <div className="h-[6px] w-[70px] bg-[#00C49F] rounded-xl"></div>
+              <div className="h-[6px] w-[70px] bg-[#00C49F] rounded-xl 2xl:mb-4"></div>
               <div>
-                <h1>Female Students</h1>
-                <h1 className="text-xl font-semibold">
-                  {femaleStudents?.length}
-                </h1>
+                <h1 className="text-center">Female</h1>
               </div>
             </div>
             <div className="divider lg:divider-horizontal xl:divider-horizontal"></div>
             <div>
-              <div className="h-[6px] w-[70px] bg-[#0088FE] rounded-xl"></div>
+              <div className="h-[6px] w-[70px] bg-[#0088FE] rounded-xl 2xl:mb-4"></div>
               <div>
-                <h1>Male Students</h1>
-                <h1 className="text-xl font-semibold">
-                  {maleStudents?.length}
-                </h1>
+                <h1 className="text-center">Male</h1>
               </div>
             </div>
           </div>
@@ -89,8 +72,7 @@ const Admin = () => {
           <NoticeBoard />
         </div>
       </div>
-
-      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px] mt-7">
+      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px] mb-20 mt-7">
         <h1 className="xl:text-[18px] font-semibold text-black">
           Copyright © 2023 - All right reserved by
         </h1>

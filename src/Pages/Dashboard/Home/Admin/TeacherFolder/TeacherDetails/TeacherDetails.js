@@ -16,7 +16,7 @@ const TeacherDetails = () => {
           <li className="text-[#FFBE15]">Teacher Information</li>
         </ul>
       </div>
-      <div className="flex gap-5 h-[900px]">
+      <div className="flex gap-5 h-[915px]">
         <div className="bg-white w-[700px]">
           <TeacherDetailsCard />
         </div>

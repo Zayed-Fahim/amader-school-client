@@ -7,11 +7,10 @@ import { BsSearch } from "react-icons/bs";
 import icon from "../../../../../../Assets/dashboard-icon/dashboard.png";
 
 const EveryClassSchedule = () => {
-  const { classSchedules } = useContext(AuthContext);
-  let data = 10;
+  const { admin } = useContext(AuthContext);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(10);
-  const pages = Math.ceil(data / count);
+  const pages = Math.ceil(admin?.classSchedules?.length / count);
 
   return (
     <div className="overflow-y-hidden overflow-x-hidden min-h-screen relative 2xl:top-24 2xl:left-[360px] z-[1] 2xl:w-[79.3%]">
@@ -107,18 +106,6 @@ const EveryClassSchedule = () => {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th scope="col" className="py-3 pl-4">
-                        <div className="flex items-center h-5">
-                          <input
-                            id="checkbox-all"
-                            type="checkbox"
-                            className="text-blue-600 border-gray-200 rounded focus:ring-blue-500"
-                          />
-                          <label htmlFor="checkbox" className="sr-only">
-                            Checkbox
-                          </label>
-                        </div>
-                      </th>
                       <th
                         scope="col"
                         className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
@@ -196,19 +183,8 @@ const EveryClassSchedule = () => {
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {/* row 1 */}
-                    {classSchedules?.map((classSchedule) => (
+                    {admin?.classSchedules?.map((classSchedule) => (
                       <tr>
-                        <td className="py-3 pl-4">
-                          <div className="flex items-center h-5">
-                            <input
-                              type="checkbox"
-                              className="text-blue-600 border-gray-200 rounded focus:ring-blue-500"
-                            />
-                            <label htmlFor="checkbox" className="sr-only">
-                              Checkbox
-                            </label>
-                          </div>
-                        </td>
                         <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
                           {classSchedule?.teacherID}
                         </td>
@@ -244,8 +220,7 @@ const EveryClassSchedule = () => {
                           {classSchedule?.dateOfClass}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                          {classSchedule?.classTime[0]} -{" "}
-                          {classSchedule?.classTime[1]}
+                          {classSchedule?.classTime}
                         </td>
                       </tr>
                     ))}

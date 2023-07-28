@@ -4,10 +4,13 @@ import { useForm } from "react-hook-form";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";
 import { BiEdit } from "react-icons/bi";
 import { AuthContext } from "../../../../../Contexts/AuthProvider/AuthProvider";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const AdminUpdateProfile = () => {
   const { admin } = useContext(AuthContext);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [image, setImage] = useState(null);
   const { register, handleSubmit, setValue } = useForm();
 
   // Fetch user profile data from an API or data source
@@ -31,17 +34,45 @@ const AdminUpdateProfile = () => {
   const handleCancelEdit = () => {
     setIsEditMode(false);
     setTimeout(() => {
-      setValue("fullName", admin?.fullName);
-      setValue("userName", admin?.userName);
-      setValue("id", admin?.id);
-      setValue("email", admin?.email);
-      setValue("phoneNumber", admin?.phoneNumber);
-      setValue("schoolTag", admin?.schoolTag);
       setValue("photo", admin?.photo);
-    }, 1000);
+    }, 10);
   };
 
-  const onSubmit = (data) => {};
+  const onSubmit = async (data, event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("image", image);
+    const imgBbUrl = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMGBB_key}`;
+    try {
+      const res = await fetch(imgBbUrl, {
+        method: "POST",
+        body: formData,
+      });
+      const imgData = await res.json();
+
+      try {
+        // Send the updated data to the backend
+        const updatedData = await axios.patch(
+          "https://v1-amader-school-server.vercel.app/api/v1/update-profile/update-admin-info",
+          {
+            fullName: data.fullName,
+            userName: data.userName,
+            photo: imgData?.data?.url,
+            id: admin._id,
+          }
+        );
+        if (updatedData) {
+          setIsEditMode(false);
+          toast.success("Profile updated successfully!");
+          window.location.reload();
+        }
+      } catch (error) {
+        window.location.reload();
+      }
+    } catch (error) {
+      toast.error("Error uploading image. Please try again.");
+    }
+  };
 
   return (
     <div className="2xl:w-[79.3%] relative top-24 2xl:left-[360px]">
@@ -163,7 +194,7 @@ const AdminUpdateProfile = () => {
                 htmlFor="photo"
                 className="block text-sm font-medium text-gray-700"
               >
-                Photo
+                {isEditMode ? <p>Photo (Required)</p> : <p>Photo</p>}
               </label>
               <input
                 id="photo"
@@ -173,6 +204,7 @@ const AdminUpdateProfile = () => {
                 }`}
                 {...register("photo", { required: true })}
                 readOnly={!isEditMode}
+                onChange={(e) => setImage(e.target.files[0])}
               />
             </div>
           </div>

@@ -12,13 +12,13 @@ const NoticeBoard = () => {
           <li className="hover:text-[#FFBE15]">
             <Link to="/dashboard/admin">Dashboard</Link>
           </li>
-          <li className="text-[#FFBE15]">View Notice</li>
+          <li className="text-[#FFBE15]">Notices</li>
         </ul>
       </div>
       <div className="flex 2xl:gap-5 ">
         <AddNotice />
         <div className="flex flex-col bg-white px-8 rounded-lg h-[80vh] w-[900px]">
-          <h1 className="text-2xl font-bold px-8 py-10">Notice Board</h1>
+          <h1 className="text-2xl font-bold px-8 py-10">View Notice</h1>
           <ViewNotice />
         </div>
       </div>

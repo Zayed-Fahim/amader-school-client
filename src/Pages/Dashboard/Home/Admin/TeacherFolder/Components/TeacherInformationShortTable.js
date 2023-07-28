@@ -1,17 +1,15 @@
 import React, { useContext } from "react";
-import user from "../../../../../../Assets/icon/user.png";
 import { useState } from "react";
 import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
 import Pagination from "../../../SmallComponents/Pagination/Pagination";
 import { BsSearch } from "react-icons/bs";
 import { FcDeleteDatabase } from "react-icons/fc";
-import { BiEdit } from "react-icons/bi";
 
 const TeacherInformationShortTable = () => {
-  const { teachers } = useContext(AuthContext);
+  const { admin } = useContext(AuthContext);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(10);
-  const pages = Math.ceil(teachers?.length / count);
+  const pages = Math.ceil(admin?.teachers?.length / count);
 
   return (
     <div className="px-5 w-full h-[910px]">
@@ -91,7 +89,7 @@ const TeacherInformationShortTable = () => {
             </thead>
             <tbody className="divide-y divide-gray-200">
               {/* row 1 */}
-              {teachers?.map((teacher) => (
+              {admin?.teachers?.map((teacher) => (
                 <tr>
                   <td className="px-6 py-2 text-sm font-medium text-gray-800 whitespace-nowrap">
                     {teacher?.id}

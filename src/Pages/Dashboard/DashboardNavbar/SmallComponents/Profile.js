@@ -32,13 +32,17 @@ const Profile = () => {
         className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
       >
         <li className="hover-bordered">
-          <Link className="justify-between">
+          <Link
+            className="justify-between"
+            to={`/dashboard/${
+              (admin && admin.role?.toLowerCase()) ||
+              (teacher && teacher?.role?.toLowerCase()) ||
+              (student && student?.role?.toLowerCase())
+            }/update-profile`}
+          >
             Profile
-            <span className="badge">New</span>
+            <span className="badge badge-secondary">New</span>
           </Link>
-        </li>
-        <li className="hover-bordered">
-          <Link>Settings</Link>
         </li>
         <li className="hover-bordered">
           <button type="submit" onClick={handleLogOut}>

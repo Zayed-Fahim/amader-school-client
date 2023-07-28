@@ -17,7 +17,7 @@ const StudentDetails = () => {
         </ul>
       </div>
 
-      <div className="flex gap-5 h-[900px]">
+      <div className="flex gap-5 h-[950px]">
         <div className="bg-white w-[700px] ">
           <StudentDetailsCard />
         </div>

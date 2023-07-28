@@ -4,7 +4,6 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import icon from "../../../../../../Assets/dashboard-icon/dashboard.png";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
 
 const AddNewClassSchedule = () => {
@@ -13,54 +12,45 @@ const AddNewClassSchedule = () => {
   const [teachingShift, setTeachingShift] = useState();
   const { admin } = useContext(AuthContext);
   const formRef = useRef();
-  console.log(admin);
 
-  const queryClient = useQueryClient();
-  const addClassScheduleMutation = useMutation(
-    (classScheduleInfo) =>
-      axios.post(
+  const handleAddNewClassSchedule = async (data, event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
         "https://v1-amader-school-server.vercel.app/api/v1/class-schedules",
-        classScheduleInfo,
+        {
+          teacherName: data.teacherName,
+          teacherID: data.teacherId,
+          gender: data.gender,
+          teacherPhoneNumber: data.teacherPhoneNumber,
+          teacherEmail: data.teacherEmail,
+          teachingShift: data.teachingShift,
+          teachingClass: data.teachingClass,
+          teachingGroup: data.group,
+          teachingSection: data.teachingSection.toUpperCase(),
+          subjectName: data.subjectName,
+          dateOfClass: data.dateOfClass,
+          classTime: data.classTime,
+          admin: { id: admin?._id, schoolTag: admin?.schoolTag },
+        },
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
         }
-      ),
-    {
-      onSuccess: (result) => {
-        if (result.status === 200) {
-          toast.success(`${result.data.message}`);
-          formRef.current.reset();
-          queryClient.invalidateQueries("addClassSchedule");
-        }
-      },
-      onError: (error) => {
-        if (error.response.status === 409) {
-          toast.error(`${error.response.data.message}`);
-        }
-      },
-    }
-  );
+      );
 
-  const handleAddNewClassSchedule = (data, event) => {
-    event.preventDefault();
-    const classScheduleInfo = {
-      teacherName: data.teacherName,
-      teacherID: data.teacherId,
-      gender: data.gender,
-      teacherPhoneNumber: data.teacherPhoneNumber,
-      teacherEmail: data.teacherEmail,
-      teachingShift: data.teachingShift,
-      teachingClass: data.teachingClass,
-      teachingGroup: data.group,
-      teachingSection: data.teachingSection.toUpperCase(),
-      subjectName: data.subjectName,
-      dateOfClass: data.dateOfClass,
-      classTime: data.classTime,
-      admin: { id: admin._id },
-    };
-    addClassScheduleMutation.mutate(classScheduleInfo);
+      if (response.status === 200) {
+        toast.success(`${response.data.message}`);
+        formRef.current.reset();
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        toast.error(`${error.response.data.message}`);
+      } else {
+        toast.error("Error adding new class schedule");
+      }
+    }
   };
   return (
     <div className="min-h-[89vh] relative 2xl:left-[360px] top-24 2xl:w-[79.3%] ">

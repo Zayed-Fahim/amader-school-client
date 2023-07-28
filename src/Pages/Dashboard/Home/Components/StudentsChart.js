@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { AuthContext } from "../../../../Contexts/AuthProvider/AuthProvider";
 
 const StudentsChart = () => {
+  const { admin } = useContext(AuthContext);
+
+  // Filter male and female students separately
+  const maleStudents = admin?.students?.filter(
+    (student) => student.gender === "Male"
+  );
+  const femaleStudents = admin?.students?.filter(
+    (student) => student.gender === "Female"
+  );
+
   const data = [
-    { name: "Male Students", value: 400 },
-    { name: "Female Students", value: 400 },
+    { name: "Male Students", value: maleStudents?.length || 0 },
+    { name: "Female Students", value: femaleStudents?.length || 0 },
   ];
+
   const COLORS = ["#0088FE", "#00C49F"];
   const RADIAN = Math.PI / 180;
+
   const renderCustomizedLabel = ({
     cx,
     cy,
@@ -33,6 +46,7 @@ const StudentsChart = () => {
       </text>
     );
   };
+
   return (
     <div className="h-[430px]  w-full">
       <ResponsiveContainer width="100%" height="100%">

@@ -24,32 +24,21 @@ const DashboardTop = ({ isOpen }) => {
             : "fixed top-0 right-0 ml-auto bg-white drop-shadow-xl xl:block  hidden lg:px-5 lg:py-1 xl:px-8  w-[96.875%] z-[100]"
         }
       >
-        <div className="flex justify-between items-center ">
-          <div className="flex justify-center items-center lg:gap-2 xl:gap-4">
-            <FiSearch className="stroke-gray-400 xl:h-[25px] xl:w-[25px] lg:h-[20px] lg:w-[20px]" />
-            <input
-              type="text"
-              placeholder="Find your desire things..."
-              className="outline-none xl:text-xl lg:text-[18px]"
-            />
+        <div className="flex gap-2 justify-end items-center">
+          <div>
+            <h1 className="text-black font-semibold">
+              {admin?.userName || teacher?.userName || student?.userName}
+            </h1>
+            <p className="text-sm text-right">
+              {admin?.role || teacher?.role || student?.role}
+            </p>
           </div>
-          <div className="flex gap-2 justify-center items-center">
-            <div>
-              <h1 className="text-black font-semibold">
-                {admin?.userName || teacher?.userName || student?.userName}
-              </h1>
-              <p className="text-sm text-right">
-                {admin?.role || teacher?.role || student?.role}
-              </p>
-            </div>
-            <div className="flex justify-center items-center xl:gap-3 lg:gap-2">
-              <Profile />
-              <Notification />
-            </div>
+          <div className="flex justify-center items-center xl:gap-3 lg:gap-2">
+            <Profile />
+            <Notification />
           </div>
         </div>
       </motion.div>
-
       {/* for large device */}
       <motion.div
         animate={{

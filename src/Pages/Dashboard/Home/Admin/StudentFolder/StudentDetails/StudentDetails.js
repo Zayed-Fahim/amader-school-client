@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import StudentDetailsCard from "../Components/StudentDetailsCard";
 import StudentInformationShortTable from "../Components/StudentInformationShortTable";
 import { Link } from "react-router-dom";
 import icon from "../../../../../../Assets/dashboard-icon/dashboard.png";
 
 const StudentDetails = () => {
+  const [studentDetails, setStudentDetails] = useState(null);
   return (
     <div className="overflow-x-hidden overflow-y-hidden relative 2xl:top-24 2xl:left-[360px] z-[1] 2xl:w-[79.3%]">
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
@@ -19,11 +20,11 @@ const StudentDetails = () => {
 
       <div className="flex gap-5 h-[950px]">
         <div className="bg-white w-[700px] ">
-          <StudentDetailsCard />
+          <StudentDetailsCard studentDetails={studentDetails} />
         </div>
         <div className="w-[795px]  bg-white flex flex-col">
           <h1 className="font-bold text-2xl px-5 py-8">All Students</h1>
-          <StudentInformationShortTable />
+          <StudentInformationShortTable setStudentDetails={setStudentDetails} />
         </div>
       </div>
       <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px] mb-24">

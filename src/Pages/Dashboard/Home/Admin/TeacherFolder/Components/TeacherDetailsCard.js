@@ -6,7 +6,7 @@ import { AiTwotonePrinter } from "react-icons/ai";
 import { FiDownload } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-const TeacherDetailsCard = () => {
+const TeacherDetailsCard = ({ teacherDetails }) => {
   const { register, handleSubmit } = useForm();
 
   const handleTeacherDetails = (data) => {};
@@ -28,13 +28,33 @@ const TeacherDetailsCard = () => {
       </div>
       <div className="flex justify-between pt-5 px-5">
         <div className="h-[250px] w-[250px] grid place-items-center bg-black bg-opacity-10 rounded-lg">
-          <BsPersonCircle className="h-[120px] w-[120px]" />
+          {teacherDetails ? (
+            <img
+              className="h-[270px] w-[250px] rounded-lg"
+              src={teacherDetails?.photo}
+              alt="teacherPhoto"
+            />
+          ) : (
+            <BsPersonCircle className="h-[120px] w-[120px]" />
+          )}
         </div>
 
         <div>
           <div className="flex flex-col gap-1 pl-5">
-            <h1 className="text-[20px] font-semibold">Teacher Name</h1>
-            <p>Teacher Bio</p>
+            <h1 className="text-[20px] font-semibold">
+              {teacherDetails ? (
+                teacherDetails?.userName
+              ) : (
+                <span>Teacher Name</span>
+              )}
+            </h1>
+            <p>
+              {teacherDetails ? (
+                teacherDetails?.shortBio
+              ) : (
+                <span>Teacher Bio</span>
+              )}
+            </p>
           </div>
           <form
             onSubmit={handleSubmit(handleTeacherDetails)}
@@ -46,6 +66,7 @@ const TeacherDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
+                  value={teacherDetails?.fullName}
                   placeholder="Full Name"
                   {...register("fullName")}
                 />
@@ -55,6 +76,7 @@ const TeacherDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
+                  value={teacherDetails?.gender}
                   placeholder="Gender"
                   {...register("gender")}
                 />
@@ -64,6 +86,7 @@ const TeacherDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
+                  value={teacherDetails?.fatherName}
                   placeholder="Father Name"
                   {...register("fatherName")}
                 />
@@ -73,6 +96,7 @@ const TeacherDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
+                  value={teacherDetails?.motherName}
                   placeholder="Mother Name"
                   {...register("motherName")}
                 />
@@ -82,6 +106,7 @@ const TeacherDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
+                  value={teacherDetails?.dateOfBirth}
                   placeholder="Date of Birth "
                   {...register("dateOfBirth")}
                 />
@@ -91,6 +116,7 @@ const TeacherDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
+                  value={teacherDetails?.religion}
                   placeholder="Religion"
                   {...register("religion")}
                 />
@@ -99,45 +125,89 @@ const TeacherDetailsCard = () => {
                 <h1 className="w-[50%] font-semibold">Email:</h1>
                 <input
                   className="w-full bg-white h-10 pl-2"
+                  value={teacherDetails?.email}
                   disabled
                   placeholder="Email"
                   {...register("email")}
                 />
               </div>
               <div className="flex justify-between items-center 2xl:gap-12">
-                <h1 className="w-[50%] font-semibold">Admission Date:</h1>
+                <h1 className="w-[50%] font-semibold">Phone Number:</h1>
                 <input
                   className="w-full bg-white h-10 pl-2"
+                  value={teacherDetails?.phoneNumber}
                   disabled
-                  placeholder="Admission Date"
-                  {...register("admissionDate")}
+                  placeholder="Phone Number"
+                  {...register("phoneNumber")}
                 />
               </div>
               <div className="flex justify-between items-center 2xl:gap-12">
-                <h1 className="w-[50%] font-semibold">Class:</h1>
+                <h1 className="w-[50%] font-semibold">Joining Date:</h1>
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  placeholder="Class"
-                  {...register("class")}
+                  value={teacherDetails?.createdAt.split("T")[0]}
+                  placeholder="Joining Date"
                 />
               </div>
               <div className="flex justify-between items-center 2xl:gap-12">
-                <h1 className="w-[50%] font-semibold">Section:</h1>
+                <h1 className="w-[50%] font-semibold">Class Teacher:</h1>
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  placeholder="Section"
-                  {...register("section")}
+                  value={teacherDetails?.classTeacher || "N/A"}
+                  placeholder="Class Teacher"
+                  {...register("classTeacher")}
                 />
               </div>
               <div className="flex justify-between items-center 2xl:gap-12">
-                <h1 className="w-[50%] font-semibold">Roll:</h1>
+                <h1 className="w-[50%] font-semibold">Teacher Of Class:</h1>
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
+                  value={teacherDetails?.teacherOfClass || "N/A"}
+                  placeholder="Teacher Of Class"
+                  {...register("teacherOfClass")}
+                />
+              </div>
+              <div className="flex justify-between items-center 2xl:gap-12">
+                <h1 className="w-[50%] font-semibold">Teacher Of Section:</h1>
+                <input
+                  className="w-full bg-white h-10 pl-2"
+                  disabled
+                  value={teacherDetails?.sectionOfClass || "N/A"}
                   placeholder="Roll"
-                  {...register("roll")}
+                  {...register("sectionOfClass")}
+                />
+              </div>
+              <div className="flex justify-between items-center 2xl:gap-12">
+                <h1 className="w-[50%] font-semibold">Teacher Of Group:</h1>
+                <input
+                  className="w-full bg-white h-10 pl-2"
+                  disabled
+                  value={teacherDetails?.teacherOfGroup || "N/A"}
+                  placeholder="Teacher Of Group"
+                  {...register("teacherOfGroup")}
+                />
+              </div>
+              <div className="flex justify-between items-center 2xl:gap-12">
+                <h1 className="w-[50%] font-semibold">Teaching Subject:</h1>
+                <input
+                  className="w-full bg-white h-10 pl-2"
+                  disabled
+                  value={teacherDetails?.subjectName}
+                  placeholder="Subject Name"
+                  {...register("subjectName")}
+                />
+              </div>
+              <div className="flex justify-between items-center 2xl:gap-12">
+                <h1 className="w-[50%] font-semibold">Teacher ID:</h1>
+                <input
+                  className="w-full bg-white h-10 pl-2"
+                  disabled
+                  value={teacherDetails?.id}
+                  placeholder="Teacher ID"
+                  {...register("id")}
                 />
               </div>
               <div className="flex justify-between items-center 2xl:gap-12">
@@ -145,7 +215,8 @@ const TeacherDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  placeholder="Shift"
+                  value={teacherDetails?.shift}
+                  placeholder="shift"
                   {...register("shift")}
                 />
               </div>
@@ -154,17 +225,9 @@ const TeacherDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
+                  value={teacherDetails?.address}
                   placeholder="Address"
                   {...register("address")}
-                />
-              </div>
-              <div className="flex justify-between items-center 2xl:gap-12">
-                <h1 className="w-[50%] font-semibold">Phone:</h1>
-                <input
-                  className="w-full bg-white h-10 pl-2"
-                  disabled
-                  placeholder="Phone"
-                  {...register("phone")}
                 />
               </div>
             </div>

@@ -5,12 +5,18 @@ import Pagination from "../../../SmallComponents/Pagination/Pagination";
 import { BsSearch } from "react-icons/bs";
 import { FcDeleteDatabase } from "react-icons/fc";
 
-const TeacherInformationShortTable = () => {
+const TeacherInformationShortTable = ({ setTeacherDetails }) => {
   const { admin } = useContext(AuthContext);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(10);
   const pages = Math.ceil(admin?.teachers?.length / count);
 
+  const handleTeacherDetails = (id) => {
+    const selectedTeacher = admin?.teachers?.find(
+      (teacher) => teacher._id === id
+    );
+    setTeacherDetails(selectedTeacher);
+  };
   return (
     <div className="px-5 w-full h-[910px]">
       <div className="flex justify-between items-center pb-5">
@@ -111,7 +117,10 @@ const TeacherInformationShortTable = () => {
                   <td className="px-6 py-2 text-sm text-gray-800 whitespace-nowrap">
                     {teacher?.gender}
                   </td>
-                  <button className="px-2 py-1 my-4 ml-6 font-semibold rounded-md hover:text-white text-sm bg-[#FFBE15] text-gray-800 whitespace-nowrap">
+                  <button
+                    className="px-2 py-1 my-4 ml-6 font-semibold rounded-md hover:text-white text-sm bg-[#FFBE15] text-gray-800 whitespace-nowrap"
+                    onClick={() => handleTeacherDetails(teacher?._id)}
+                  >
                     Details
                   </button>
                   <td className="px-8 py-2 ">

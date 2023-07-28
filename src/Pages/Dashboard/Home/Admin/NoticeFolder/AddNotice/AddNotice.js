@@ -221,7 +221,9 @@ const AddNotice = () => {
             className="w-full px-3 py-2 border rounded focus:outline-none"
             {...register("postedBy")}
           >
-            <option value="">Posted By</option>
+            <option disabled selected>
+              Posted By
+            </option>
             <option value="Admin">Admin</option>
           </select>
         </div>

@@ -1,59 +1,52 @@
 import axios from "axios";
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import SaveButton from "../../../../../SmallComponents/SaveButton";
 import ResetButton from "../../../../../SmallComponents/ResetButton";
 import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const AddSubject = ({
-  assignedClass,
-  setAssignedClass,
-  isLoading,
-  setIsLoading,
-}) => {
+const AddSubject = ({ assignedClass, setAssignedClass }) => {
   const { register, handleSubmit } = useForm();
   const { admin } = useContext(AuthContext);
   const formRef = useRef();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const queryClient = useQueryClient();
-  const addSubjectMutation = useMutation(
-    (subjectInfo) =>
-      axios.post(
-        "https://v1-amader-school-server.vercel.app/api/v1/subjects",
-        subjectInfo,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      ),
-    {
-      onSuccess: (data) => {
-        window.location.reload(); // Reload the page
-        formRef.current.reset();
-        queryClient.invalidateQueries("subjects");
-        toast.success(`${data.data.message}`);
-      },
-      onError: (error) => {
-        toast.error(`${error.response.data.message}`);
-      },
-    }
-  );
-
-  const handleAddNewSubject = (data, event) => {
-    const subjectInfo = {
-      subjectName: data.subjectName,
-      subjectCode: data.subjectCode.toUpperCase(),
-      subjectType: data.subjectType,
-      assignedClass: data.assignedClass,
-      assignedGroup: data.assignedGroup,
-      admin: { id: admin._id },
-    };
+  const handleAddNewSubject = async (data) => {
     setIsLoading(true);
-    addSubjectMutation.mutate(subjectInfo);
+    try {
+      const subjectInfo = {
+        subjectName: data.subjectName,
+        subjectCode: data.subjectCode.toUpperCase(),
+        subjectType: data.subjectType,
+        assignedClass: data.assignedClass,
+        assignedGroup: data.assignedGroup,
+        admin: { id: admin._id },
+      };
+      await axios
+        .post(
+          "https://v1-amader-school-server.vercel.app/api/v1/subjects",
+          subjectInfo,
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        )
+        .then((response) => {
+          if (response) {
+            setIsLoading(false);
+            window.location.reload(); // Reload the page
+            formRef.current.reset();
+            toast.success(`${response.data.message}`);
+          }
+        });
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(`${error.response.data.message}`);
+    }
   };
+
   return (
     <div className="min-w-[550px]">
       <div
@@ -107,7 +100,7 @@ const AddSubject = ({
                 </select>
               </div>
               <div className="mb-4">
-                <label className="block mb-1 font-bold">Assigned Class </label>
+                <label className="block mb-1 font-bold">Assigned Class</label>
                 <select
                   required
                   {...register("assignedClass")}
@@ -161,7 +154,7 @@ const AddSubject = ({
                     className="px-4 py-1 font-semibold rounded-lg bg-gray-400 flex gap-1 justify-center items-center"
                     disabled
                   >
-                    Loading...
+                    Saving...
                   </button>
                 </>
               ) : (

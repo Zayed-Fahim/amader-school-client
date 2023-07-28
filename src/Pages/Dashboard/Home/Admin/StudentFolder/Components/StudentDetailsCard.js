@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
 
-const StudentDetailsCard = () => {
+const StudentDetailsCard = ({ studentDetails }) => {
   // const { admin } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
   const handleSignUp = (data) => {};
@@ -29,24 +29,30 @@ const StudentDetailsCard = () => {
           </Link>
         </div>
       </div>
-      {/* {admin?.students?.map((student) => (
-        <> */}
-      <div
-        className="flex justify-between pt-5 px-5"
-        // key={student?.id}
-      >
+
+      <div className="flex justify-between pt-5 px-5">
         <div className="h-[250px] w-[250px] grid place-items-center bg-black bg-opacity-10 rounded-lg">
-          <BsPersonCircle className="h-[120px] w-[120px]" />
+          {studentDetails ? (
+            <img
+              className="h-[270px] w-[250px] rounded-lg"
+              src={studentDetails?.photo}
+              alt="studentPhoto"
+            />
+          ) : (
+            <BsPersonCircle className="h-[120px] w-[120px]" />
+          )}
         </div>
         <div className="w-[400px]">
           <div className="flex flex-col gap-1 pl-5">
             <h1 className="text-[20px] font-semibold">
-              {/* {student?.userName} */}
-              Student Name
+              {studentDetails? studentDetails?.userName :<span>Student Name</span>}
             </h1>
             <p className="break-words">
-              {/* {student?.shortBio} */}
-              Student Bio
+              {studentDetails ? (
+                studentDetails?.shortBio
+              ) : (
+                <span>Student Bio</span>
+              )}
             </p>
           </div>
           <form
@@ -59,7 +65,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.id}
+                  value={studentDetails?.id}
                   placeholder="Student ID"
                   {...register("id")}
                 />
@@ -69,7 +75,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.fullName}
+                  value={studentDetails?.fullName}
                   placeholder="Full Name"
                   {...register("fullName")}
                 />
@@ -79,7 +85,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.gender}
+                  value={studentDetails?.gender}
                   placeholder="Gender"
                   {...register("gender")}
                 />
@@ -89,7 +95,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.fatherName}
+                  value={studentDetails?.fatherName}
                   placeholder="Father Name"
                   {...register("fatherName")}
                 />
@@ -99,7 +105,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.motherName}
+                  value={studentDetails?.motherName}
                   placeholder="Mother Name"
                   {...register("motherName")}
                 />
@@ -109,7 +115,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.dateOfBirth}
+                  value={studentDetails?.dateOfBirth}
                   placeholder="Date of Birth "
                   {...register("dateOfBirth")}
                 />
@@ -119,7 +125,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.religion}
+                  value={studentDetails?.religion}
                   placeholder="Religion"
                   {...register("religion")}
                 />
@@ -129,7 +135,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.email}
+                  value={studentDetails?.email}
                   placeholder="Email"
                   {...register("email")}
                 />
@@ -139,11 +145,11 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  //  value={
-                  //    student
-                  //     ? student.createdAt.split("T")[0]
-                  //     : "Not Assigned"
-                  // }
+                  value={
+                    studentDetails
+                      ? studentDetails.createdAt.split("T")[0]
+                      : "Not Assigned"
+                  }
                   placeholder="Admission Date"
                   {...register("admissionDate")}
                 />
@@ -153,7 +159,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.assignedClass}
+                  value={studentDetails?.assignedClass}
                   placeholder="Class"
                   {...register("class")}
                 />
@@ -163,7 +169,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.section}
+                  value={studentDetails?.section}
                   placeholder="Section"
                   {...register("section")}
                 />
@@ -173,7 +179,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.rollNumber}
+                  value={studentDetails?.rollNumber}
                   placeholder="Roll"
                   {...register("roll")}
                 />
@@ -183,7 +189,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.shift}
+                  value={studentDetails?.shift}
                   placeholder="Shift"
                   {...register("shift")}
                 />
@@ -193,7 +199,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.address}
+                  value={studentDetails?.address}
                   placeholder="Address"
                   {...register("address")}
                 />
@@ -203,7 +209,7 @@ const StudentDetailsCard = () => {
                 <input
                   className="w-full bg-white h-10 pl-2"
                   disabled
-                  // value={student?.phoneNumber}
+                  value={studentDetails?.phoneNumber}
                   placeholder="Phone"
                   {...register("phone")}
                 />

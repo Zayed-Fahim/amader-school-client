@@ -31,6 +31,7 @@ const AddNewClassSchedule = () => {
           subjectName: data.subjectName,
           dateOfClass: data.dateOfClass,
           classTime: data.classTime,
+          roomNumber: data.roomNumber.toUpperCase(),
           admin: { id: admin?._id, schoolTag: admin?.schoolTag },
         },
         {
@@ -246,21 +247,66 @@ const AddNewClassSchedule = () => {
               </div>
               <div>
                 <label className="block font-bold mb-4">Class Time</label>
-                {teachingShift && teachingShift === "Day" ? (
-                  <select
-                    required
-                    {...register("classTime")}
-                    className="w-full px-3 py-2 border rounded focus:outline-none"
-                  >
-                    <option defaultValue={true}>Select Class Time</option>
-                    <option value="12:25pm - 01:05pm">12:25pm - 01:05pm</option>
-                    <option value="01:05pm - 01:45pm">01:05pm - 01:45pm</option>
-                    <option value="01:45pm - 02:25pm">01:45pm - 02:25pm</option>
-                    <option value="02:25pm - 03:05pm">02:25pm - 03:05pm</option>
-                    <option value="03:05pm - 03:40pm">03:05pm - 03:40pm</option>
-                    <option value="03:40pm - 04:15pm">03:40pm - 04:15pm</option>
-                    <option value="04:15pm - 04:50pm">04:15pm - 04:50pm</option>
-                  </select>
+                {teachingShift ? (
+                  teachingShift === "Day" && (
+                    <select
+                      required
+                      {...register("classTime")}
+                      className="w-full px-3 py-2 border rounded focus:outline-none"
+                    >
+                      <option defaultValue={true} disabled>
+                        Select Class Time
+                      </option>
+                      <option value="12:25pm - 01:05pm">
+                        12:25pm - 01:05pm
+                      </option>
+                      <option value="01:05pm - 01:45pm">
+                        01:05pm - 01:45pm
+                      </option>
+                      <option value="01:45pm - 02:25pm">
+                        01:45pm - 02:25pm
+                      </option>
+                      <option value="02:25pm - 03:05pm">
+                        02:25pm - 03:05pm
+                      </option>
+                      <option value="03:05pm - 03:40pm">
+                        03:05pm - 03:40pm
+                      </option>
+                      <option value="03:40pm - 04:15pm">
+                        03:40pm - 04:15pm
+                      </option>
+                      <option value="04:15pm - 04:50pm">
+                        04:15pm - 04:50pm
+                      </option>
+                    </select>
+                  )
+                ) : teachingShift ? (
+                  teachingShift === "Day" && (
+                    <select
+                      required
+                      {...register("classTime")}
+                      className="w-full px-3 py-2 border rounded focus:outline-none"
+                    >
+                      <option value="07:45am - 08:25am">
+                        07:45am - 08:25am
+                      </option>
+                      <option value="08:25am - 09:05am">
+                        08:25am - 09:05am
+                      </option>
+                      <option value="09:05am - 09:45am">
+                        09:05am - 09:45am
+                      </option>
+                      <option value="10:20am - 10:55am">
+                        10:20am - 10:55am
+                      </option>
+                      <option value="10:55am - 11:30am">
+                        10:55am - 11:30am
+                      </option>
+                      <option value="11:30am - 12:05pm">
+                        11:30am - 12:05pm
+                      </option>
+                    </select>
+                  )
                 ) : (
                   <input
                     className="w-full px-3 py-2 border rounded focus:outline-none"
@@ -269,6 +315,16 @@ const AddNewClassSchedule = () => {
                     placeholder="Please select shift first"
                   />
                 )}
+              </div>
+              <div>
+                <label className="block font-bold mb-4">Room No</label>
+                <input
+                  required
+                  className="w-full px-3 py-2 border rounded focus:outline-none"
+                  placeholder="Room No"
+                  type="text"
+                  {...register("roomNumber")}
+                />
               </div>
             </div>
             {/* 5th row */}

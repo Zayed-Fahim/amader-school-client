@@ -9,17 +9,6 @@ import TeacherStudentsChart from "../../Components/TeacherStudentsChart";
 
 const Teacher = () => {
   const { teacher } = useContext(AuthContext);
-  let femaleStudents = [];
-  let maleStudents = [];
-
-  if (teacher && teacher.classTeacher) {
-    femaleStudents = teacher.advisedStudents?.filter(
-      (student) => student?.gender === "Female"
-    );
-    maleStudents = teacher.advisedStudents?.filter(
-      (student) => student?.gender === "Male"
-    );
-  }
 
   return (
     <div className="relative 2xl:top-24 2xl:left-[360px]">

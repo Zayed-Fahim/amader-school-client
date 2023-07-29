@@ -1,49 +1,31 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";
+import { AuthContext } from "../../../../../Contexts/AuthProvider/AuthProvider";
 
 const ClassScheduleViewTable = () => {
-  const scheduleData = [
-    {
-      date: "2023-07-15",
-      time: "09:00 AM",
-      subject: "Math",
-      class: "Class A",
-      group: "Group 1",
-      room: "A101",
-    },
-    {
-      date: "2023-07-15",
-      time: "10:00 AM",
-      subject: "English",
-      class: "Class B",
-      group: "Group 2",
-      room: "B202",
-    },
-    {
-      date: "2023-07-16",
-      time: "11:00 AM",
-      subject: "Science",
-      class: "Class C",
-      group: "Group 3",
-      room: "C303",
-    },
-    // Add more schedule data as needed
-  ];
-
+  const { teacher } = useContext(AuthContext);
   const [searchDate, setSearchDate] = useState("");
   const [searchTime, setSearchTime] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showAll, setShowAll] = useState(true);
-
+  console.log(teacher.classSchedules);
   const handleSearch = () => {
-    const results = scheduleData.filter((schedule) => {
-      const matchDate = schedule.date
-        .toLowerCase()
-        .includes(searchDate.toLowerCase());
-      const matchTime = schedule.time
-        .toLowerCase()
-        .includes(searchTime.toLowerCase());
+    const results = teacher?.classSchedules?.filter((classSchedule) => {
+      // Check if dateOfClass and classTime are defined before using toLowerCase()
+      const matchDate =
+        classSchedule?.dateOfClass &&
+        classSchedule.dateOfClass
+          .toLowerCase()
+          .includes(searchDate.toLowerCase());
+
+      const matchTime =
+        classSchedule?.classTime &&
+        classSchedule.classTime
+          .split(" -")[0]
+          .toLowerCase()
+          .includes(searchTime.toLowerCase());
+
       return matchDate && matchTime;
     });
     setSearchResults(results);
@@ -137,19 +119,35 @@ const ClassScheduleViewTable = () => {
                 <th className="px-4 py-2">Time</th>
                 <th className="px-4 py-2">Subject</th>
                 <th className="px-4 py-2">Class</th>
+                <th className="px-4 py-2">Section</th>
                 <th className="px-4 py-2">Group</th>
                 <th className="px-4 py-2">Room</th>
               </tr>
             </thead>
             <tbody>
-              {scheduleData.map((schedule, index) => (
+              {teacher?.classSchedules?.map((classSchedule, index) => (
                 <tr key={index}>
-                  <td className="border px-4 py-2">{schedule.date}</td>
-                  <td className="border px-4 py-2">{schedule.time}</td>
-                  <td className="border px-4 py-2">{schedule.subject}</td>
-                  <td className="border px-4 py-2">{schedule.class}</td>
-                  <td className="border px-4 py-2">{schedule.group}</td>
-                  <td className="border px-4 py-2">{schedule.room}</td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.dateOfClass}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.classTime}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.subjectName}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.teachingClass}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.teachingSection}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.teachingGroup || "N/A"}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.roomNumber}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -163,19 +161,35 @@ const ClassScheduleViewTable = () => {
                 <th className="px-4 py-2">Time</th>
                 <th className="px-4 py-2">Subject</th>
                 <th className="px-4 py-2">Class</th>
+                <th className="px-4 py-2">Section</th>
                 <th className="px-4 py-2">Group</th>
                 <th className="px-4 py-2">Room</th>
               </tr>
             </thead>
             <tbody>
-              {searchResults.map((schedule, index) => (
+              {searchResults.map((classSchedule, index) => (
                 <tr key={index}>
-                  <td className="border px-4 py-2">{schedule.date}</td>
-                  <td className="border px-4 py-2">{schedule.time}</td>
-                  <td className="border px-4 py-2">{schedule.subject}</td>
-                  <td className="border px-4 py-2">{schedule.class}</td>
-                  <td className="border px-4 py-2">{schedule.group}</td>
-                  <td className="border px-4 py-2">{schedule.room}</td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.dateOfClass}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.classTime}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.subjectName}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.teachingClass}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.teachingSection}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.teachingGroup || "N/A"}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {classSchedule?.roomNumber}
+                  </td>
                 </tr>
               ))}
             </tbody>

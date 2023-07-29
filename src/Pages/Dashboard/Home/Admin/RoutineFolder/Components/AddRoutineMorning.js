@@ -196,7 +196,7 @@ const AddRoutineMorning = ({ refetch, assignedClass, setAssignedClass }) => {
                     {...register("time")}
                     className="w-full px-3 py-2 border rounded focus:outline-none"
                   >
-                    <option defaultValue={true}>Select Class Time</option>
+                    <option defaultValue={true} disabled>Select Class Time</option>
                     <option value="07:45am - 08:25am">07:45am - 08:25am</option>
                     <option value="08:25am - 09:05am">08:25am - 09:05am</option>
                     <option value="09:05am - 09:45am">09:05am - 09:45am</option>

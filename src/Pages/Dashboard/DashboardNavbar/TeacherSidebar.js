@@ -46,7 +46,7 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
             icon: <IoIosArrowForward size={20} />,
           },
           {
-            title: "Attendance",
+            title: "Student Attendance",
             path: "/dashboard/teacher/students/student-attendance",
             icon: <IoIosArrowForward size={20} />,
           },
@@ -86,8 +86,8 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
       ],
     },
     {
-      title: "Notices",
-      path: "/dashboard/teacher/notice-board",
+      title: "Events",
+      path: "/dashboard/teacher/events",
       icon: <HiOutlineBellAlert size={!isOpen ? 30 : 25} />,
     },
     {

@@ -1,10 +1,10 @@
 import React from "react";
 import { PiStudentThin } from "react-icons/pi";
 import { PiChalkboardTeacherThin } from "react-icons/pi";
-import StudentsChart from "../../Components/StudentsChart";
-import NoticeBoard from "../../Components/AdminNoticeBoard";
 import { Link } from "react-router-dom";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";
+import AdminStudentsChart from "../../Components/AdminStudentsChart";
+import AdminNoticeBoard from "../../Components/AdminNoticeBoard";
 
 const Admin = () => {
   return (
@@ -47,7 +47,7 @@ const Admin = () => {
           <h1 className="xl:font-bold xl:text-2xl px-8 pt-8">
             Students Ratio Chart :
           </h1>
-          <StudentsChart />
+          <AdminStudentsChart />
           <div className="px-8 py-8 flex justify-between">
             <div>
               <div className="h-[6px] w-[70px] bg-[#00C49F] rounded-xl 2xl:mb-4"></div>
@@ -69,7 +69,7 @@ const Admin = () => {
           <div className="flex justify-between items-center pb-5">
             <h1 className="xl:font-bold xl:text-2xl">Important Notice</h1>
           </div>
-          <NoticeBoard />
+          <AdminNoticeBoard />
         </div>
       </div>
       <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px] mb-20 mt-7">

@@ -24,7 +24,6 @@ import TeacherAttendance from "../../Pages/Dashboard/Home/Admin/AttendanceFolder
 import TeacherAttendanceView from "../../Pages/Dashboard/Home/Admin/AttendanceFolder/TeacherAttendanceViewTable/TeacherAttendanceView";
 import ExamSchedule from "../../Pages/Dashboard/Home/Admin/AttendanceFolder/ExamFolder/ExamSchedule/ExamSchedule";
 import ExamGrades from "../../Pages/Dashboard/Home/Admin/AttendanceFolder/ExamFolder/ExamGrades/ExamGrades";
-import NoticeBoard from "../../Pages/Dashboard/Home/Admin/NoticeFolder/NoticeBoard/NoticeBoard";
 import AdvisedStudents from "../../Pages/Dashboard/Home/Teacher/StudentFolder/AdvisedStudents/AdvisedStudents";
 import ClassScheduleViewTable from "../../Pages/Dashboard/Home/Teacher/ClassScheduleFolder/ClassScheduleViewTable";
 import AttendanceViewTable from "../../Pages/Dashboard/Home/Teacher/AttendanceFolder/AttendanceViewTable";
@@ -32,7 +31,7 @@ import StudentAttendance from "../../Pages/Dashboard/Home/Teacher/StudentFolder/
 import StudentAttendanceViewTable from "../../Pages/Dashboard/Home/Teacher/StudentFolder/StudentAttendanceViewTable/StudentAttendanceViewTable";
 import AddStudentResult from "../../Pages/Dashboard/Home/Teacher/ResultFolder/AddStudentResult/AddStudentResult";
 import ShowAllStudentResult from "../../Pages/Dashboard/Home/Teacher/ResultFolder/ShowAllStudentResult/ShowAllStudentResult";
-import TeacherNoticeBoard from "../../Pages/Dashboard/Home/Teacher/NoticeBoard/TeacherNoticeBoard";
+import TeacherNoticeBoard from "../../Pages/Dashboard/Home/Teacher/NoticeBoard/TeacherEventsManager";
 import ClassRoutine from "../../Pages/Dashboard/Home/Student/ClassRoutineFolder/ClassRoutine";
 import MyAttendance from "../../Pages/Dashboard/Home/Student/AttendanceFolder/MyAttendance/MyAttendance";
 import StudentExamSchedule from "../../Pages/Dashboard/Home/Student/ExamsFolder/StudentExamSchedule/StudentExamSchedule";
@@ -41,6 +40,7 @@ import StudentEvents from "../../Pages/Dashboard/Home/Student/EventsFolder/Stude
 import StudentUpdateProfilePage from "../../Pages/Dashboard/Home/Student/AccountSettingFolder/StudentUpdateProfilePage";
 import TeacherUpdateProfile from "../../Pages/Dashboard/Home/Teacher/UpdateProfileFolder/TeacherUpdateProfile";
 import AdminUpdateProfile from "../../Pages/Dashboard/Home/Admin/UpdateProfileFolder/AdminUpdateProfile";
+import NoticeBoard from "../../Pages/Dashboard/Home/Admin/NoticeFolder/NoticeBoard/NoticeBoard";
 
 const Routes = () => {
   const router = createBrowserRouter([
@@ -155,7 +155,7 @@ const Routes = () => {
         },
         {
           path: "/dashboard/admin/update-profile",
-          element:<AdminUpdateProfile/>
+          element: <AdminUpdateProfile />,
         },
       ],
     },
@@ -209,7 +209,7 @@ const Routes = () => {
           element: <ShowAllStudentResult />,
         },
         {
-          path: "/dashboard/teacher/notice-board",
+          path: "/dashboard/teacher/events",
           element: <TeacherNoticeBoard />,
         },
         {

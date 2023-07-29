@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { AuthContext } from "../../../../Contexts/AuthProvider/AuthProvider";
 
-const StudentsChart = () => {
-  const { admin } = useContext(AuthContext);
+const TeacherStudentsChart = () => {
+  const { teacher } = useContext(AuthContext);
 
   // Filter male and female students separately
-  const maleStudents = admin?.students?.filter(
+  const maleStudents = teacher?.advisedStudents?.filter(
     (student) => student.gender === "Male"
   );
-  const femaleStudents = admin?.students?.filter(
+  const femaleStudents = teacher?.advisedStudents?.filter(
     (student) => student.gender === "Female"
   );
 
@@ -76,4 +76,4 @@ const StudentsChart = () => {
   );
 };
 
-export default StudentsChart;
+export default TeacherStudentsChart;

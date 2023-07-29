@@ -25,7 +25,7 @@ const AddEventForStudent = () => {
   };
 
   return (
-    <div className="bg-white 2xl:px-8 2xl:py-10 w-full">
+    <div className="bg-white 2xl:px-8 2xl:py-10 w-[900px]">
       <h1 className="text-2xl font-bold mb-4">Add Event</h1>
       <form onSubmit={handleSubmit} className="mx-auto">
         <div className="mb-4">

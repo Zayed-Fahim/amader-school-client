@@ -10,27 +10,24 @@ import { ImCross } from "react-icons/im";
 import { AiOutlineEdit } from "react-icons/ai";
 
 const StudentAttendanceViewTable = () => {
-  const { admin } = useContext(AuthContext);
+  const { teacher } = useContext(AuthContext);
   const { handleSubmit } = useForm();
   const [selectedDate, setSelectedDate] = useState("");
-  const [selectedShift, setSelectedShift] = useState("");
   const [attendanceData, setAttendanceData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log(selectedDate, typeof selectedDate);
+  console.log(attendanceData);
   useEffect(() => {
-    if (selectedShift && selectedDate) {
+    if (selectedDate) {
       handleAttendanceDataSearch();
     }
-  }, [selectedShift, selectedDate]);
+  }, [selectedDate]);
 
   const handleDateChange = (event) => {
+    // Format the selected date as "YYYY-MM-DD"
     setSelectedDate(event.target.value);
-    setSelectedShift("");
-    setAttendanceData([]);
-  };
 
-  const handleShiftChange = (event) => {
-    setSelectedShift(event.target.value);
+    setAttendanceData([]);
   };
 
   const handleAttendanceDataSearch = async () => {
@@ -38,7 +35,7 @@ const StudentAttendanceViewTable = () => {
       setIsLoading(true);
 
       const response = await axios.get(
-        `https://v1-amader-school-server.vercel.app/api/v1/admins/${admin._id}/teachersAttendances?shift=${selectedShift}&date=${selectedDate}`
+        `https://v1-amader-school-server.vercel.app/api/v1/teachers/${teacher?._id}/advisedStudentsAttendances?date=${selectedDate}`
       );
       setAttendanceData(response.data.payload.attendanceData);
     } catch (error) {
@@ -76,40 +73,28 @@ const StudentAttendanceViewTable = () => {
                 value={selectedDate}
                 onChange={handleDateChange}
               />
-              {selectedDate && (
-                <>
-                  <label className="mx-4">Shift:</label>
-                  <select
-                    value={selectedShift}
-                    onChange={handleShiftChange}
-                    className="px-2 py-1 border border-gray-300 rounded-md focus:outline-none"
-                  >
-                    <option value="">Select Shift</option>
-                    <option value="Morning">Morning</option>
-                    <option value="Day">Day</option>
-                  </select>
-                </>
-              )}
             </div>
           </form>
-          {selectedDate && selectedShift && attendanceData.length > 0 && (
+          {selectedDate && attendanceData.length > 0 && (
             <table className="w-full mb-4 table border">
               <thead>
                 <tr className="text-[16px]">
                   <th className="px-4 py-2">Attendance</th>
                   <th className="px-4 py-2">ID</th>
                   <th className="px-4 py-2">Name</th>
+                  <th className="px-4 py-2">Class</th>
+                  <th className="px-4 py-2">Section</th>
                   <th className="px-4 py-2">Shift</th>
                   <th className="px-4 py-2">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {attendanceData.map((attendance) => (
-                  <tr key={attendance._id} className="hover">
-                    {attendance.teachersAttendances.map((teacherAttendance) => (
-                      <React.Fragment key={teacherAttendance._id}>
+                {attendanceData.map((attendance) =>
+                  attendance.advisedStudentsAttendances.map(
+                    (advisedStudentAttendance) => (
+                      <tr key={advisedStudentAttendance._id} className="hover">
                         <td className="px-4 py-2">
-                          {teacherAttendance.attendanceStatus ? (
+                          {advisedStudentAttendance.attendanceStatus ? (
                             <button className="text-blue-500">
                               <TiTick
                                 size={25}
@@ -124,40 +109,41 @@ const StudentAttendanceViewTable = () => {
                           )}
                         </td>
                         <td className="px-4 py-2">
-                          {teacherAttendance.teacherId}
+                          {advisedStudentAttendance.advisedStudentId}
                         </td>
                         <td className="px-4 py-2">
-                          {teacherAttendance.teacherName}
+                          {advisedStudentAttendance.advisedStudentName}
                         </td>
                         <td className="px-4 py-2">
-                          {teacherAttendance.teacherShift}
+                          {advisedStudentAttendance.advisedStudentClass}
+                        </td>
+                        <td className="px-4 py-2">
+                          {advisedStudentAttendance.advisedStudentSection}
+                        </td>
+                        <td className="px-4 py-2">
+                          {advisedStudentAttendance.advisedStudentShift}
                         </td>
                         <td className="px-4 py-2">
                           <button
                             className="text-blue-500"
                             onClick={() =>
-                              handleEditAttendance(teacherAttendance._id)
+                              handleEditAttendance(advisedStudentAttendance._id)
                             }
                           >
                             <AiOutlineEdit title="Edit" />
                           </button>
                         </td>
-                      </React.Fragment>
-                    ))}
-                  </tr>
-                ))}
+                      </tr>
+                    )
+                  )
+                )}
               </tbody>
             </table>
           )}
-          {selectedDate &&
-            selectedShift &&
-            attendanceData.length === 0 &&
-            !isLoading && (
-              <p className="text-2xl font-bold text-center text-red-500 pt-[100px] pb-[50px]">{`Ops! No Attendance Sheet found for this Date=${selectedDate} and Shift=${selectedShift} !!`}</p>
-            )}
-          {(!selectedDate ||
-            !selectedShift ||
-            !attendanceData.length === 0) && (
+          {selectedDate && attendanceData.length === 0 && !isLoading && (
+            <p className="text-2xl font-bold text-center text-red-500 pt-[100px] pb-[50px]">{`Ops! No Attendance Sheet found for this Date=${selectedDate} !!`}</p>
+          )}
+          {(!selectedDate || !attendanceData.length === 0) && (
             <p className="text-3xl font-bold text-center pt-[100px] pb-[50px]">
               Search Attendance Sheet Here!!
             </p>

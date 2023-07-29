@@ -8,38 +8,31 @@ import icon from "../../../../../../Assets/dashboard-icon/dashboard.png";
 
 const StudentAttendance = () => {
   const { handleSubmit } = useForm();
-  const { admin } = useContext(AuthContext);
-  const [teachers, setTeachers] = useState([]);
+  const { teacher } = useContext(AuthContext);
+  const [advisedStudents, setAdvisedStudents] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
-  const [selectedShift, setSelectedShift] = useState("");
-  const [teacherAttendance, setTeacherAttendance] = useState({});
+  const [advisedStudentAttendance, setAdvisedStudentAttendance] = useState({});
   const formRef = useRef();
 
   useEffect(() => {
-    if (selectedShift && selectedDate) {
-      handleTeacherSearch();
+    if (selectedDate) {
+      handleAdvisedStudentSearch();
     }
-  }, [selectedShift, selectedDate]);
+  }, [selectedDate]);
 
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
-    setSelectedShift("");
-    setTeacherAttendance({});
-    setTeachers([]);
+    setAdvisedStudentAttendance({});
+    setAdvisedStudents([]);
   };
 
-  const handleShiftChange = (event) => {
-    setSelectedShift(event.target.value);
-    setTeacherAttendance({});
-  };
-
-  const handleAttendanceToggle = (teacherId) => {
-    setTeacherAttendance((prevTeacherAttendance) => {
-      const updatedAttendance = { ...prevTeacherAttendance };
-      if (updatedAttendance[teacherId]) {
-        delete updatedAttendance[teacherId];
+  const handleAttendanceToggle = (advisedStudentId) => {
+    setAdvisedStudentAttendance((prevAdvisedStudentAttendance) => {
+      const updatedAttendance = { ...prevAdvisedStudentAttendance };
+      if (updatedAttendance[advisedStudentId]) {
+        delete updatedAttendance[advisedStudentId];
       } else {
-        updatedAttendance[teacherId] = true;
+        updatedAttendance[advisedStudentId] = true;
       }
       return updatedAttendance;
     });
@@ -47,44 +40,47 @@ const StudentAttendance = () => {
 
   const handleSaveAttendance = async () => {
     try {
-      const teachersAttendances = teachers.map((teacher) => ({
-        teacher_Id: teacher._id,
-        attendanceStatus: teacherAttendance[teacher._id] ? true : false,
-        teacherId: teacher.id,
-        teacherName: teacher.fullName,
-        teacherShift: teacher.shift,
-      }));
-
+      const advisedStudentsAttendances = advisedStudents.map(
+        (advisedStudent) => ({
+          advisedStudent_Id: advisedStudent._id,
+          attendanceStatus: advisedStudentAttendance[advisedStudent?._id]
+            ? true
+            : false,
+          advisedStudentId: advisedStudent.id,
+          advisedStudentName: advisedStudent.fullName,
+          advisedStudentClass: advisedStudent.assignedClass,
+          advisedStudentSection: advisedStudent.section,
+          advisedStudentShift: advisedStudent.shift,
+        })
+      );
       await axios.post(
-        "https://v1-amader-school-server.vercel.app/api/v1/teacher-attendance",
+        "https://v1-amader-school-server.vercel.app/api/v1/student-attendance",
         {
           date: selectedDate,
-          shift: selectedShift,
-          teachersAttendances,
-          admin: { id: admin._id },
+          advisedStudentsAttendances,
+          classTeacher: { id: teacher?._id },
         }
       );
 
       toast.success("Attendance Successful!!");
       setSelectedDate("");
-      setSelectedShift("");
-      setTeacherAttendance({});
-      setTeachers([]);
+      setAdvisedStudentAttendance({});
+      setAdvisedStudents([]);
     } catch (error) {
       console.error(error);
       toast.error("Failed to save attendance.");
     }
   };
 
-  const handleTeacherSearch = async () => {
+  const handleAdvisedStudentSearch = async () => {
     try {
       const response = await axios.get(
-        `https://v1-amader-school-server.vercel.app/api/v1/teacher-attendance/admins/${admin._id}/teachers?shift=${selectedShift}`
+        `https://v1-amader-school-server.vercel.app/api/v1/student-attendance/teachers/${teacher?._id}/advisedStudents`
       );
-      setTeachers(response.data.payload.teachers);
+      setAdvisedStudents(response.data.payload.advisedStudents);
     } catch (error) {
       console.error(error);
-      toast.error("Failed to fetch teachers.");
+      toast.error("Failed to fetch Advised Student.");
     }
   };
   return (
@@ -113,52 +109,46 @@ const StudentAttendance = () => {
               value={selectedDate}
               onChange={handleDateChange}
             />
-            {selectedDate && (
-              <>
-                <label className="mx-4">Shift:</label>
-                <select
-                  value={selectedShift}
-                  onChange={handleShiftChange}
-                  className="px-2 py-1 border border-gray-300 rounded-md focus:outline-none"
-                >
-                  <option value="">Select Shift</option>
-                  <option value="Morning">Morning</option>
-                  <option value="Day">Day</option>
-                </select>
-              </>
-            )}
           </div>
 
-          {selectedDate && selectedShift && teachers.length > 0 && (
+          {selectedDate && advisedStudents && advisedStudents.length > 0 && (
             <table className="w-full mb-4 table border">
               <thead>
                 <tr className="text-[16px] uppercase">
                   <th className="px-4 py-2">Attendance</th>
                   <th className="px-4 py-2">ID</th>
                   <th className="px-4 py-2">Name</th>
+                  <th className="px-4 py-2">Class</th>
+                  <th className="px-4 py-2">Section</th>
                   <th className="px-4 py-2">Shift</th>
                 </tr>
               </thead>
 
               <tbody>
-                {teachers.map((teacher) => (
-                  <tr key={teacher._id} className="hover">
+                {advisedStudents?.map((advisedStudent) => (
+                  <tr key={advisedStudent._id} className="hover">
                     <td className="px-4 py-2">
                       <input
                         type="checkbox"
-                        checked={!!teacherAttendance[teacher._id]}
-                        onChange={() => handleAttendanceToggle(teacher._id)}
+                        checked={!!advisedStudentAttendance[advisedStudent._id]}
+                        onChange={() =>
+                          handleAttendanceToggle(advisedStudent._id)
+                        }
                       />
                     </td>
-                    <td className="px-4 py-2">{teacher.id}</td>
-                    <td className="px-4 py-2">{teacher.fullName}</td>
-                    <td className="px-4 py-2">{teacher.shift}</td>
+                    <td className="px-4 py-2">{advisedStudent.id}</td>
+                    <td className="px-4 py-2">{advisedStudent.fullName}</td>
+                    <td className="px-4 py-2">
+                      {advisedStudent.assignedClass}
+                    </td>
+                    <td className="px-4 py-2">{advisedStudent.section}</td>
+                    <td className="px-4 py-2">{advisedStudent.shift}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           )}
-          {selectedDate && selectedShift && teachers.length > 0 && (
+          {selectedDate && advisedStudents?.length > 0 && (
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md"

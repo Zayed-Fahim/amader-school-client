@@ -61,7 +61,7 @@ const StudentAttendanceViewTable = () => {
         </ul>
       </div>
       <div className="bg-white px-8 py-10">
-        <h1 className="text-2xl font-bold mb-8">Teacher Attendance View</h1>
+        <h1 className="text-2xl font-bold mb-8">View Student Attendance</h1>
         <div>
           <form onSubmit={handleSubmit(handleAttendanceDataSearch)}>
             <div className="flex items-center mb-4">

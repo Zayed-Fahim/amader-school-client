@@ -21,6 +21,13 @@ const TeacherAttendance = () => {
     }
   }, [selectedShift, selectedDate]);
 
+
+  useEffect(() => {
+    if (teachers.length > 0) {
+      setTeacherAttendance({});
+    }
+  }, [teachers]);
+
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
     setSelectedShift("");

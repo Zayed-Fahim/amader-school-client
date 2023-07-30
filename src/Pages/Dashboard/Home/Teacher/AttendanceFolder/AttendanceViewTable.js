@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   format,
   startOfMonth,
@@ -12,20 +12,16 @@ import {
 } from "date-fns";
 import { Link } from "react-router-dom";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";
+import { AuthContext } from "../../../../../Contexts/AuthProvider/AuthProvider";
 
 const AttendanceViewTable = () => {
+  const authContext = useContext(AuthContext);
+  const teacher = authContext?.teacher || {};
   const [selectedMonth, setSelectedMonth] = useState(new Date());
 
   const getAttendanceStatus = (date) => {
-    const attendanceData = [
-      { date: "2023-07-01", status: "Present" },
-      { date: "2023-07-02", status: "Present" },
-      { date: "2023-07-03", status: "Absent" },
-      // ... Add more data for each month day
-    ];
-
-    const attendance = attendanceData.find((item) => item.date === date);
-    return attendance ? attendance.status : "";
+    const attendance = teacher.attendances.find((item) => item.date === date);
+    return attendance ? attendance.attendanceStatus : "";
   };
 
   const handleMonthChange = (e) => {
@@ -106,10 +102,17 @@ const AttendanceViewTable = () => {
                             <>
                               {getAttendanceStatus(
                                 format(day, "yyyy-MM-dd")
-                              ) === "Present" ? (
-                                <span className="text-green-500">&#x2714;</span>
+                              ) === true ? (
+                                <span
+                                  className="text-green-500"
+                                  title="Present"
+                                >
+                                  &#x2714;
+                                </span>
                               ) : (
-                                <span className="text-red-500">&#x2718;</span>
+                                <span className="text-red-500" title="Absent">
+                                  &#x2718;
+                                </span>
                               )}
                             </>
                           )}

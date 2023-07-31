@@ -1,6 +1,6 @@
 import React from "react";
 import { FaBars, FaSchool } from "react-icons/fa";
-import {  MdSubject } from "react-icons/md";
+import { MdSubject } from "react-icons/md";
 import { SiGoogleclassroom } from "react-icons/si";
 import { GoGraph } from "react-icons/go";
 import { HiOutlineBellAlert } from "react-icons/hi2";
@@ -152,8 +152,11 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
       transition: {
         duration: 0.5,
         type: spring,
-        damping: 10,
+        damping: 25,
       },
+    },
+    hidden: {
+      opacity: 0,
     },
   };
 
@@ -193,13 +196,12 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
               )}
             </Link>
           ) : null}
-          
-            <FaBars
-              className="text-white hidden xl:block cursor-pointer"
-              size={isOpen ? 27 : 30}
-              onClick={toggle}
-            />
-          
+
+          <FaBars
+            className="text-white hidden xl:block cursor-pointer"
+            size={isOpen ? 27 : 30}
+            onClick={toggle}
+          />
         </motion.div>
         <section className="overflow-y-auto overflow-x-hidden relative top-[60px]">
           {adminSideBarOptions.map((option, i) => {
@@ -280,13 +282,12 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
                 )}
               </Link>
             ) : null}
-            
-              <FaBars
-                className="text-white"
-                size={isOpen ? 27 : 30}
-                onClick={toggle}
-              />
-            
+
+            <FaBars
+              className="text-white"
+              size={isOpen ? 27 : 30}
+              onClick={toggle}
+            />
           </motion.div>
           <section className="overflow-y-auto overflow-x-hidden relative lg:top-[60px] hidden xl:hidden lg:block">
             {adminSideBarOptions.map((option, i) => {

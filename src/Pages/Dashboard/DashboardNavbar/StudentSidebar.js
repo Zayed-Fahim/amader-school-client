@@ -76,8 +76,11 @@ const StudentSidebar = ({ isOpen, setIsOpen }) => {
       transition: {
         duration: 0.5,
         type: spring,
-        damping: 10,
+        damping: 25,
       },
+    },
+    hidden: {
+      opacity: 0,
     },
   };
 
@@ -117,13 +120,12 @@ const StudentSidebar = ({ isOpen, setIsOpen }) => {
               )}
             </Link>
           ) : null}
-          
-            <FaBars
-              className="text-white hidden xl:block cursor-pointer"
-              size={isOpen ? 27 : 30}
-              onClick={toggle}
-            />
-          
+
+          <FaBars
+            className="text-white hidden xl:block cursor-pointer"
+            size={isOpen ? 27 : 30}
+            onClick={toggle}
+          />
         </motion.div>
         <section className="overflow-y-auto overflow-x-hidden relative top-[60px]">
           {studentSidebarOptions.map((option, i) => {
@@ -204,13 +206,12 @@ const StudentSidebar = ({ isOpen, setIsOpen }) => {
                 )}
               </Link>
             ) : null}
-            
-              <FaBars
-                className="text-white"
-                size={isOpen ? 27 : 30}
-                onClick={toggle}
-              />
-            
+
+            <FaBars
+              className="text-white"
+              size={isOpen ? 27 : 30}
+              onClick={toggle}
+            />
           </motion.div>
           <section className="overflow-y-auto overflow-x-hidden relative lg:top-[60px] hidden xl:hidden lg:block">
             {studentSidebarOptions.map((option, i) => {

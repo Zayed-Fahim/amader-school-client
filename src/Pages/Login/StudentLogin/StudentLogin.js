@@ -1,17 +1,19 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 
 const StudentLogin = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const { setStudent } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = (data) => {
-    setIsLoading(true); // Set loading state to true
+    setIsLoading(true);
 
     axios
       .post("https://v1-amader-school-server.vercel.app/api/v1/student-login", {
@@ -19,28 +21,21 @@ const StudentLogin = () => {
         password: data.password,
       })
       .then((result) => {
-        setIsLoading(false); // Set loading state to false
-
         if (result) {
           localStorage.setItem("token", result?.data?.payload?.token);
           localStorage.setItem(
             "role",
             result?.data?.payload?.student?.role?.toLowerCase()
           );
-
-          navigate(
-            `/dashboard/${
-              localStorage.getItem("role") ||
-              result?.data?.payload?.student?.role?.toLowerCase()
-            }`
-          );
-
-          toast.success("Login Successful!");
+          setStudent(result?.data?.payload?.student);
+          navigate("/dashboard/student");
+          setTimeout(() => {
+            toast.success("Login Successful!");
+          }, 1000);
         }
       })
       .catch((error) => {
-        setIsLoading(false); // Set loading state to false
-
+        setIsLoading(false);
         if (error) {
           swal(
             "Invalid Student!",
@@ -117,7 +112,7 @@ const StudentLogin = () => {
                   <button
                     type="submit"
                     className="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg transition duration-200 hover:bg-indigo-600 ease"
-                    disabled={isLoading} // Disable button while loading
+                    disabled={isLoading}
                   >
                     {isLoading ? "Logging in..." : "Submit"}
                   </button>

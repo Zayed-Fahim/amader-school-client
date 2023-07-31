@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../Contexts/AuthProvider/AuthProvider";
 import userIcon from "../../../../Assets/icon/user.png";
+import { toast } from "react-hot-toast";
 
 const Profile = () => {
   const { admin, teacher, student } = useContext(AuthContext);
@@ -9,7 +10,10 @@ const Profile = () => {
   const handleLogOut = () => {
     localStorage.removeItem("token");
     navigate("/select-role");
-    window.location.reload();
+    toast.success("Successfully Logout from Your Account!!");
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   return (

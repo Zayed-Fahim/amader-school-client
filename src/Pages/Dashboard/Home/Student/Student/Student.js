@@ -1,7 +1,6 @@
 import React from "react";
 import { FaPercent } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { MdNotificationsActive } from "react-icons/md";
 import { BsCalendar2Event } from "react-icons/bs";
 import { BiSolidReport } from "react-icons/bi";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";

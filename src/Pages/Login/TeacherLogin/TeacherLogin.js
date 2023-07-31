@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import swal from "sweetalert";
 import { toast } from "react-hot-toast";
 import { FaTelegramPlane } from "react-icons/fa";
+import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 
 const TeacherLogin = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-
+  const { setTeacher } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   const handleLogin = (data) => {
+    setIsLoading(true);
     axios
       .post("https://v1-amader-school-server.vercel.app/api/v1/teacher-login", {
         id: data.id,
@@ -23,25 +26,23 @@ const TeacherLogin = () => {
             "role",
             result?.data?.payload?.teacher?.role?.toLowerCase()
           );
-
-          navigate(
-            `/dashboard/${
-              localStorage.getItem("role") ||
-              result?.data?.payload?.teacher?.role?.toLowerCase()
-            }`
-          );
-
-          toast.success("Login Successful!");
-        }
-      })
-      .catch((error) => {
-        if (error) {
+          setTeacher(result?.data?.payload?.teacher);
+          navigate("/dashboard/teacher");
+          setTimeout(() => {
+            toast.success("Login Successful!");
+          }, 1000);
+        } else {
+          setIsLoading(false);
           swal(
             "Invalid Teacher!",
             "Try with your valid Teacher credential!",
             "error"
           );
         }
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.log(error.message);
       });
   };
   return (
@@ -91,6 +92,7 @@ const TeacherLogin = () => {
           <div className="grid place-items-center -mt-2">
             <button
               type="submit"
+              disabled={isLoading}
               className="bg-[#FFC61A] text-white text-[1.25rem] font-semibold flex gap-1 items-center px-6 rounded-[5px]"
             >
               <FaTelegramPlane /> <h1>Submit</h1>

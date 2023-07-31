@@ -6,6 +6,7 @@ import StudentSidebar from "./StudentSidebar";
 
 const DashboardSidebar = ({ isOpen, setIsOpen }) => {
   const { admin, student, teacher } = useContext(AuthContext);
+
   let content;
   if (admin?.role === "Admin") {
     return (content = <AdminSidebar isOpen={isOpen} setIsOpen={setIsOpen} />);

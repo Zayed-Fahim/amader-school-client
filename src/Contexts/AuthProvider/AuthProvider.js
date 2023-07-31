@@ -68,7 +68,6 @@ const AuthProvider = ({ children }) => {
         } catch (error) {
           console.error("Error verifying user:", error);
         } finally {
-          // Set loading to false after all API calls are finished
           setIsLoading(false);
         }
       } else {
@@ -84,7 +83,17 @@ const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ admin, teacher, student, isLoading }}>
+    <AuthContext.Provider
+      value={{
+        admin,
+        teacher,
+        student,
+        isLoading,
+        setAdmin,
+        setStudent,
+        setTeacher,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

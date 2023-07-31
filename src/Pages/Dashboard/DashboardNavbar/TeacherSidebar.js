@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
-import { FaBars, FaSchool } from "react-icons/fa";
-import { MdEmojiTransportation } from "react-icons/md";
+import React, { useContext,  } from "react";
+import { FaBars } from "react-icons/fa";
 import { GoGraph } from "react-icons/go";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import { GrUserSettings } from "react-icons/gr";
@@ -106,8 +105,11 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
       transition: {
         duration: 0.5,
         type: spring,
-        damping: 10,
+        damping: 25,
       },
+    },
+    hidden: {
+      opacity: 0,
     },
   };
 
@@ -147,13 +149,12 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
               )}
             </Link>
           ) : null}
-          
-            <FaBars
-              className="text-white hidden xl:block cursor-pointer"
-              size={isOpen ? 27 : 30}
-              onClick={toggle}
-            />
-          
+
+          <FaBars
+            className="text-white hidden xl:block cursor-pointer"
+            size={isOpen ? 27 : 30}
+            onClick={toggle}
+          />
         </motion.div>
         <section className="overflow-y-auto overflow-x-hidden relative top-[60px]">
           {teacherSideBarOptions.map((option, i) => {
@@ -234,13 +235,12 @@ const TeacherSidebar = ({ isOpen, setIsOpen }) => {
                 )}
               </Link>
             ) : null}
-            
-              <FaBars
-                className="text-white"
-                size={isOpen ? 27 : 30}
-                onClick={toggle}
-              />
-            
+
+            <FaBars
+              className="text-white"
+              size={isOpen ? 27 : 30}
+              onClick={toggle}
+            />
           </motion.div>
           <section className="overflow-y-auto overflow-x-hidden relative lg:top-[60px] hidden xl:hidden lg:block">
             {teacherSideBarOptions.map((option, i) => {

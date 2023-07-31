@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { FiSearch } from "react-icons/fi";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import Profile from "./SmallComponents/Profile";
 import Notification from "./SmallComponents/Notification";
@@ -8,21 +8,25 @@ import Notification from "./SmallComponents/Notification";
 const DashboardTop = ({ isOpen }) => {
   const { admin, teacher, student } = useContext(AuthContext);
 
+  const commonStyles =
+    "fixed top-0 right-0 ml-auto bg-white drop-shadow-xl lg:px-5 lg:py-1 xl:px-8 z-[100]";
+  const extraLargeStyles = isOpen
+    ? "w-[85%] xl:block hidden"
+    : "w-[96.875%] xl:block hidden";
+  const largeStyles = isOpen
+    ? "lg:w-[80%] lg:block xl:hidden hidden"
+    : "lg:w-[95%] lg:block xl:hidden hidden";
+
   return (
-    <>
+    <AnimatePresence>
       {/* for extra large device */}
       <motion.div
-        animate={{
-          width: isOpen ? "83%" : "96.875%",
-          transition: {
-            duration: 0.5,
-          },
-        }}
-        className={
-          isOpen
-            ? "w-[85%] fixed top-0 right-0 ml-auto bg-white drop-shadow-xl xl:block  hidden lg:px-5 lg:py-1 xl:px-8 z-[100]"
-            : "fixed top-0 right-0 ml-auto bg-white drop-shadow-xl xl:block  hidden lg:px-5 lg:py-1 xl:px-8  w-[96.875%] z-[100]"
-        }
+        key="extraLarge"
+        initial={{ width: "96.875%" }}
+        animate={{ width: isOpen ? "83%" : "96.875%" }}
+        exit={{ width: "96.875%" }}
+        transition={{ duration: 0.5 }}
+        className={`${commonStyles} ${extraLargeStyles}`}
       >
         <div className="flex gap-2 justify-end items-center">
           <div>
@@ -39,19 +43,15 @@ const DashboardTop = ({ isOpen }) => {
           </div>
         </div>
       </motion.div>
+
       {/* for large device */}
       <motion.div
-        animate={{
-          width: isOpen ? "80%" : "95%",
-          transition: {
-            duration: 0.5,
-          },
-        }}
-        className={
-          isOpen
-            ? "lg:w-[80%] fixed top-0 right-0 ml-auto bg-white drop-shadow-xl lg:block xl:hidden hidden lg:px-5 lg:py-1 xl:px-8 z-[100]"
-            : "fixed top-0 right-0 ml-auto bg-white drop-shadow-xl  lg:block xl:hidden hidden lg:px-5 lg:py-1 xl:px-8  lg:w-[95%] z-[100]"
-        }
+        key="large"
+        initial={{ width: "95%" }}
+        animate={{ width: isOpen ? "80%" : "95%" }}
+        exit={{ width: "95%" }}
+        transition={{ duration: 0.5 }}
+        className={`${commonStyles} ${largeStyles}`}
       >
         <div className="flex justify-between items-center ">
           <div className="flex justify-center items-center xl:gap-4 lg:gap-3">
@@ -78,7 +78,7 @@ const DashboardTop = ({ isOpen }) => {
           </div>
         </div>
       </motion.div>
-    </>
+    </AnimatePresence>
   );
 };
 

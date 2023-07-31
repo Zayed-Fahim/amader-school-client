@@ -1,52 +1,74 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import icon from "../../../../../../Assets/dashboard-icon/dashboard.png";
+import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
+import { MdDelete, MdEdit } from "react-icons/md";
 
 const ShowAllStudentResult = () => {
-  const [studentId, setStudentId] = useState("");
-  const [examName, setExamName] = useState("");
-  const [subjectCode, setSubjectCode] = useState("");
-  const [studentRoll, setStudentRoll] = useState("");
-  const [filteredResults, setFilteredResults] = useState([]);
-
-  // Dummy data
-  const results = [
-    {
-      studentId: 1,
-      name: "John Doe",
-      shift: "Morning",
-      roll: 1,
-      classSection: "A",
-      group: "Science",
-      marks: 90,
-      grade: "A+",
-      issueDate: "2023-07-15",
-      issuedBy: "Teacher A",
-      examinedBy: "Teacher B",
-      examCode: "EXM001",
-      subjectCode: "SBJ001",
-    },
-    // Add more result objects here
-  ];
+  const { teacher } = useContext(AuthContext);
+  const [searchInputs, setSearchInputs] = useState({
+    studentId: "",
+    examType: "",
+    subjectCode: "",
+    studentRoll: "",
+  });
+  const [filteredResults, setFilteredResults] = useState(teacher?.results);
+  const [isSearchActive, setIsSearchActive] = useState(false);
 
   const handleSearch = () => {
-    const filtered = results.filter((result) => {
-      const studentIdMatch = result.studentId.toString().includes(studentId);
-      const examNameMatch = result.name
-        .toLowerCase()
-        .includes(examName.toLowerCase());
-      const subjectCodeMatch = result.subjectCode
-        .toLowerCase()
-        .includes(subjectCode.toLowerCase());
-      const studentRollMatch = result.roll.toString().includes(studentRoll);
-
+    const { studentId, examType, subjectCode, studentRoll } = searchInputs;
+    const filtered = teacher?.results.filter((result) => {
+      const studentIdMatch = result?.studentId?.includes(studentId);
+      const examTypeMatch = result?.examType?.includes(examType);
+      const subjectCodeMatch = result?.subjectCode?.includes(subjectCode);
+      const studentRollMatch = result?.rollNumber
+        ?.toString()
+        .includes(studentRoll.toString());
       return (
-        studentIdMatch || examNameMatch || subjectCodeMatch || studentRollMatch
+        studentIdMatch && examTypeMatch && subjectCodeMatch && studentRollMatch
       );
     });
 
     setFilteredResults(filtered);
+    setIsSearchActive(true);
+  };
+
+  // const handleEdit = (result) => {
+  //   // Implement the edit functionality here
+  //   console.log("Editing result:", result);
+  // };
+
+  const handleDelete = (result) => {
+    // Implement the delete functionality here
+    console.log("Deleting result:", result);
+  };
+
+  const handleShowAll = () => {
+    setFilteredResults(teacher?.results);
+    setIsSearchActive(false);
+    setSearchInputs({
+      studentId: "",
+      examType: "",
+      subjectCode: "",
+      studentRoll: "",
+    });
+  };
+
+  const handleClearSearch = () => {
+    setSearchInputs({
+      studentId: "",
+      examType: "",
+      subjectCode: "",
+      studentRoll: "",
+    });
+    setIsSearchActive(false);
+    setFilteredResults(teacher?.results);
+  };
+
+  const hasSearchInput = () => {
+    const { studentId, examType, subjectCode, studentRoll } = searchInputs;
+    return !!studentId || !!examType || !!subjectCode || !!studentRoll;
   };
 
   return (
@@ -61,107 +83,214 @@ const ShowAllStudentResult = () => {
         </ul>
       </div>
       <div className="bg-white 2xl:px-8 2xl:py-10">
-        <h2 className="text-2xl font-bold mb-4">Show Result Table</h2>
-
+        <h2 className="text-2xl font-bold mb-4">Result Table</h2>
         <div className="flex items-center gap-4 mb-4">
-          <input
-            type="text"
-            value={studentId}
-            onChange={(e) => setStudentId(e.target.value)}
-            placeholder="Student ID"
+          <select
+            readOnly
+            value={searchInputs.examType}
+            onChange={(e) =>
+              setSearchInputs({ ...searchInputs, examType: e.target.value })
+            }
             className="p-2 border border-gray-300 focus:outline-none"
-          />
+          >
+            <option value="">Select Exam Type</option>
+            <option value="CT">CT</option>
+            <option value="First Term">First Term</option>
+            <option value="Mid Term">Mid Term</option>
+            <option value="Annual Exam">Annual Exam</option>
+            <option value="Test Exam">Test Exam</option>
+          </select>
           <input
             type="text"
-            value={examName}
-            onChange={(e) => setExamName(e.target.value)}
-            placeholder="Exam Name"
-            className="p-2 border border-gray-300 focus:outline-none"
-          />
-          <input
-            type="text"
-            value={subjectCode}
-            onChange={(e) => setSubjectCode(e.target.value)}
+            value={searchInputs.subjectCode}
+            onChange={(e) =>
+              setSearchInputs({
+                ...searchInputs,
+                subjectCode: e.target.value.toUpperCase(),
+              })
+            }
             placeholder="Subject Code"
             className="p-2 border border-gray-300 focus:outline-none"
           />
           <input
             type="text"
-            value={studentRoll}
-            onChange={(e) => setStudentRoll(e.target.value)}
+            value={searchInputs.studentId}
+            onChange={(e) =>
+              setSearchInputs({
+                ...searchInputs,
+                studentId: e.target.value.toUpperCase(),
+              })
+            }
+            placeholder="Student ID"
+            className="p-2 border border-gray-300 focus:outline-none"
+          />
+          <input
+            type="number"
+            min={0}
+            value={searchInputs.studentRoll}
+            onChange={(e) =>
+              setSearchInputs({
+                ...searchInputs,
+                studentRoll: e.target.value,
+              })
+            }
             placeholder="Student Roll"
             className="p-2 border border-gray-300 focus:outline-none"
           />
-          <button
-            onClick={handleSearch}
-            className="bg-gray-300 text-gray-700 px-4 py-2 rounded flex items-center"
-          >
-            <BiSearch className="h-5 w-5 mr-2" />
-            <p>Search</p>
-          </button>
+
+          {isSearchActive ? (
+            <button
+              onClick={handleClearSearch}
+              className="bg-gray-300 text-gray-700 px-4 py-2 rounded flex items-center"
+            >
+              <BiSearch className="h-5 w-5 mr-2" />
+              <p>Clear Search</p>
+            </button>
+          ) : (
+            <button
+              onClick={handleSearch}
+              className={`${
+                hasSearchInput() ? "bg-gray-300" : "bg-gray-400"
+              } text-gray-700 px-4 py-2 rounded flex items-center`}
+              disabled={!hasSearchInput()}
+            >
+              <BiSearch className="h-5 w-5 mr-2" />
+              <p>Search</p>
+            </button>
+          )}
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full border border-gray-300">
-            <thead>
-              <tr>
-                <th className="p-2">Student ID</th>
-                <th className="p-2">Name</th>
-                <th className="p-2">Shift</th>
-                <th className="p-2">Roll</th>
-                <th className="p-2">Class Section</th>
-                <th className="p-2">Group</th>
-                <th className="p-2">Marks</th>
-                <th className="p-2">Grade</th>
-                <th className="p-2">Issue Date</th>
-                <th className="p-2">Issued By</th>
-                <th className="p-2">Examined By</th>
-                <th className="p-2">Exam Code</th>
-                <th className="p-2">Subject Code</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredResults.length > 0
-                ? filteredResults.map((result) => (
-                    <tr key={result.studentId}>
-                      <td className="p-2">{result.studentId}</td>
-                      <td className="p-2">{result.name}</td>
-                      <td className="p-2">{result.shift}</td>
-                      <td className="p-2">{result.roll}</td>
-                      <td className="p-2">{result.classSection}</td>
-                      <td className="p-2">{result.group}</td>
-                      <td className="p-2">{result.marks}</td>
-                      <td className="p-2">{result.grade}</td>
-                      <td className="p-2">{result.issueDate}</td>
-                      <td className="p-2">{result.issuedBy}</td>
-                      <td className="p-2">{result.examinedBy}</td>
-                      <td className="p-2">{result.examCode}</td>
-                      <td className="p-2">{result.subjectCode}</td>
-                    </tr>
-                  ))
-                : results.map((result) => (
-                    <tr
-                      key={result.studentId}
-                      className="text-center border hover"
-                    >
-                      <td className="p-2">{result.studentId}</td>
-                      <td className="p-2">{result.name}</td>
-                      <td className="p-2">{result.shift}</td>
-                      <td className="p-2">{result.roll}</td>
-                      <td className="p-2">{result.classSection}</td>
-                      <td className="p-2">{result.group}</td>
-                      <td className="p-2">{result.marks}</td>
-                      <td className="p-2">{result.grade}</td>
-                      <td className="p-2">{result.issueDate}</td>
-                      <td className="p-2">{result.issuedBy}</td>
-                      <td className="p-2">{result.examinedBy}</td>
-                      <td className="p-2">{result.examCode}</td>
-                      <td className="p-2">{result.subjectCode}</td>
-                    </tr>
-                  ))}
-            </tbody>
-          </table>
+          {filteredResults === null ? (
+            <table className="w-full border border-gray-300">
+              <thead>
+                <tr className="text-left">
+                  <th className="p-2 text-sm">Exam Type</th>
+                  <th className="p-2 text-sm">Subject Code</th>
+                  <th className="p-2 text-sm">Student ID</th>
+                  <th className="p-2 text-sm">Name</th>
+                  <th className="p-2 text-sm">Shift</th>
+                  <th className="p-2 text-sm">Roll</th>
+                  <th className="p-2 text-sm">Class</th>
+                  <th className="p-2 text-sm">Section</th>
+                  <th className="p-2 text-sm">Group</th>
+                  <th className="p-2 text-sm">Marks</th>
+                  <th className="p-2 text-sm">Letter Grade</th>
+                  <th className="p-2 text-sm">Grade Point</th>
+                  <th className="p-2 text-sm">Issue Date</th>
+                  <th className="p-2 text-sm">Issued By</th>
+                  <th className="p-2 text-sm">Examined By</th>
+                  <th className="p-2 text-sm">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {teacher?.results?.map((result, i) => (
+                  <tr key={i} className="text-left border hover">
+                    <td className="p-2">{result.examType}</td>
+                    <td className="p-2">{result.subjectCode}</td>
+                    <td className="p-2">{result.studentId}</td>
+                    <td className="p-2">{result.studentName}</td>
+                    <td className="p-2">{result.studentShift}</td>
+                    <td className="p-2">{result.rollNumber}</td>
+                    <td className="p-2">{result.studentClass}</td>
+                    <td className="p-2">{result.section}</td>
+                    <td className="p-2">{result.group}</td>
+                    <td className="p-2">{result.marks}</td>
+                    <td className="p-2">{result.letterGrade}</td>
+                    <td className="p-2">{result.gradePoint}</td>
+                    <td className="p-2">{result.issueDate}</td>
+                    <td className="p-2">{result.issuedBy}</td>
+                    <td className="p-2">{result.examinedBy}</td>
+                    <td className="py-2 px-5 flex gap-2">
+                      {/* <button
+                        onClick={() => handleEdit(result)}
+                        className="text-yellow-500 hover:scale-110"
+                      >
+                        <MdEdit title="Edit" />
+                      </button> */}
+                      <button
+                        onClick={() => handleDelete(result)}
+                        className="text-red-500 hover:scale-110 text-center"
+                      >
+                        <MdDelete title="Delete" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : filteredResults.length > 0 ? (
+            <table className="w-full border border-gray-300">
+              <thead>
+                <tr className="text-left">
+                  <th className="p-2 text-sm">Exam Type</th>
+                  <th className="p-2 text-sm">Subject Code</th>
+                  <th className="p-2 text-sm">Student ID</th>
+                  <th className="p-2 text-sm">Name</th>
+                  <th className="p-2 text-sm">Shift</th>
+                  <th className="p-2 text-sm">Roll</th>
+                  <th className="p-2 text-sm">Class</th>
+                  <th className="p-2 text-sm">Section</th>
+                  <th className="p-2 text-sm">Group</th>
+                  <th className="p-2 text-sm">Marks</th>
+                  <th className="p-2 text-sm">Letter Grade</th>
+                  <th className="p-2 text-sm">Grade Point</th>
+                  <th className="p-2 text-sm">Issue Date</th>
+                  <th className="p-2 text-sm">Issued By</th>
+                  <th className="p-2 text-sm">Examined By</th>
+                  <th className="p-2 text-sm">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredResults.map((result, i) => (
+                  <tr key={i} className="text-left border hover">
+                    <td className="p-2">{result.examType}</td>
+                    <td className="p-2">{result.subjectCode}</td>
+                    <td className="p-2">{result.studentId}</td>
+                    <td className="p-2">{result.studentName}</td>
+                    <td className="p-2">{result.studentShift}</td>
+                    <td className="p-2">{result.rollNumber}</td>
+                    <td className="p-2">{result.studentClass}</td>
+                    <td className="p-2">{result.section}</td>
+                    <td className="p-2">{result.group}</td>
+                    <td className="p-2">{result.marks}</td>
+                    <td className="p-2">{result.letterGrade}</td>
+                    <td className="p-2">{result.gradePoint}</td>
+                    <td className="p-2">{result.issueDate}</td>
+                    <td className="p-2">{result.issuedBy}</td>
+                    <td className="p-2">{result.examinedBy}</td>
+                    <td className="py-2 px-5 flex gap-2">
+                      {/* <button
+                        onClick={() => handleEdit(result)}
+                        className="text-yellow-500 hover:scale-110"
+                      >
+                        <MdEdit title="Edit" />
+                      </button> */}
+                      <button
+                        onClick={() => handleDelete(result)}
+                        className="text-red-500 hover:scale-110"
+                      >
+                        <MdDelete title="Delete" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>No results found</p>
+          )}
         </div>
+        {isSearchActive && (
+          <div className="mt-4">
+            <button
+              onClick={handleShowAll}
+              className="bg-gray-300 text-gray-700 px-4 py-2 rounded flex items-center"
+            >
+              Show All
+            </button>
+          </div>
+        )}
       </div>
       <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px]">
         <h1 className="xl:text-[18px] font-semibold text-black">

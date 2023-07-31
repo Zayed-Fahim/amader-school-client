@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import icon from "../../../../../../Assets/dashboard-icon/dashboard.png";
 import { AuthContext } from "../../../../../../Contexts/AuthProvider/AuthProvider";
@@ -18,7 +18,6 @@ const AddStudentResult = () => {
   const [gradePoint, setGradePoint] = useState("");
   const [issueDate, setIssueDate] = useState("");
   const [examinedBy, setExaminedBy] = useState("");
-  const formRef = useRef();
 
   const gradeData = [
     { classInterval: "80–100", letterGrade: "A+", gradePoint: "5.00" },
@@ -41,8 +40,6 @@ const AddStudentResult = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Prepare the data to be sent to the backend
     const resultData = {
       classTeacher: { id: teacher._id },
       admin: { id: teacher?.admin?.id },
@@ -50,7 +47,7 @@ const AddStudentResult = () => {
       studentName: name,
       examType,
       subjectName,
-      subjectCode,
+      subjectCode: subjectCode.toUpperCase(),
       studentShift: teacher?.shift,
       rollNumber,
       studentClass: teacher?.teacherOfClass,
@@ -63,28 +60,35 @@ const AddStudentResult = () => {
       issuedBy: teacher?.fullName,
       examinedBy,
     };
-    console.log(resultData);
+
     try {
-      // Make the POST request to the backend API
       await axios
         .post(
           "https://v1-amader-school-server.vercel.app/api/v1/student-result",
           resultData
         )
-        .then((result) => {
-          if (result) {
+        .then((data) => {
+          if (data.status === 200) {
+            handleFormReset();
             toast.success("Result Added Successfully!!");
-            formRef.current.reset();
-          }
-        })
-        .catch((error) => {
-          if (error) {
-            toast.error("Result Added Unsuccessful!!");
           }
         });
     } catch (error) {
       toast.error("Result Added Unsuccessful!!");
     }
+  };
+  const handleFormReset = () => {
+    setName("");
+    setStudentId("");
+    setExamType("");
+    setSubjectName("");
+    setSubjectCode("");
+    setRollNumber("");
+    setMarks("");
+    setLetterGrade("");
+    setGradePoint("");
+    setIssueDate("");
+    setExaminedBy("");
   };
   return (
     <div className="2xl:w-[79.3%] relative top-24 2xl:left-[360px]">
@@ -101,7 +105,7 @@ const AddStudentResult = () => {
         <div className="bg-white rounded shadow 2xl:px-8 2xl:py-10 2xl:w-[1000px] ">
           <h2 className="2xl:text-2xl font-bold">Add Student Result</h2>
 
-          <form onSubmit={handleSubmit} className="mt-4" ref={formRef}>
+          <form onSubmit={handleSubmit} className="mt-4">
             <div className="grid 2xl:grid-cols-2 gap-5">
               <div>
                 <label className="block mb-1">Student ID:</label>
@@ -306,7 +310,7 @@ const AddStudentResult = () => {
               </button>
               <button
                 type="button"
-                onClick={() => formRef.current.reset()}
+                onClick={handleFormReset}
                 className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded px-4 py-2 mt-4"
               >
                 Reset

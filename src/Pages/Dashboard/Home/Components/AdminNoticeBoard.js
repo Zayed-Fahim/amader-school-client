@@ -11,7 +11,7 @@ const AdminNoticeBoard = () => {
   const { admin } = useContext(AuthContext);
   return (
     <div className="overflow-y-scroll overflow-x-hidden h-[575px]">
-      <VerticalTimeline layout="1-column-left" className="">
+      <VerticalTimeline layout="1-column-left">
         {admin?.notices?.map((notice) => (
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
@@ -27,8 +27,8 @@ const AdminNoticeBoard = () => {
           >
             <h1 className="text-[18px] font-bold -mb-3">{notice?.title}</h1>
             <p>{notice?.description}</p>
-            <h3 className="mt-8">{notice?.postedBy}</h3>
-            <h4 className="">Date: {notice?.postedDate}</h4>
+            <h3 className="mt-5">{notice?.postedBy}</h3>
+            <h4>Date: {notice?.postedDate}</h4>
           </VerticalTimelineElement>
         ))}
 

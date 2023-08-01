@@ -4,14 +4,17 @@ import unauthorized from "../../../Assets/unauthorized-401.webp";
 
 const ErrorRoute = () => {
   const token = localStorage.getItem("token");
-  const studentDashboardPath = "/dashboard/student";
-  const teacherDashboardPath = "/dashboard/teacher";
-  const adminDashboardPath = "/dashboard/admin";
+  const studentDashboardPath =
+    "https://v1-app-amader-school.web.app/dashboard/student";
+  const teacherDashboardPath =
+    "https://v1-app-amader-school.web.app/dashboard/teacher";
+  const adminDashboardPath =
+    "https://v1-app-amader-school.web.app/dashboard/admin";
   const location = useLocation();
 
   return (
     <section>
-      {!token &
+      {token === null &&
       (location.pathname === studentDashboardPath ||
         location.pathname === teacherDashboardPath ||
         location.pathname === adminDashboardPath) ? (
@@ -30,8 +33,6 @@ const ErrorRoute = () => {
             <div className="m-auto text-center">
               <div>
                 <svg
-                  // width="631"
-                  // height="379"
                   className="xl:w-[631px] xl:h-[379]"
                   viewBox="0 0 631 379"
                   fill="none"
@@ -293,7 +294,7 @@ const ErrorRoute = () => {
                 The stuff you were looking for doesn't exist
               </p>
               <Link
-                to="/"
+                to="/select-role"
                 className="bg-transparent hover:bg-yellow-300 text-yellow-300 hover:text-white rounded shadow hover:shadow-lg py-2 px-4 border border-yellow-300 hover:border-transparent"
               >
                 Home

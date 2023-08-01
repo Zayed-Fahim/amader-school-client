@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../../../../Contexts/AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
-import { PiStudentThin } from "react-icons/pi";
+import { PiStudent } from "react-icons/pi";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";
 import { AiOutlineSchedule } from "react-icons/ai";
 import TeacherNoticeBoard from "../NoticeBoard/TeacherNoticeBoard";
@@ -26,14 +26,14 @@ const Teacher = () => {
           {teacher && teacher?.classTeacher === "Yes" && (
             <Link
               to="/dashboard/teacher/students/advised-students"
-              className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white -md-md hover:bg-[#FFBE15] hover:bg-opacity-80 hover:text-white hover:font-bold"
+              className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white -md-md hover:bg-[#FFBE15] hover:bg-opacity-80"
             >
-              <PiStudentThin className="h-[100px] w-[100px]" />
+              <PiStudent className="h-[100px] w-[100px]" />
               <div>
-                <h1 className="xl:grid xl:place-items-end xl:text-xl font-semibold">
+                <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[22px] font-bold">
                   Advertised Students
                 </h1>
-                <h1 className="xl:text-2xl xl:font-semibold text-center">
+                <h1 className="xl:text-2xl xl:font-bold text-center">
                   {teacher.advisedStudents?.length}
                 </h1>
               </div>
@@ -41,11 +41,11 @@ const Teacher = () => {
           )}
           <Link
             to="/dashboard/teacher/class-schedule"
-            className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80 hover:text-white hover:font-bold"
+            className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
           >
             <AiOutlineSchedule className="h-[100px] w-[100px]" />
             <div>
-              <h1 className="xl:grid xl:place-items-end xl:text-xl font-semibold">
+              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[22px] font-bold">
                 Class Schedule
               </h1>
             </div>

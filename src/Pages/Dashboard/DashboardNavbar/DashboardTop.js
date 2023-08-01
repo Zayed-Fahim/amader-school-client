@@ -3,7 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import Profile from "./SmallComponents/Profile";
-import Notification from "./SmallComponents/Notification";
+// import Notification from "./SmallComponents/Notification";
 
 const DashboardTop = ({ isOpen }) => {
   const { admin, teacher, student } = useContext(AuthContext);
@@ -39,7 +39,7 @@ const DashboardTop = ({ isOpen }) => {
           </div>
           <div className="flex justify-center items-center xl:gap-3 lg:gap-2">
             <Profile />
-            <Notification />
+            {/* <Notification /> */}
           </div>
         </div>
       </motion.div>
@@ -73,7 +73,7 @@ const DashboardTop = ({ isOpen }) => {
             </div>
             <div className="flex justify-center items-center xl:gap-3">
               <Profile />
-              <Notification />
+              {/* <Notification /> */}
             </div>
           </div>
         </div>

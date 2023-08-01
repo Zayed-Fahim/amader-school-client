@@ -9,11 +9,9 @@ const Profile = () => {
   const navigate = useNavigate();
   const handleLogOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
     navigate("/select-role");
     toast.success("Successfully Logout from Your Account!!");
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
   };
 
   return (
@@ -45,7 +43,7 @@ const Profile = () => {
             }/update-profile`}
           >
             Profile
-            <span className="badge badge-secondary">New</span>
+            <span className="badge bg-[#FFBE15] font-semibold">New</span>
           </Link>
         </li>
         <li className="hover-bordered">

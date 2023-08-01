@@ -4,10 +4,13 @@ import { useForm } from "react-hook-form";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";
 import { BiEdit } from "react-icons/bi";
 import { AuthContext } from "../../../../../Contexts/AuthProvider/AuthProvider";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const StudentUpdateProfilePage = () => {
   const { student } = useContext(AuthContext);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [image, setImage] = useState(null);
   const { register, handleSubmit, setValue } = useForm();
 
   // Fetch user profile data from an API or data source
@@ -33,7 +36,7 @@ const StudentUpdateProfilePage = () => {
       setValue("shortBio", student.shortBio);
       setValue("shift", student.shift);
       setValue("religion", student.religion);
-    }, 1000);
+    }, 500);
   }, [setValue, student]);
 
   const handleEdit = () => {
@@ -44,12 +47,60 @@ const StudentUpdateProfilePage = () => {
     setIsEditMode(false);
   };
 
-  const onSubmit = (data) => {
-    // Perform update profile logic here
-    console.log("Name:", data.fullName);
-    console.log("Email:", data.email);
-    console.log("Bio:", data.bio);
-    setIsEditMode(false);
+  const onSubmit = async (data, event) => {
+    event.preventDefault();
+    let imgDataUrl = student?.photo; // Default value is the current student photo URL
+
+    if (image) {
+      // If a new image is selected, upload it to imgbb
+      const formData = new FormData();
+      formData.append("image", image);
+      const imgBbUrl = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMGBB_key}`;
+
+      try {
+        const res = await fetch(imgBbUrl, {
+          method: "POST",
+          body: formData,
+        });
+        const imgData = await res.json();
+        imgDataUrl = imgData?.data?.url;
+      } catch (error) {
+        toast.error("Error uploading image. Please try again.");
+        return;
+      }
+    }
+
+    // Prepare the data to be sent to the server
+    const updatedData = {
+      id: student?._id,
+      fullName: data.fullName || student?.fullName,
+      userName: data.userName || student?.userName,
+      photo: imgDataUrl, // Use the new image URL from imgbb, or the existing URL
+      fatherName: data.fatherName || student?.fatherName,
+      motherName: data.motherName || student?.motherName,
+      email: data.email || student?.email,
+      phoneNumber: data.phoneNumber || student?.phoneNumber,
+      address: data.address || student?.address,
+      shortBio: data.shortBio || student?.shortBio,
+    };
+
+    try {
+      const response = await axios.patch(
+        "https://v1-amader-school-server.vercel.app/api/v1/update-profile/update-student-info",
+        updatedData
+      );
+
+      if (response.status === 200) {
+        setIsEditMode(false);
+        toast.success("Profile updated successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error updating profile. Please try again.");
+    }
   };
 
   return (
@@ -74,7 +125,7 @@ const StudentUpdateProfilePage = () => {
             />
           )}
         </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
           <div className="grid grid-cols-3 gap-5 ">
             <div>
               <label
@@ -89,7 +140,7 @@ const StudentUpdateProfilePage = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("fullName", { required: true })}
+                {...register("fullName")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -106,7 +157,7 @@ const StudentUpdateProfilePage = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("userName", { required: true })}
+                {...register("userName")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -120,7 +171,7 @@ const StudentUpdateProfilePage = () => {
               <input
                 id="gender"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("gender", { required: true })}
+                {...register("gender")}
                 readOnly
               />
             </div>
@@ -134,7 +185,7 @@ const StudentUpdateProfilePage = () => {
               <input
                 id="religion"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("religion", { required: true })}
+                {...register("religion")}
                 readOnly
               />
             </div>
@@ -150,7 +201,7 @@ const StudentUpdateProfilePage = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("fatherName", { required: true })}
+                {...register("fatherName")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -166,7 +217,7 @@ const StudentUpdateProfilePage = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("motherName", { required: true })}
+                {...register("motherName")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -180,7 +231,7 @@ const StudentUpdateProfilePage = () => {
               <input
                 id="dateOfBirth"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("dateOfBirth", { required: true })}
+                {...register("dateOfBirth")}
                 readOnly
               />
             </div>
@@ -196,7 +247,7 @@ const StudentUpdateProfilePage = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("email", { required: true })}
+                {...register("email")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -212,7 +263,7 @@ const StudentUpdateProfilePage = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("phoneNumber", { required: true })}
+                {...register("phoneNumber")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -225,8 +276,8 @@ const StudentUpdateProfilePage = () => {
               </label>
               <input
                 id="schoolTag"
-                className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-smbg-gray-100"
-                {...register("schoolTag", { required: true })}
+                className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
+                {...register("schoolTag")}
                 readOnly
               />
             </div>
@@ -240,7 +291,7 @@ const StudentUpdateProfilePage = () => {
               <input
                 id="shift"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("shift", { required: true })}
+                {...register("shift")}
                 readOnly
               />
             </div>
@@ -254,7 +305,7 @@ const StudentUpdateProfilePage = () => {
               <input
                 id="assignedClass"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("assignedClass", { required: true })}
+                {...register("assignedClass")}
                 readOnly
               />
             </div>
@@ -268,7 +319,7 @@ const StudentUpdateProfilePage = () => {
               <input
                 id="section"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("section", { required: true })}
+                {...register("section")}
                 readOnly
               />
             </div>
@@ -282,7 +333,7 @@ const StudentUpdateProfilePage = () => {
               <input
                 id="group"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("group", { required: true })}
+                {...register("group")}
                 readOnly
               />
             </div>
@@ -296,7 +347,7 @@ const StudentUpdateProfilePage = () => {
               <input
                 id="rollNumber"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("rollNumber", { required: true })}
+                {...register("rollNumber")}
                 readOnly
               />
             </div>
@@ -310,7 +361,7 @@ const StudentUpdateProfilePage = () => {
               <input
                 id="id"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("id", { required: true })}
+                {...register("id")}
                 readOnly
               />
             </div>
@@ -327,8 +378,9 @@ const StudentUpdateProfilePage = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("photo", { required: true })}
+                {...register("photo")}
                 readOnly={!isEditMode}
+                onChange={(e) => setImage(e.target.files[0])}
               />
             </div>
             <div>
@@ -343,7 +395,7 @@ const StudentUpdateProfilePage = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("address", { required: true })}
+                {...register("address")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -359,7 +411,7 @@ const StudentUpdateProfilePage = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("shortBio", { required: true })}
+                {...register("shortBio")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -383,7 +435,7 @@ const StudentUpdateProfilePage = () => {
           )}
         </form>
       </div>
-      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px]">
+      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px] mb-24 mt-4">
         <h1 className="xl:text-[18px] font-semibold text-black">
           © 2023 - All rights reserved by
         </h1>

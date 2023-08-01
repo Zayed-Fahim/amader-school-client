@@ -99,7 +99,7 @@ const TeacherUpdateProfile = () => {
         toast.success("Profile updated successfully!");
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 500);
       }
     } catch (error) {
       console.log(error);
@@ -413,7 +413,7 @@ const TeacherUpdateProfile = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("address", { required: true })}
+                {...register("address")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -429,7 +429,7 @@ const TeacherUpdateProfile = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("shortBio", { required: true })}
+                {...register("shortBio")}
                 readOnly={!isEditMode}
               />
             </div>

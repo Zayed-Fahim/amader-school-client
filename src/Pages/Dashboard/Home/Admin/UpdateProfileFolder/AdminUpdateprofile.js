@@ -78,7 +78,7 @@ const AdminUpdateProfile = () => {
         toast.success("Profile updated successfully!");
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 500);
       }
     } catch (error) {
       console.log(error);

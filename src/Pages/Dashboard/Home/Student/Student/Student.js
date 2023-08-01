@@ -1,10 +1,11 @@
 import React from "react";
-import { FaPercent } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BsCalendar2Event } from "react-icons/bs";
 import { BiSolidReport } from "react-icons/bi";
+import { GrSchedule } from "react-icons/gr";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";
 import StudentNoticeBoard from "../StudentNoticeBoard/StudentNoticeBoard";
+import AttendanceChart from "../AttendanceFolder/MyAttendance/AttendanceChart";
 
 const Student = () => {
   return (
@@ -21,50 +22,66 @@ const Student = () => {
         <div className="flex flex-col xl:gap-5">
           <Link
             to="/dashboard/student/events"
-            className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80 hover:text-white hover:font-bold"
+            className="xl:h-[330px] xl:w-[350px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
           >
             <BsCalendar2Event className="h-[80px] w-[80px]" />
             <div>
-              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[20px] font-semibold">
+              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[22px] font-bold">
                 Events
               </h1>
-              <h1 className="xl:text-2xl xl:font-semibold text-center">2</h1>
             </div>
           </Link>
           <Link
             to="/dashboard/student/result"
-            className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80 hover:text-white hover:font-bold"
+            className="xl:h-[330px] xl:w-[350px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
           >
-            <BiSolidReport className="h-[80px] w-[80px]" />
+            <BiSolidReport className="h-[100px] w-[100px]" />
             <div>
-              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[20px] font-semibold">
+              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[22px] font-bold">
                 Results
               </h1>
             </div>
           </Link>
         </div>
         <div className="flex flex-col xl:gap-5">
+          <div className="xl:h-[330px] xl:w-[350px] rounded-md flex flex-col items-center justify-evenly bg-white">
+            <AttendanceChart />
+            <div className="flex justify-between mb-6">
+              <div>
+                <div className="h-[6px] w-[70px] bg-[#00C49F] rounded-xl 2xl:mb-4"></div>
+                <div>
+                  <h1 className="text-center font-semibold">Present</h1>
+                </div>
+              </div>
+              <div className="divider lg:divider-horizontal xl:divider-horizontal"></div>
+              <div>
+                <div className="h-[6px] w-[70px] bg-[#0088FE] rounded-xl 2xl:mb-4"></div>
+                <div>
+                  <h1 className="text-center font-semibold">Absent</h1>
+                </div>
+              </div>
+            </div>
+          </div>
           <Link
-            to="/dashboard/student/attendance"
-            className="xl:h-[320px] xl:w-[320px] rounded-md flex flex-col items-center px-4 justify-evenly bg-white -md-md hover:bg-[#FFBE15] hover:bg-opacity-80 hover:text-white hover:font-bold"
+            to="/dashboard/student/class-routine"
+            className="xl:h-[330px] xl:w-[350px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
           >
-            <FaPercent className="h-[60px] w-[60px]" />
+            <GrSchedule className="h-[80px] w-[80px]" />
             <div>
-              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[20px] font-semibold">
-                Attendance
+              <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[22px] font-bold">
+                Routine
               </h1>
-              <h1 className="xl:text-2xl xl:font-semibold text-center">57%</h1>
             </div>
           </Link>
         </div>
         <div>
-          <div className="xl:h-[660px] xl:w-[835px] bg-white rounded px-8 py-8">
+          <div className="xl:h-[678px] xl:w-[785px] bg-white rounded px-8 py-8">
             <h1 className="font-bold text-2xl pb-5">Notice Board</h1>
             <StudentNoticeBoard />
           </div>
         </div>
       </div>
-      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px] mt-8">
+      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black mt-12">
         <h1 className="xl:text-[18px] font-semibold text-black">
           Copyright © 2023 - All right reserved by
         </h1>

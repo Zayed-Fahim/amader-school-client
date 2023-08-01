@@ -21,7 +21,7 @@ const StudentSidebar = ({ isOpen, setIsOpen }) => {
       isArrowOpen: <IoIosArrowForward size={25} />,
       subMenus: [
         {
-          title: "Students",
+          title: "Student",
           path: "/dashboard/student",
           icon: <IoIosArrowForward size={20} />,
         },

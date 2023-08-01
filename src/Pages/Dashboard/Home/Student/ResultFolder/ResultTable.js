@@ -1,36 +1,38 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";
+import { AuthContext } from "../../../../../Contexts/AuthProvider/AuthProvider";
 
 const ResultTable = () => {
+  const { student } = useContext(AuthContext);
   const [searchSubjectCode, setSearchSubjectCode] = useState("");
   const [searchExamName, setSearchExamName] = useState("");
   const [searchSubjectName, setSearchSubjectName] = useState("");
+  const [showAllResults, setShowAllResults] = useState(true);
 
-  const results = [
-    {
-      id: 1,
-      name: "John Doe",
-      roll: "12345",
-      subject: "Mathematics",
-      subjectCode: "MTH101",
-      exam: "Annual Exam",
-      grade: "A",
-      marks: 95,
-    },
-    // Add more result objects here
-  ];
+  const handleSubjectCodeChange = (e) => {
+    setSearchSubjectCode(e.target.value.toLowerCase());
+    setShowAllResults(false);
+  };
 
-  const filteredResults = results.filter(
+  const handleSubjectNameChange = (e) => {
+    setSearchSubjectName(e.target.value.toLowerCase());
+    setShowAllResults(false);
+  };
+
+  const handleShowAll = () => {
+    setSearchExamName("");
+    setSearchSubjectCode("");
+    setSearchSubjectName("");
+    setShowAllResults(true);
+  };
+
+  const filteredResults = student?.results?.filter(
     (result) =>
-      result.subjectCode
-        .toLowerCase()
-        .includes(searchSubjectCode.toLowerCase()) &&
-      result.exam.toLowerCase().includes(searchExamName.toLowerCase()) &&
-      result.subject.toLowerCase().includes(searchSubjectName.toLowerCase())
+      result?.examType?.includes(searchExamName) &&
+      result?.subjectCode?.toLowerCase().includes(searchSubjectCode) &&
+      result?.subjectName?.toLowerCase().includes(searchSubjectName)
   );
-
-  const examOptions = ["Ct", "1st term", "Midterm", "Final", "Test"];
 
   return (
     <div className="2xl:w-[79.3%] relative top-24 2xl:left-[360px]">
@@ -45,35 +47,47 @@ const ResultTable = () => {
       <div className="bg-white 2xl:px-8 2xl:py-10">
         <h1 className="font-bold text-2xl mb-8">Check Your Result</h1>
         <div>
-          <div className="flex gap-5 items-center mb-4">
-            <select
-              value={searchExamName}
-              onChange={(e) => setSearchExamName(e.target.value)}
-              className="p-2 border border-gray-300 rounded focus:outline-none"
-            >
-              <option value="">All Exams</option>
-              {examOptions.map((option) => (
-                <option value={option} key={option}>
-                  {option}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex gap-5 items-center">
+              <select
+                value={searchExamName}
+                onChange={(e) => setSearchExamName(e.target.value)}
+                className="p-2 border border-gray-300 rounded focus:outline-none"
+              >
+                <option value="" readOnly>
+                  Select Exam Type
                 </option>
-              ))}
-            </select>
-            <input
-              type="text"
-              placeholder="Search by Subject Code"
-              value={searchSubjectCode}
-              onChange={(e) => setSearchSubjectCode(e.target.value)}
-              className="p-2 border border-gray-300 rounded focus:outline-none"
-            />
-            <input
-              type="text"
-              placeholder="Search by Subject Name"
-              value={searchSubjectName}
-              onChange={(e) => setSearchSubjectName(e.target.value)}
-              className="p-2 border border-gray-300 rounded focus:outline-none"
-            />
+                <option value="CT">CT</option>
+                <option value="First Term">First Term</option>
+                <option value="Mid Term">Mid Term</option>
+                <option value="Annual Exam">Annual Exam</option>
+                <option value="Test Exam">Test Exam</option>
+              </select>
+              <input
+                type="text"
+                placeholder="Search by Subject Code"
+                value={searchSubjectCode}
+                onChange={handleSubjectCodeChange}
+                className="p-2 border border-gray-300 rounded focus:outline-none"
+              />
+              <input
+                type="text"
+                placeholder="Search by Subject Name"
+                value={searchSubjectName}
+                onChange={handleSubjectNameChange}
+                className="p-2 border border-gray-300 rounded focus:outline-none"
+              />
+            </div>
+            {!showAllResults && (
+              <button
+                onClick={handleShowAll}
+                className="px-4 py-2 border border-blue-500 rounded bg-blue-500 text-white hover:bg-blue-600 focus:outline-none"
+              >
+                Show All
+              </button>
+            )}
           </div>
-          {filteredResults.length === 0 ? (
+          {filteredResults.length === 0 && !showAllResults ? (
             <p className="text-gray-600 text-center">No results found.</p>
           ) : (
             <table className="w-full table border">
@@ -86,23 +100,39 @@ const ResultTable = () => {
                   <th>Roll</th>
                   <th>Subject Name</th>
                   <th>Subject Code</th>
-                  <th>Grade</th>
+                  <th>Letter Grade</th>
+                  <th>Grade Point</th>
                   <th>Marks</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredResults.map((result) => (
-                  <tr key={result.id} className="text-[14px]">
-                    <td>{result.exam}</td>
-                    <td>{result.id}</td>
-                    <td>{result.name}</td>
-                    <td>{result.roll}</td>
-                    <td>{result.subject}</td>
-                    <td>{result.subjectCode}</td>
-                    <td>{result.grade}</td>
-                    <td>{result.marks}</td>
-                  </tr>
-                ))}
+                {showAllResults
+                  ? student.results.map((result) => (
+                      <tr key={result.id} className="text-[14px]">
+                        <td>{result.examType}</td>
+                        <td>{result.studentId}</td>
+                        <td>{result.studentName}</td>
+                        <td>{result.rollNumber}</td>
+                        <td>{result.subjectName}</td>
+                        <td>{result.subjectCode.toUpperCase()}</td>
+                        <td>{result.letterGrade}</td>
+                        <td>{result.gradePoint}</td>
+                        <td>{result.marks}</td>
+                      </tr>
+                    ))
+                  : filteredResults.map((result) => (
+                      <tr key={result.id} className="text-[14px]">
+                        <td>{result.examType}</td>
+                        <td>{result.studentId}</td>
+                        <td>{result.studentName}</td>
+                        <td>{result.rollNumber}</td>
+                        <td>{result.subjectName}</td>
+                        <td>{result.subjectCode.toUpperCase()}</td>
+                        <td>{result.letterGrade}</td>
+                        <td>{result.gradePoint}</td>
+                        <td>{result.marks}</td>
+                      </tr>
+                    ))}
               </tbody>
             </table>
           )}

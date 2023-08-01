@@ -13,9 +13,7 @@ const AdminUpdateProfile = () => {
   const [image, setImage] = useState(null);
   const { register, handleSubmit, setValue } = useForm();
 
-  // Fetch user profile data from an API or data source
   useEffect(() => {
-    // Simulating fetching user data from an API
     setTimeout(() => {
       setValue("fullName", admin?.fullName);
       setValue("userName", admin?.userName);
@@ -40,37 +38,51 @@ const AdminUpdateProfile = () => {
 
   const onSubmit = async (data, event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("image", image);
-    const imgBbUrl = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMGBB_key}`;
-    try {
-      const res = await fetch(imgBbUrl, {
-        method: "POST",
-        body: formData,
-      });
-      const imgData = await res.json();
+    let imgDataUrl = admin?.photo; // Default value is the current admin photo URL
+
+    if (image) {
+      // If a new image is selected, upload it to imgbb
+      const formData = new FormData();
+      formData.append("image", image);
+      const imgBbUrl = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMGBB_key}`;
 
       try {
-        // Send the updated data to the backend
-        const updatedData = await axios.patch(
-          "https://v1-amader-school-server.vercel.app/api/v1/update-profile/update-admin-info",
-          {
-            fullName: data.fullName,
-            userName: data.userName,
-            photo: imgData?.data?.url,
-            id: admin._id,
-          }
-        );
-        if (updatedData) {
-          setIsEditMode(false);
-          toast.success("Profile updated successfully!");
-          window.location.reload();
-        }
+        const res = await fetch(imgBbUrl, {
+          method: "POST",
+          body: formData,
+        });
+        const imgData = await res.json();
+        imgDataUrl = imgData?.data?.url;
       } catch (error) {
-        window.location.reload();
+        toast.error("Error uploading image. Please try again.");
+        return;
+      }
+    }
+
+    // Prepare the data to be sent to the server
+    const updatedData = {
+      fullName: data.fullName || admin?.fullName,
+      userName: data.userName || admin?.userName,
+      photo: imgDataUrl, // Use the new image URL from imgbb, or the existing URL
+      id: admin._id,
+    };
+
+    try {
+      const response = await axios.patch(
+        "https://v1-amader-school-server.vercel.app/api/v1/update-profile/update-admin-info",
+        updatedData
+      );
+
+      if (response.status === 200) {
+        setIsEditMode(false);
+        toast.success("Profile updated successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       }
     } catch (error) {
-      toast.error("Error uploading image. Please try again.");
+      console.log(error);
+      toast.error("Error updating profile. Please try again.");
     }
   };
 
@@ -111,7 +123,7 @@ const AdminUpdateProfile = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("fullName", { required: true })}
+                {...register("fullName")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -128,7 +140,7 @@ const AdminUpdateProfile = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("userName", { required: true })}
+                {...register("userName")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -143,7 +155,7 @@ const AdminUpdateProfile = () => {
               <input
                 id="email"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("email", { required: true })}
+                {...register("email")}
                 readOnly
               />
             </div>
@@ -157,7 +169,7 @@ const AdminUpdateProfile = () => {
               <input
                 id="phoneNumber"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("phoneNumber", { required: true })}
+                {...register("phoneNumber")}
                 readOnly
               />
             </div>
@@ -171,7 +183,7 @@ const AdminUpdateProfile = () => {
               <input
                 id="schoolTag"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("schoolTag", { required: true })}
+                {...register("schoolTag")}
                 readOnly
               />
             </div>
@@ -185,7 +197,7 @@ const AdminUpdateProfile = () => {
               <input
                 id="id"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("id", { required: true })}
+                {...register("id")}
                 readOnly
               />
             </div>
@@ -202,7 +214,7 @@ const AdminUpdateProfile = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("photo", { required: true })}
+                {...register("photo")}
                 readOnly={!isEditMode}
                 onChange={(e) => setImage(e.target.files[0])}
               />

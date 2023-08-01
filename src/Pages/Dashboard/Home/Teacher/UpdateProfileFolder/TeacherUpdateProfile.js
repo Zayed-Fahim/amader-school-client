@@ -4,10 +4,13 @@ import { useForm } from "react-hook-form";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";
 import { BiEdit } from "react-icons/bi";
 import { AuthContext } from "../../../../../Contexts/AuthProvider/AuthProvider";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const TeacherUpdateProfile = () => {
   const { teacher } = useContext(AuthContext);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [image, setImage] = useState(null);
   const { register, handleSubmit, setValue } = useForm();
 
   // Fetch user profile data from an API or data source
@@ -43,14 +46,65 @@ const TeacherUpdateProfile = () => {
 
   const handleCancelEdit = () => {
     setIsEditMode(false);
+    setTimeout(() => {
+      setValue("photo", teacher?.photo);
+    }, 10);
   };
 
-  const onSubmit = (data) => {
-    // Perform update profile logic here
-    console.log("Name:", data.fullName);
-    console.log("Email:", data.email);
-    console.log("Bio:", data.bio);
-    setIsEditMode(false);
+  const onSubmit = async (data, event) => {
+    event.preventDefault();
+    let imgDataUrl = teacher?.photo; // Default value is the current teacher photo URL
+
+    if (image) {
+      // If a new image is selected, upload it to imgbb
+      const formData = new FormData();
+      formData.append("image", image);
+      const imgBbUrl = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMGBB_key}`;
+
+      try {
+        const res = await fetch(imgBbUrl, {
+          method: "POST",
+          body: formData,
+        });
+        const imgData = await res.json();
+        imgDataUrl = imgData?.data?.url;
+      } catch (error) {
+        toast.error("Error uploading image. Please try again.");
+        return;
+      }
+    }
+
+    // Prepare the data to be sent to the server
+    const updatedData = {
+      id: teacher?._id,
+      fullName: data.fullName || teacher?.fullName,
+      userName: data.userName || teacher?.userName,
+      photo: imgDataUrl, // Use the new image URL from imgbb, or the existing URL
+      fatherName: data.fatherName || teacher?.fatherName,
+      motherName: data.motherName || teacher?.motherName,
+      email: data.email || teacher?.email,
+      phoneNumber: data.phoneNumber || teacher?.phoneNumber,
+      address: data.address || teacher?.address,
+      shortBio: data.shortBio || teacher?.shortBio,
+    };
+
+    try {
+      const response = await axios.patch(
+        "https://v1-amader-school-server.vercel.app/api/v1/update-profile/update-teacher-info",
+        updatedData
+      );
+
+      if (response.status === 200) {
+        setIsEditMode(false);
+        toast.success("Profile updated successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error updating profile. Please try again.");
+    }
   };
 
   return (
@@ -90,7 +144,7 @@ const TeacherUpdateProfile = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("fullName", { required: true })}
+                {...register("fullName")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -107,7 +161,7 @@ const TeacherUpdateProfile = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("userName", { required: true })}
+                {...register("userName")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -121,7 +175,7 @@ const TeacherUpdateProfile = () => {
               <input
                 id="gender"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("gender", { required: true })}
+                {...register("gender")}
                 readOnly
               />
             </div>
@@ -135,7 +189,7 @@ const TeacherUpdateProfile = () => {
               <input
                 id="religion"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("religion", { required: true })}
+                {...register("religion")}
                 readOnly
               />
             </div>
@@ -151,7 +205,7 @@ const TeacherUpdateProfile = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("fatherName", { required: true })}
+                {...register("fatherName")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -167,7 +221,7 @@ const TeacherUpdateProfile = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("motherName", { required: true })}
+                {...register("motherName")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -181,7 +235,7 @@ const TeacherUpdateProfile = () => {
               <input
                 id="dateOfBirth"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("dateOfBirth", { required: true })}
+                {...register("dateOfBirth")}
                 readOnly
               />
             </div>
@@ -197,7 +251,7 @@ const TeacherUpdateProfile = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("email", { required: true })}
+                {...register("email")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -213,7 +267,7 @@ const TeacherUpdateProfile = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("phoneNumber", { required: true })}
+                {...register("phoneNumber")}
                 readOnly={!isEditMode}
               />
             </div>
@@ -226,8 +280,8 @@ const TeacherUpdateProfile = () => {
               </label>
               <input
                 id="schoolTag"
-                className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-smbg-gray-100"
-                {...register("schoolTag", { required: true })}
+                className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
+                {...register("schoolTag")}
                 readOnly
               />
             </div>
@@ -241,7 +295,7 @@ const TeacherUpdateProfile = () => {
               <input
                 id="shift"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("shift", { required: true })}
+                {...register("shift")}
                 readOnly
               />
             </div>
@@ -255,7 +309,7 @@ const TeacherUpdateProfile = () => {
               <input
                 id="classTeacher"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("classTeacher", { required: true })}
+                {...register("classTeacher")}
                 readOnly
               />
             </div>
@@ -269,7 +323,7 @@ const TeacherUpdateProfile = () => {
               <input
                 id="teacherOfClass"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("teacherOfClass", { required: true })}
+                {...register("teacherOfClass")}
                 readOnly
               />
             </div>
@@ -283,7 +337,7 @@ const TeacherUpdateProfile = () => {
               <input
                 id="sectionOfClass"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("sectionOfClass", { required: true })}
+                {...register("sectionOfClass")}
                 readOnly
               />
             </div>
@@ -297,7 +351,7 @@ const TeacherUpdateProfile = () => {
               <input
                 id="teacherOfGroup"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("teacherOfGroup", { required: true })}
+                {...register("teacherOfGroup")}
                 readOnly
               />
             </div>
@@ -311,7 +365,7 @@ const TeacherUpdateProfile = () => {
               <input
                 id="subjectName"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("subjectName", { required: true })}
+                {...register("subjectName")}
                 readOnly
               />
             </div>
@@ -325,7 +379,7 @@ const TeacherUpdateProfile = () => {
               <input
                 id="id"
                 className="mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm bg-gray-100"
-                {...register("id", { required: true })}
+                {...register("id")}
                 readOnly
               />
             </div>
@@ -342,8 +396,9 @@ const TeacherUpdateProfile = () => {
                 className={`mt-1 focus:outline-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm text-sm ${
                   isEditMode ? "bg-white" : "bg-gray-100"
                 }`}
-                {...register("photo", { required: true })}
+                {...register("photo")}
                 readOnly={!isEditMode}
+                onChange={(e) => setImage(e.target.files[0])}
               />
             </div>
             <div>

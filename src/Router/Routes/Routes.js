@@ -12,8 +12,6 @@ import TeacherDetails from "../../Pages/Dashboard/Home/Admin/TeacherFolder/Teach
 import EveryClassSchedule from "../../Pages/Dashboard/Home/Admin/ClassScheduleFolder/EveryClassSchedule/EveryClassSchedule";
 import AddNewClassSchedule from "../../Pages/Dashboard/Home/Admin/ClassScheduleFolder/AddNewClassSchedule/AddNewClassSchedule";
 import Subjects from "../../Pages/Dashboard/Home/Admin/SubjectsFolder/Subjects/Subjects";
-import MorningShiftRoutine from "../../Pages/Dashboard/Home/Admin/RoutineFolder/MorningShift/MorningShiftRoutine";
-import DayShiftRoutine from "../../Pages/Dashboard/Home/Admin/RoutineFolder/DayShift/DayShiftRoutine";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import LoginRole from "../../Pages/LoginRole/LoginRole";
 import AdminLogin from "../../Pages/Login/AdminLogin/AdminLogin";
@@ -41,6 +39,8 @@ import StudentUpdateProfilePage from "../../Pages/Dashboard/Home/Student/Account
 import TeacherUpdateProfile from "../../Pages/Dashboard/Home/Teacher/UpdateProfileFolder/TeacherUpdateProfile";
 import AdminUpdateProfile from "../../Pages/Dashboard/Home/Admin/UpdateProfileFolder/AdminUpdateProfile";
 import NoticeBoard from "../../Pages/Dashboard/Home/Admin/NoticeFolder/NoticeBoard/NoticeBoard";
+import Routine from "../../Pages/Dashboard/Home/Admin/RoutineFolder/Routine/Routine";
+import ViewRoutine from "../../Pages/Dashboard/Home/Admin/RoutineFolder/Routine/ViewRoutine";
 
 const Routes = () => {
   const router = createBrowserRouter([
@@ -126,12 +126,12 @@ const Routes = () => {
           element: <Subjects />,
         },
         {
-          path: `/dashboard/admin/class-routine/morning-shift`,
-          element: <MorningShiftRoutine />,
+          path: `/dashboard/admin/class-routine/search-routine`,
+          element: <ViewRoutine />,
         },
         {
-          path: `/dashboard/admin/class-routine/day-shift`,
-          element: <DayShiftRoutine />,
+          path: `/dashboard/admin/class-routine/routine-generator`,
+          element: <Routine />,
         },
         {
           path: `/dashboard/admin/attendance/teacher-attendance`,

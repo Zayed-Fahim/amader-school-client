@@ -22,7 +22,7 @@ const Student = () => {
         <div className="flex flex-col xl:gap-5">
           <Link
             to="/dashboard/student/events"
-            className="xl:h-[330px] xl:w-[350px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
+            className="xl:h-[340px] xl:w-[350px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
           >
             <BsCalendar2Event className="h-[80px] w-[80px]" />
             <div>
@@ -33,7 +33,7 @@ const Student = () => {
           </Link>
           <Link
             to="/dashboard/student/result"
-            className="xl:h-[330px] xl:w-[350px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
+            className="xl:h-[340px] xl:w-[350px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
           >
             <BiSolidReport className="h-[100px] w-[100px]" />
             <div>
@@ -44,18 +44,21 @@ const Student = () => {
           </Link>
         </div>
         <div className="flex flex-col xl:gap-5">
-          <div className="xl:h-[330px] xl:w-[350px] rounded-md flex flex-col items-center justify-evenly bg-white">
+          <div className="xl:h-[340px] xl:w-[350px] rounded-md bg-white">
+            <h1 className="xl:font-bold xl:text-xl px-8 pt-8">
+              Attendance Ratio:
+            </h1>
             <AttendanceChart />
-            <div className="flex justify-between mb-6">
+            <div className="px-8 mt-4 flex justify-between">
               <div>
-                <div className="h-[6px] w-[70px] bg-[#00C49F] rounded-xl 2xl:mb-4"></div>
+                <div className="h-[6px] w-[70px] bg-[#36D399] rounded-xl 2xl:mb-2"></div>
                 <div>
                   <h1 className="text-center font-semibold">Present</h1>
                 </div>
               </div>
               <div className="divider lg:divider-horizontal xl:divider-horizontal"></div>
               <div>
-                <div className="h-[6px] w-[70px] bg-[#0088FE] rounded-xl 2xl:mb-4"></div>
+                <div className="h-[6px] w-[70px] bg-[#EF6262] rounded-xl 2xl:mb-2"></div>
                 <div>
                   <h1 className="text-center font-semibold">Absent</h1>
                 </div>
@@ -64,7 +67,7 @@ const Student = () => {
           </div>
           <Link
             to="/dashboard/student/class-routine"
-            className="xl:h-[330px] xl:w-[350px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
+            className="xl:h-[340px] xl:w-[350px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
           >
             <GrSchedule className="h-[80px] w-[80px]" />
             <div>
@@ -75,13 +78,13 @@ const Student = () => {
           </Link>
         </div>
         <div>
-          <div className="xl:h-[678px] xl:w-[785px] bg-white rounded px-8 py-8">
+          <div className="xl:h-[698px] xl:w-[790px] bg-white rounded px-8 py-8">
             <h1 className="font-bold text-2xl pb-5">Notice Board</h1>
             <StudentNoticeBoard />
           </div>
         </div>
       </div>
-      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black mt-12">
+      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black mt-9">
         <h1 className="xl:text-[18px] font-semibold text-black">
           Copyright © 2023 - All right reserved by
         </h1>

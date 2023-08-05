@@ -2,23 +2,23 @@ import React, { useContext } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { AuthContext } from "../../../../Contexts/AuthProvider/AuthProvider";
 
-const TeacherStudentsChart = () => {
-  const { teacher } = useContext(AuthContext);
+const AdminTeachersChart = () => {
+  const { admin } = useContext(AuthContext);
 
   // Filter male and female students separately
-  const maleStudents = teacher?.advisedStudents?.filter(
-    (student) => student.gender === "Male"
+  const maleTeachers = admin?.teachers?.filter(
+    (teacher) => teacher.gender === "Male"
   );
-  const femaleStudents = teacher?.advisedStudents?.filter(
-    (student) => student.gender === "Female"
+  const femaleTeachers = admin?.teachers?.filter(
+    (teacher) => teacher.gender === "Female"
   );
 
   const data = [
-    { name: "Male Students", value: maleStudents?.length || 0 },
-    { name: "Female Students", value: femaleStudents?.length || 0 },
+    { name: "Male Teachers", value: maleTeachers?.length },
+    { name: "Female Teachers", value: femaleTeachers?.length },
   ];
 
-  const COLORS = ["#0088FE", "#FFBB28"];
+  const COLORS = ["#FFBB28", "#FF8042"];
   const RADIAN = Math.PI / 180;
 
   const renderCustomizedLabel = ({
@@ -48,7 +48,7 @@ const TeacherStudentsChart = () => {
   };
 
   return (
-    <div className="h-[470px]  w-full">
+    <div className="h-[200px]  w-full mt-2">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
@@ -57,10 +57,10 @@ const TeacherStudentsChart = () => {
             cy="50%"
             labelLine={false}
             label={renderCustomizedLabel}
-            outerRadius={180}
-            innerRadius={130}
-            paddingAngle={5}
+            outerRadius={90}
+            innerRadius={60}
             fill="#8884d8"
+            paddingAngle={5}
             dataKey="value"
           >
             {data.map((entry, index) => (
@@ -77,4 +77,4 @@ const TeacherStudentsChart = () => {
   );
 };
 
-export default TeacherStudentsChart;
+export default AdminTeachersChart;

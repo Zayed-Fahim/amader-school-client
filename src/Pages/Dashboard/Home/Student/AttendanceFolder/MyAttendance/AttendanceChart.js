@@ -18,7 +18,7 @@ const AttendanceChart = () => {
     { name: "Absent", value: absent?.length || 0 },
   ];
 
-  const COLORS = ["#00C49F", "#0088FE"];
+  const COLORS = ["#36D399", "#EF6262"];
   const RADIAN = Math.PI / 180;
 
   const renderCustomizedLabel = ({
@@ -48,18 +48,19 @@ const AttendanceChart = () => {
   };
 
   return (
-    <div className="h-[300px] w-[300px]">
+    <div className="h-[200px]  w-full mt-2">
       <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={200} height={200}>
+        <PieChart>
           <Pie
             data={data}
             cx="50%"
             cy="50%"
             labelLine={false}
             label={renderCustomizedLabel}
-            outerRadius={110}
-            innerRadius={70}
+            outerRadius={90}
+            innerRadius={60}
             fill="#8884d8"
+            paddingAngle={5}
             dataKey="value"
           >
             {data.map((entry, index) => (

@@ -10,7 +10,7 @@ import { AuthContext } from "../../../../../Contexts/AuthProvider/AuthProvider";
 const StudentNoticeBoard = () => {
   const { student } = useContext(AuthContext);
   return (
-    <div className="overflow-y-scroll overflow-x-hidden h-[594px]">
+    <div className="overflow-y-scroll overflow-x-hidden h-[614px]">
       <VerticalTimeline layout="1-column-left">
         {student?.notices?.map((notice) => (
           <VerticalTimelineElement

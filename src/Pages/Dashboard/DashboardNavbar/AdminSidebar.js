@@ -86,13 +86,13 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
       isArrowOpen: <IoIosArrowForward size={25} />,
       subMenus: [
         {
-          title: "Morning Shift",
-          path: "/dashboard/admin/class-routine/morning-shift",
+          title: "Routine Generator",
+          path: "/dashboard/admin/class-routine/routine-generator",
           icon: <IoIosArrowForward size={20} />,
         },
         {
-          title: "Day Shift",
-          path: "/dashboard/admin/class-routine/day-shift",
+          title: "View Routine",
+          path: "/dashboard/admin/class-routine/search-routine",
           icon: <IoIosArrowForward size={20} />,
         },
       ],

@@ -14,8 +14,8 @@ const AdminStudentsChart = () => {
   );
 
   const data = [
-    { name: "Male Students", value: maleStudents?.length || 0 },
-    { name: "Female Students", value: femaleStudents?.length || 0 },
+    { name: "Male Students", value: maleStudents?.length  },
+    { name: "Female Students", value: femaleStudents?.length  },
   ];
 
   const COLORS = ["#0088FE", "#00C49F"];
@@ -48,18 +48,19 @@ const AdminStudentsChart = () => {
   };
 
   return (
-    <div className="h-[430px]  w-full">
+    <div className="h-[200px]  w-full mt-2">
       <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={500} height={500}>
+        <PieChart>
           <Pie
             data={data}
             cx="50%"
             cy="50%"
             labelLine={false}
             label={renderCustomizedLabel}
-            outerRadius={140}
-            innerRadius={90}
+            outerRadius={90}
+            innerRadius={60}
             fill="#8884d8"
+            paddingAngle={5}
             dataKey="value"
           >
             {data.map((entry, index) => (

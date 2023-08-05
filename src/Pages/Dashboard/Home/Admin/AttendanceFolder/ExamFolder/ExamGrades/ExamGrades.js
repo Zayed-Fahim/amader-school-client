@@ -1,92 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import icon from "../../../../../../../Assets/dashboard-icon/dashboard.png";
 import Pagination from "../../../../SmallComponents/Pagination/Pagination";
 import { BsPencil, BsSearch, BsTrash } from "react-icons/bs";
+import { AuthContext } from "../../../../../../../Contexts/AuthProvider/AuthProvider";
 
 const ExamGrades = () => {
-  const gradesData = [
-    {
-      studentId: 1,
-      studentName: "John",
-      subject: "Math",
-      grade: "A",
-      examName: "Bangla",
-      examId: "mid-term",
-      examinedBy: "Zayed",
-      class: "12",
-      section: "F",
-      marks: "90",
-      issueDate: "11-12-23",
-    },
-    {
-      studentId: 1,
-      studentName: "John",
-      subject: "Math",
-      grade: "A",
-      examName: "Bangla",
-      examId: "mid-term",
-      examinedBy: "Zayed",
-      class: "12",
-      section: "F",
-      marks: "90",
-      issueDate: "11-12-23",
-    },
-    {
-      studentId: 2,
-      studentName: "Jane",
-      subject: "Science",
-      grade: "B",
-      examName: "Bangla",
-      examId: "mid-term",
-      examinedBy: "Zayed",
-      class: "12",
-      section: "F",
-      marks: "90",
-      issueDate: "11-12-23",
-    },
-    {
-      studentId: 3,
-      studentName: "Bob",
-      subject: "English",
-      grade: "C",
-      examName: "Bangla",
-      examId: "mid-term",
-      examinedBy: "Zayed",
-      class: "12",
-      section: "F",
-      marks: "90",
-      issueDate: "11-12-23",
-    },
-    {
-      studentId: 4,
-      studentName: "Alice",
-      subject: "History",
-      grade: "A",
-      examName: "Bangla",
-      examId: "mid-term",
-      examinedBy: "Zayed",
-      class: "12",
-      section: "F",
-      marks: "90",
-      issueDate: "11-12-23",
-    },
-    {
-      studentId: 4,
-      studentName: "Alice",
-      subject: "History",
-      grade: "A",
-      examName: "Bangla",
-      examId: "mid-term",
-      examinedBy: "Zayed",
-      class: "12",
-      section: "F",
-      marks: "90",
-      issueDate: "11-12-23",
-    },
-  ];
-  const [grades, setGrades] = useState(gradesData);
-  const [filteredGrades, setFilteredGrades] = useState(gradesData);
+  const { admin } = useContext(AuthContext);
+  // const [filteredGrades, setFilteredGrades] = useState(admin.results);
   const [searchTerm, setSearchTerm] = useState("");
   let data = 10;
   const [page, setPage] = useState(1);
@@ -95,21 +16,16 @@ const ExamGrades = () => {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-    filterGrades(e.target.value);
+    // filterGrades(e.target.value);
   };
 
-  const filterGrades = (searchTerm) => {
-    const filteredData = grades.filter((grade) =>
-      grade.studentName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredGrades(filteredData);
-  };
-
-  const handleDelete = (id) => {
-    const updatedGrades = grades.filter((grade) => grade.id !== id);
-    setGrades(updatedGrades);
-    setFilteredGrades(updatedGrades);
-  };
+  // const filterGrades = (searchTerm) => {
+  //   const filteredData = grades.filter((grade) =>
+  //     grade.studentName.toLowerCase().includes(searchTerm.toLowerCase())
+  //   );
+  //   setFilteredGrades(filteredData);
+  // };
+  console.log(admin.results);
   return (
     <div className="min-h-[89vh] relative 2xl:left-[360px] top-24 2xl:w-[79.3%] ">
       <div className="text-[17px] font-semibold breadcrumbs mb-8">
@@ -163,43 +79,42 @@ const ExamGrades = () => {
         <table className="table-auto w-full">
           <thead>
             <tr>
-              <th className="px-4 py-2">Exam Code</th>
               <th className="px-4 py-2">Exam Name</th>
+              <th className="px-4 py-2">Subject</th>
+              <th className="px-4 py-2">Subject Code</th>
               <th className="px-4 py-2">Student ID</th>
               <th className="px-4 py-2">Student Name</th>
               <th className="px-4 py-2">Class</th>
               <th className="px-4 py-2">Section</th>
-              <th className="px-4 py-2">Subject</th>
-              <th className="px-4 py-2">Grade</th>
               <th className="px-4 py-2">Marks</th>
+              <th className="px-4 py-2">Letter Grade</th>
+              <th className="px-4 py-2">Grade Point</th>
               <th className="px-4 py-2">Examined By</th>
               <th className="px-4 py-2">Issue Date</th>
               <th className="px-4 py-2">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filteredGrades.map((grade) => (
-              <tr key={grade.studentId} className="text-center border">
-                <td className="px-4 py-2 border">{grade.examCode}</td>
-                <td className="px-4 py-2 border">{grade.examName}</td>
-                <td className="border px-4 py-2">{grade.studentId}</td>
-                <td className="border px-4 py-2">{grade.studentName}</td>
-                <td className="px-4 py-2 border">{grade.class}</td>
-                <td className="px-4 py-2 border">{grade.section}</td>
-                <td className="border px-4 py-2 ">{grade.subject}</td>
-                <td className="border px-4 py-2">{grade.grade}</td>
-                <td className="px-4 py-2 border">{grade.marks}</td>
-                <td className="px-4 py-2 border">{grade.examinedBy}</td>
-                <td className="px-4 py-2 border">{grade.issueDate}</td>
+            {admin?.results?.map((result) => (
+              <tr key={result.studentId} className="text-center border">
+                <td className="px-4 py-2 border">{result.examType}</td>
+                <td className="border px-4 py-2 ">{result.subjectName}</td>
+                <td className="px-4 py-2 border">{result.subjectCode}</td>
+                <td className="border px-4 py-2">{result.studentId}</td>
+                <td className="border px-4 py-2">{result.studentName}</td>
+                <td className="px-4 py-2 border">{result.studentClass}</td>
+                <td className="px-4 py-2 border">{result.section}</td>
+                <td className="px-4 py-2 border">{result.marks}</td>
+                <td className="border px-4 py-2">{result.letterGrade}</td>
+                <td className="border px-4 py-2">{result.gradePoint}</td>
+                <td className="px-4 py-2 border">{result.examinedBy}</td>
+                <td className="px-4 py-2 border">{result.issueDate}</td>
                 <td className="border px-4 py-2 ">
                   <button className="hover:text-[#FFBE15] hover:scale-110 mr-4">
                     <BsPencil title="Edit" />{" "}
                     {/* Replace "Edit" text with the edit icon */}
                   </button>
-                  <button
-                    className="hover:text-red-500 hover:scale-110"
-                    onClick={() => handleDelete(grade.id)}
-                  >
+                  <button className="hover:text-red-500 hover:scale-110">
                     <BsTrash title="Delete" />
                     {/* Replace "Delete" text with the delete icon */}
                   </button>

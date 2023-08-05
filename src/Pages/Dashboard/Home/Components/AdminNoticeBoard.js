@@ -10,7 +10,7 @@ import { AuthContext } from "../../../../Contexts/AuthProvider/AuthProvider";
 const AdminNoticeBoard = () => {
   const { admin } = useContext(AuthContext);
   return (
-    <div className="overflow-y-scroll overflow-x-hidden h-[575px]">
+    <div className="overflow-y-scroll overflow-x-hidden h-[595px]">
       <VerticalTimeline layout="1-column-left">
         {admin?.notices?.map((notice) => (
           <VerticalTimelineElement
@@ -21,7 +21,6 @@ const AdminNoticeBoard = () => {
               height: "160px",
             }}
             contentArrowStyle={{ borderRight: "7px solid  rgb(33, 150, 243)" }}
-            date="2011 - present"
             iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
             icon={<AiOutlineCheckCircle />}
           >

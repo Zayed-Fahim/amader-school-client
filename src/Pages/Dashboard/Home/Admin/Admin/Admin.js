@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import icon from "../../../../../Assets/dashboard-icon/dashboard.png";
 import AdminStudentsChart from "../../Components/AdminStudentsChart";
 import AdminNoticeBoard from "../../Components/AdminNoticeBoard";
+import AdminTeachersChart from "../../Components/AdminTeachersChart";
 
 const Admin = () => {
   return (
@@ -21,18 +22,18 @@ const Admin = () => {
         <div className="flex flex-col xl:gap-5">
           <Link
             to="/dashboard/admin/students/student-information"
-            className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white -md-md hover:bg-[#FFBE15] hover:bg-opacity-80"
+            className="xl:h-[340px] xl:w-[350px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
           >
             <PiStudent className="h-[100px] w-[100px]" />
             <div>
               <h1 className="2xl:grid 2xl:place-items-end 2xl:text-[22px] font-bold">
-                 Students
+                Students
               </h1>
             </div>
           </Link>
           <Link
             to="/dashboard/admin/teachers/teacher-information"
-            className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
+            className="xl:h-[340px] xl:w-[350px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
           >
             <PiChalkboardTeacher className="h-[100px] w-[100px]" />
             <div>
@@ -42,36 +43,59 @@ const Admin = () => {
             </div>
           </Link>
         </div>
-        <div className="xl:h-[660px] xl:w-[485px] bg-white rounded-md">
-          <h1 className="xl:font-bold xl:text-2xl px-8 pt-8">
-            Students Ratio:
-          </h1>
-          <AdminStudentsChart />
-          <div className="px-8 py-8 flex justify-between">
-            <div>
-              <div className="h-[6px] w-[70px] bg-[#00C49F] rounded-xl 2xl:mb-4"></div>
+        <div className="flex flex-col gap-5">
+          <div className="xl:h-[340px] xl:w-[350px] bg-white rounded-md">
+            <h1 className="xl:font-bold xl:text-xl px-8 pt-8">
+              Students Ratio:
+            </h1>
+            <AdminStudentsChart />
+            <div className="px-8 mt-4 flex justify-between">
               <div>
-                <h1 className="text-center">Female</h1>
+                <div className="h-[6px] w-[70px] bg-[#00C49F] rounded-xl 2xl:mb-2"></div>
+                <div>
+                  <h1 className="text-center">Female</h1>
+                </div>
+              </div>
+              <div className="divider lg:divider-horizontal xl:divider-horizontal"></div>
+              <div>
+                <div className="h-[6px] w-[70px] bg-[#0088FE] rounded-xl 2xl:mb-2"></div>
+                <div>
+                  <h1 className="text-center">Male</h1>
+                </div>
               </div>
             </div>
-            <div className="divider lg:divider-horizontal xl:divider-horizontal"></div>
-            <div>
-              <div className="h-[6px] w-[70px] bg-[#0088FE] rounded-xl 2xl:mb-4"></div>
+          </div>
+          <div className="xl:h-[340px] xl:w-[350px] bg-white rounded-md">
+            <h1 className="xl:font-bold xl:text-xl px-8 pt-8">
+              Teachers Ratio:
+            </h1>
+            <AdminTeachersChart />
+            <div className="px-8 mt-4 flex justify-between">
               <div>
-                <h1 className="text-center">Male</h1>
+                <div className="h-[6px] w-[70px] bg-[#FF8042] rounded-xl 2xl:mb-2"></div>
+                <div>
+                  <h1 className="text-center">Female</h1>
+                </div>
+              </div>
+              <div className="divider lg:divider-horizontal xl:divider-horizontal"></div>
+              <div>
+                <div className="h-[6px] w-[70px] bg-[#FFBB28] rounded-xl 2xl:mb-2"></div>
+                <div>
+                  <h1 className="text-center">Male</h1>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="2xl:h-[660px] 2xl:w-[690px] bg-white rounded-md px-8 pt-8">
+        <div className="2xl:h-[700px] 2xl:w-[790px] bg-white rounded-md px-8 pt-8">
           <div className="flex justify-between items-center pb-5">
             <h1 className="xl:font-bold xl:text-2xl">Important Notice</h1>
           </div>
           <AdminNoticeBoard />
         </div>
       </div>
-      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px] mb-20 mt-7">
+      <div className="container flex items-center justify-center xl:gap-2 lg:gap-2 gap-1 xl:text-[18px] font-semibold text-black h-[100px] mb-20 mt-1">
         <h1 className="xl:text-[18px] font-semibold text-black">
           Copyright © 2023 - All right reserved by
         </h1>

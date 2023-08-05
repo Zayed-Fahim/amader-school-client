@@ -22,11 +22,11 @@ const Teacher = () => {
       </div>
 
       <div className="flex gap-5">
-        <div className="flex flex-col xl:gap-5">
+        <div className="flex flex-col xl:gap-5 ">
           {teacher && teacher?.classTeacher === "Yes" && (
             <Link
               to="/dashboard/teacher/students/advised-students"
-              className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white -md-md hover:bg-[#FFBE15] hover:bg-opacity-80"
+              className="xl:h-[320px] xl:w-[320px] flex flex-col items-center px-4 justify-evenly bg-white rounded-md hover:bg-[#FFBE15] hover:bg-opacity-80"
             >
               <PiStudent className="h-[100px] w-[100px]" />
               <div>
@@ -53,14 +53,14 @@ const Teacher = () => {
         </div>
 
         {teacher && teacher?.classTeacher === "Yes" && (
-          <div className="xl:h-[660px] xl:w-[485px] bg-white rounded-md">
+          <div className="2xl:h-[660px] 2xl:w-[485px] bg-white rounded-md">
             <h1 className="xl:font-bold xl:text-2xl px-8 pt-8">
-              Students Ratio
+              Students Ratio:
             </h1>
             <TeacherStudentsChart />
             <div className="px-8 py-8 flex justify-between">
               <div>
-                <div className="h-[6px] w-[70px] bg-[#00C49F] rounded-xl mb-4"></div>
+                <div className="h-[6px] w-[70px] bg-[#FFBB28] rounded-xl mb-4"></div>
                 <div>
                   <h1 className="text-center">Female</h1>
                 </div>
